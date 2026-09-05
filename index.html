@@ -289,6 +289,7 @@ button{ font: inherit; color:inherit; background:none; border:0; cursor:pointer;
   background: var(--ivory); color: var(--ink); border-color: var(--ivory);
 }
 .hdr.scrolled .cta{ border-color: var(--ink); }
+.cta-txt-short{ display: none; }
 
 .hamburger{
   display:none;
@@ -476,7 +477,7 @@ button{ font: inherit; color:inherit; background:none; border:0; cursor:pointer;
   transition: transform 1.8s var(--ease-out);
   will-change: transform;
 }
-.reveal-img.in img, .reveal-img.revealed img{ transform: scale(1); }
+.reveal-img.in img, .reveal-img.revealed img{ transform: scale(1); opacity: 1 !important; visibility: visible !important; }
 
 /* Left-to-right reveal for Section 01 MD/team image */
 .people-right.reveal-img{
@@ -666,31 +667,45 @@ button{ font: inherit; color:inherit; background:none; border:0; cursor:pointer;
 .bespoke-stage{
   position: relative;
   margin: 0 auto;
-  display: grid;
-  grid-template-columns: 12fr;
-  gap: 32px;
+  width: 100%;
 }
 .bespoke-wide{
-  aspect-ratio: 21/9;
+  width: 100%;
+  aspect-ratio: 16/9;
+  max-height: 720px;
+  min-height: clamp(380px, 48vw, 680px);
   overflow: hidden;
   position: relative;
+  background: var(--ink-2);
+}
+.bespoke-wide.in, .bespoke-wide.revealed{
+  clip-path: inset(0 0 0 0) !important;
 }
 .bespoke-wide img{
-  width:100%; height:100%; object-fit: cover;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center 50%;
+  display: block;
 }
 .bespoke-inset{
   position: absolute;
-  width: clamp(180px, 22vw, 340px);
+  width: clamp(180px, 20vw, 300px);
   aspect-ratio: 1/1;
-  right: clamp(24px, 5vw, 64px);
-  bottom: -70px;
+  right: clamp(20px, 4vw, 56px);
+  bottom: -48px;
   overflow: hidden;
-  border: 8px solid var(--ink);
+  border: 6px solid var(--ink);
   z-index: 3;
-  box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+  box-shadow: 0 30px 80px rgba(0,0,0,0.55);
+  background: var(--ink-2);
+}
+.bespoke-inset.in, .bespoke-inset.revealed{
+  clip-path: inset(0 0 0 0) !important;
 }
 .bespoke-inset img{
-  width:100%; height:100%; object-fit: cover;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
 }
 .bespoke-lede{
   max-width: 640px;
@@ -1136,10 +1151,35 @@ footer{
 /* ---------- RESPONSIVE ---------- */
 @media (max-width: 960px){
   .nav{ display:none; }
-  .hamburger{ display:flex; }
-  .hdr .cta{ display: none; }
+  .hamburger{ display:flex; margin-left: 12px; }
   .hdr{ padding: 14px var(--pad); min-height: 66px; height: 66px; }
   .hdr.scrolled{ padding: 10px var(--pad); min-height: 56px; height: 56px; }
+  .hdr .cta{
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 14px;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    border: 1px solid rgba(244,239,230,0.32);
+    background: rgba(26,36,32,0.35);
+    color: var(--ivory);
+    border-radius: 999px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition: all .3s var(--ease);
+    margin-left: auto;
+  }
+  .hdr.scrolled .cta{
+    border-color: rgba(26,36,32,0.22);
+    background: rgba(244,239,230,0.7);
+    color: var(--ink);
+    padding: 6px 12px;
+    font-size: 9.5px;
+  }
+  .hdr .cta .arr{ font-size: 11px; }
   .brand img{ height: 30px; }
   .hdr.scrolled .brand img{ height: 26px; }
 
@@ -1177,11 +1217,17 @@ footer{
   .col-image{ aspect-ratio: 4/5; }
   .col-body{ padding: 0; }
 
+  .bespoke-wide{
+    aspect-ratio: 16/10;
+    min-height: 280px;
+    max-height: 480px;
+  }
   .bespoke-inset{
-    width: 45%; right: 20px; bottom: -32px;
+    width: clamp(120px, 36vw, 180px);
+    right: 16px;
+    bottom: -24px;
     border-width: 4px;
   }
-  .bespoke-wide{ aspect-ratio: 4/5; }
   .process{
     grid-template-columns: 1fr 1fr;
     gap: 40px 24px;
@@ -1213,6 +1259,14 @@ footer{
 }
 
 @media (max-width: 560px){
+  .hdr .cta{
+    padding: 6px 11px;
+    font-size: 9.5px;
+    letter-spacing: 0.12em;
+    gap: 5px;
+  }
+  .hdr .cta-txt-full{ display: none; }
+  .hdr .cta-txt-short{ display: inline; }
   .footer-grid{ grid-template-columns: 1fr; }
   .hero{ padding-top: 80px; }
   .hero-content{ margin-bottom: 16px; }
@@ -1387,7 +1441,7 @@ body:not(.preloading) .hdr{ opacity: 1; transform: none; }
     <a href="#showroom">Showroom</a>
   </nav>
   <a class="cta whatsapp-cta" href="https://wa.me/8801960481983?text=Hello%20Heaven%20Furniture%20Mart%2C%20I%27d%20like%20to%20discuss%20a%20custom%20furniture%20project." target="_blank" rel="noopener noreferrer" data-whatsapp>
-    Request a Custom Quote <span class="arr">→</span>
+    <span class="cta-txt-full">Request a Custom Quote</span><span class="cta-txt-short">Quote</span> <span class="arr">→</span>
   </a>
   <button class="hamburger" aria-label="Menu" id="hamburger">
     <span></span><span></span>
@@ -1505,7 +1559,7 @@ body:not(.preloading) .hdr{ opacity: 1; transform: none; }
       <div class="col-image reveal-img">
         <picture>
           <source srcset="assets/living.avif" type="image/avif">
-          <img src="assets/living.jpg" alt="Living room with a bespoke sofa and console" width="1560" height="1170" decoding="async"/>
+          <img src="assets/living.jpg" alt="Living room with a bespoke sofa and console" width="1560" height="1170" loading="eager" decoding="async" onload="this.closest('.col-image').classList.add('in','revealed');"/>
         </picture>
       </div>
       <div class="col-body">
@@ -1524,7 +1578,7 @@ body:not(.preloading) .hdr{ opacity: 1; transform: none; }
       <div class="col-image reveal-img">
         <picture>
           <source srcset="assets/bedroom.avif" type="image/avif">
-          <img src="assets/bedroom.jpg" alt="Warm minimal bedroom with a bespoke bed" width="2560" height="1440" decoding="async"/>
+          <img src="assets/bedroom.jpg" alt="Warm minimal bedroom with a bespoke bed" width="2560" height="1440" loading="eager" decoding="async" onload="this.closest('.col-image').classList.add('in','revealed');"/>
         </picture>
       </div>
       <div class="col-body">
@@ -1543,7 +1597,7 @@ body:not(.preloading) .hdr{ opacity: 1; transform: none; }
       <div class="col-image reveal-img">
         <picture>
           <source srcset="assets/dining.avif" type="image/avif">
-          <img src="assets/dining.jpg" alt="Minimal dining room with a solid-wood table" width="2560" height="1707" decoding="async"/>
+          <img src="assets/dining.jpg" alt="Minimal dining room with a solid-wood table" width="2560" height="1707" loading="eager" decoding="async" onload="this.closest('.col-image').classList.add('in','revealed');"/>
         </picture>
       </div>
       <div class="col-body">
@@ -1562,7 +1616,7 @@ body:not(.preloading) .hdr{ opacity: 1; transform: none; }
       <div class="col-image reveal-img">
         <picture>
           <source srcset="assets/office.avif" type="image/avif">
-          <img src="assets/office.jpg" alt="Executive walnut desk in a considered study" width="570" height="570" decoding="async"/>
+          <img src="assets/office.jpg" alt="Executive walnut desk in a considered study" width="570" height="570" loading="eager" decoding="async" onload="this.closest('.col-image').classList.add('in','revealed');"/>
         </picture>
       </div>
       <div class="col-body">
@@ -1592,13 +1646,13 @@ body:not(.preloading) .hdr{ opacity: 1; transform: none; }
       <div class="bespoke-wide reveal-img">
         <picture>
           <source srcset="assets/bespoke-wide.avif" type="image/avif">
-          <img src="assets/bespoke-wide.jpg" alt="Walnut wood joinery in warm interior light" width="1670" height="1193" loading="lazy" decoding="async"/>
+          <img src="assets/bespoke-wide.jpg" alt="Walnut wood joinery in warm interior light" width="1670" height="1192" loading="eager" decoding="async" onload="this.closest('.bespoke-wide').classList.add('in','revealed');"/>
         </picture>
       </div>
       <div class="bespoke-inset reveal-img reveal-delay-2">
         <picture>
           <source srcset="assets/wood-detail.avif" type="image/avif">
-          <img src="assets/wood-detail.jpg" alt="Close-up detail of hand-finished wood grain" width="2560" height="1462" loading="lazy" decoding="async"/>
+          <img src="assets/wood-detail.jpg" alt="Close-up detail of hand-finished wood grain" width="2560" height="1462" loading="eager" decoding="async" onload="this.closest('.bespoke-inset').classList.add('in','revealed');"/>
         </picture>
       </div>
     </div>
