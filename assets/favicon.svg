@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <rect width="32" height="32" rx="7" fill="#1a2420"/>
+  <!-- Architectural Joinery Crossbar extending outward -->
+  <rect x="5" y="15" width="22" height="4" rx="1" fill="#d4af6a"/>
+  <!-- Main A frame -->
+  <path d="M 13.5 5.5 L 18.5 5.5 L 24.5 26.5 L 20 26.5 L 18.2 19 L 13.8 19 L 12 26.5 L 7.5 26.5 Z" fill="#d4af6a"/>
+  <!-- Inner counter cutout -->
+  <polygon points="16,9 17.6,15 14.4,15" fill="#1a2420"/>
+  <!-- Brass luster top highlight on crossbar -->
+  <rect x="5" y="15" width="22" height="1.8" rx="0.9" fill="#f0d59e"/>
+</svg>
