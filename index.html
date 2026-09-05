@@ -332,14 +332,18 @@ button{ font: inherit; color:inherit; background:none; border:0; cursor:pointer;
 /* ---------- HERO ---------- */
 .hero{
   position:relative;
-  min-height: clamp(500px, 75vh, 720px);
-  max-height: 79vh;
+  height: 100vh;
+  height: 100svh;
+  min-height: 100vh;
+  min-height: 100svh;
+  max-height: 100svh;
+  box-sizing: border-box;
   overflow: hidden;
   background: var(--ink);
   color: var(--ivory);
   display:flex; flex-direction:column;
   justify-content: space-between;
-  padding: clamp(68px, 8vh, 90px) var(--pad) 20px;
+  padding: clamp(76px, 10vh, 100px) var(--pad) clamp(20px, 3vh, 32px);
 }
 .hero-media{
   position:absolute;
@@ -1082,7 +1086,7 @@ button{ font: inherit; color:inherit; background:none; border:0; cursor:pointer;
 
 /* ---------- 09 / CLIENT STORIES (SCROLL-DRIVEN SEQUENCE) ---------- */
 .sec-clients{
-  height: 200vh;
+  height: 320vh;
   position: relative;
   background: var(--paper);
 }
@@ -1216,7 +1220,7 @@ button{ font: inherit; color:inherit; background:none; border:0; cursor:pointer;
 .client-progress-fill{
   height: 100%;
   background: var(--brass-text);
-  width: 50%;
+  width: 25%;
   transition: width 0.35s var(--ease);
 }
 .client-counter{
@@ -2023,66 +2027,147 @@ body.viewer-open{
 }
 .final-micro .sep{ opacity: .5; }
 
-/* ---------- FOOTER ---------- */
+/* ---------- FOOTER — PREMIUM EDITORIAL ---------- */
 footer{
   background: var(--ink);
   color: var(--ivory);
-  padding: 96px 0 40px;
+  position: relative;
+  overflow: hidden;
+  padding: clamp(90px, 14vh, 160px) 0 clamp(40px, 6vh, 60px);
   border-top: 1px solid var(--line-dark);
 }
-.footer-huge{
+.footer-bg-wrap{
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+.footer-bg-img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+  opacity: 0.18;
+  filter: saturate(0.8) contrast(1.1);
+}
+.footer-bg-overlay{
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg,
+    rgba(26,36,32,0.94) 0%,
+    rgba(26,36,32,0.82) 40%,
+    rgba(26,36,32,0.96) 100%);
+}
+.footer-container{
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(48px, 8vh, 88px);
+}
+.footer-masthead{
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  border-bottom: 1px solid var(--line-dark);
+  padding-bottom: clamp(32px, 5vh, 56px);
+}
+.footer-kicker{
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.28em;
+  color: var(--brass-2);
+  text-transform: uppercase;
+}
+.footer-brand-huge{
   font-family: var(--serif);
   font-weight: 400;
-  font-size: clamp(64px, 12vw, 200px);
-  line-height: 0.95;
-  letter-spacing: -0.02em;
-  margin: 0 0 clamp(64px, 10vw, 120px);
-}
-.footer-huge .row2{ font-style: italic; color: rgba(244,239,230,0.7); }
-.footer-huge .row3{ color: var(--brass-2); }
-
-.footer-grid{
-  display:grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr;
-  gap: clamp(24px, 4vw, 64px);
-  padding-top: 48px;
-  border-top: 1px solid var(--line-dark);
-}
-.footer-grid h3, .footer-grid h4{
-  font-family: var(--sans);
-  font-size: 10.5px; letter-spacing: 0.24em; text-transform: uppercase;
-  color: rgba(244,239,230,0.55);
-  font-weight:500;
-  margin: 0 0 20px;
-}
-.footer-grid p, .footer-grid a{
-  font-size: 14px; line-height: 1.7;
-  color: rgba(244,239,230,0.88);
+  font-size: clamp(72px, 17vw, 220px);
+  line-height: 0.88;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  color: var(--ivory);
   margin: 0;
 }
-.footer-grid ul{ list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap: 8px; }
-.footer-grid a:hover{ color: var(--brass-2); }
-.footer-brand{
-  font-family: var(--serif);
-  font-style: italic;
-  font-size: 20px;
-  color: var(--ivory);
-  margin: 20px 0 12px;
+.footer-tagline-row{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: rgba(244,239,230,0.65);
+}
+.footer-tagline-row .footer-sub-word{
+  color: var(--brass-2);
+  font-weight: 500;
+}
+.footer-grid{
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: clamp(24px, 4vw, 64px);
+}
+.footer-col-title{
+  font-family: var(--sans);
+  font-size: 10.5px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--brass-2);
+  font-weight: 600;
+  margin: 0 0 20px;
+}
+.footer-col p, .footer-col a{
+  font-size: 14px;
+  line-height: 1.7;
+  color: rgba(244,239,230,0.85);
+  margin: 0;
+}
+.footer-craft-desc{
+  max-width: 36ch;
+  margin-bottom: 24px !important;
+  color: rgba(244,239,230,0.78) !important;
+}
+.footer-cta{
+  align-self: flex-start;
+  margin-top: 18px;
+}
+.footer-links{
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.footer-link{
+  transition: color 0.3s var(--ease), transform 0.3s var(--ease);
+  display: inline-block;
+}
+.footer-link:hover{
+  color: var(--brass-2);
+  transform: translateX(3px);
 }
 .footer-logo{
-  width: 120px;
+  width: 100px;
   height: auto;
   border-radius: 4px;
   display: block;
-  margin-bottom: 4px;
+  margin-bottom: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
 }
 .footer-bottom{
-  margin-top: 64px;
-  padding-top: 24px;
+  padding-top: 32px;
   border-top: 1px solid var(--line-dark);
-  display:flex; justify-content:space-between; align-items:center;
-  font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
-  color: rgba(244,239,230,0.5);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  font-size: 12px;
+  color: rgba(244,239,230,0.55);
 }
 
 /* ---------- STICKY MOBILE CTA ---------- */
@@ -2252,7 +2337,7 @@ footer{
   .tl-row{ grid-template-columns: 1fr; gap: 8px; padding: 32px 0; }
 
   .footer-grid{ grid-template-columns: 1fr 1fr; gap: 40px 24px; }
-  .footer-huge{ font-size: clamp(48px, 15vw, 84px); }
+  .footer-brand-huge{ font-size: clamp(54px, 16vw, 120px); }
 
   .mobile-cta{ display: flex; }
   body{ padding-bottom: 80px; }
@@ -2292,7 +2377,14 @@ footer{
   .hdr .cta-txt-full{ display: none; }
   .hdr .cta-txt-short{ display: inline; }
   .footer-grid{ grid-template-columns: 1fr; }
-  .hero{ padding-top: 80px; }
+  .hero{
+    height: auto;
+    min-height: 100vh;
+    min-height: 100svh;
+    max-height: none;
+    padding-top: 80px;
+    padding-bottom: 24px;
+  }
   .hero-content{ margin-bottom: 16px; }
   .hero-details{ margin-top: 22px; gap: 22px; }
   .hero-headline em{ display: inline; }
@@ -3082,6 +3174,44 @@ body:not(.preloading) .hdr{ opacity: 1; transform: none; }
             </div>
           </div>
         </article>
+
+        <!-- Story 3 -->
+        <article class="client-slide" data-client-idx="2">
+          <div class="client-photo-wrap">
+            <picture>
+              <img src="assets/bespoke-wide.jpg" alt="Bespoke slatted credenza and curated seating in an architectural residence" loading="eager" decoding="async" width="1600" height="1067"/>
+            </picture>
+          </div>
+          <div class="client-card">
+            <div class="client-badge">Private Residence · Khulshi Hill Villa</div>
+            <blockquote class="client-quote">
+              “We commissioned a sweeping curved bouclé sofa and dining suite tailored to the double-height architecture of our villa. Heaven Furniture Mart crafted pieces that feel completely organic to our home.”
+            </blockquote>
+            <div class="client-meta">
+              <span class="client-name">Private Residence</span>
+              <span class="client-loc">Khulshi Hill Villa · Chattogram</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Story 4 -->
+        <article class="client-slide" data-client-idx="3">
+          <div class="client-photo-wrap">
+            <picture>
+              <img src="assets/final-cta.jpg" alt="Bespoke solid timber and natural stone joinery in a minimalist residence" loading="eager" decoding="async" width="1600" height="1067"/>
+            </picture>
+          </div>
+          <div class="client-card">
+            <div class="client-badge">Architectural Residence · Nasirabad</div>
+            <blockquote class="client-quote">
+              “From our first consultation to the final placement in our living room, the team understood exactly the proportions our space needed. The joinery and Italian marble table are centerpieces we cherish every day.”
+            </blockquote>
+            <div class="client-meta">
+              <span class="client-name">Private Homeowner</span>
+              <span class="client-loc">Nasirabad Housing Society · Chattogram</span>
+            </div>
+          </div>
+        </article>
       </div>
 
       <div class="client-bottom-row">
@@ -3089,7 +3219,7 @@ body:not(.preloading) .hdr{ opacity: 1; transform: none; }
           <div class="client-progress-fill" id="clientProgressFill"></div>
         </div>
         <div class="client-counter mono" id="clientCounter">
-          <span id="clientCurr">01</span> / 02
+          <span id="clientCurr">01</span> / 04
           <span style="color:var(--muted); margin-left:8px;">Scroll to transition story</span>
         </div>
       </div>
@@ -3132,7 +3262,28 @@ body:not(.preloading) .hdr{ opacity: 1; transform: none; }
   </div>
 </section>
 
-<!-- ============ 11 / SHOWROOM ============ -->
+<!-- ============ 11 / FINAL EDITORIAL CTA ============ -->
+<section class="sec-final" id="final-cta" aria-label="Contact">
+  <div class="wrap final-inner">
+    <div class="section-num reveal" style="color:var(--brass-2)"><span class="rule"></span>11 / Bespoke Commissions</div>
+    <h2 class="h-display reveal">
+      Made to be lived with,<br/><em style="font-style:italic; color:var(--brass-2);">not looked at</em>.
+    </h2>
+    <p class="lede reveal reveal-delay-1">
+      Bespoke furniture crafted to age gracefully with your home, built from solid timber and honest joinery in our Chattogram atelier.
+    </p>
+    <a class="cta on-dark reveal reveal-delay-2 whatsapp-cta" href="https://wa.me/8801960481983?text=Hello%20Heaven%20Furniture%20Mart%2C%20I%27d%20like%20to%20discuss%20a%20bespoke%20furniture%20commission." target="_blank" rel="noopener noreferrer" data-whatsapp>
+      Request a Custom Quote <span class="arr">→</span>
+    </a>
+    <div class="final-micro reveal reveal-delay-3">
+      <span>Free Design Consultation</span>
+      <span class="sep">·</span>
+      <span>Delivery &amp; Installation Included</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 12 / SHOWROOM ============ -->
 <section class="sec-showroom dark" id="showroom" aria-label="Showroom">
   <div class="wrap-wide">
     <div class="showroom-grid">
@@ -3151,7 +3302,7 @@ body:not(.preloading) .hdr{ opacity: 1; transform: none; }
 
       <div class="showroom-body">
         <div class="showroom-content">
-          <div class="section-num reveal" style="color:var(--brass-2)"><span class="rule"></span>11 / Showroom</div>
+          <div class="section-num reveal" style="color:var(--brass-2)"><span class="rule"></span>12 / Showroom</div>
           <h2 class="h-1 reveal reveal-delay-1">Come see<br/><em style="font-style:italic; color:var(--brass-2);">the craft</em>.</h2>
           <p class="lede reveal reveal-delay-2">
             Visit our showroom in Agrabad, Chattogram — and experience the materials, details, and craftsmanship in person.
@@ -3182,70 +3333,71 @@ body:not(.preloading) .hdr{ opacity: 1; transform: none; }
   </div>
 </section>
 
-<!-- ============ 13 / BESPOKE COMMISSIONS (FINAL CTA) ============ -->
-<section class="sec-final" id="final-cta" aria-label="Contact">
-  <div class="wrap final-inner">
-    <div class="section-num reveal" style="color:var(--brass-2)"><span class="rule"></span>13 / Bespoke Commissions</div>
-    <h2 class="h-display reveal">
-      Made to be lived with,<br/><em style="font-style:italic; color:var(--brass-2);">not looked at</em>.
-    </h2>
-    <p class="lede reveal reveal-delay-1">
-      Bespoke furniture crafted to age gracefully with your home, built from solid timber and honest joinery in our Chattogram atelier.
-    </p>
-    <a class="cta on-dark reveal reveal-delay-2 whatsapp-cta" href="https://wa.me/8801960481983?text=Hello%20Heaven%20Furniture%20Mart%2C%20I%27d%20like%20to%20discuss%20a%20bespoke%20furniture%20commission." target="_blank" rel="noopener noreferrer" data-whatsapp>
-      Request a Custom Quote <span class="arr">→</span>
-    </a>
-    <div class="final-micro reveal reveal-delay-3">
-      <span>Free Design Consultation</span>
-      <span class="sep">·</span>
-      <span>Delivery &amp; Installation Included</span>
-    </div>
+<!-- ============ 13 / FOOTER ============ -->
+<footer class="sec-footer" id="footer" aria-label="Footer">
+  <div class="footer-bg-wrap" aria-hidden="true">
+    <picture>
+      <source srcset="assets/hero.avif" type="image/avif">
+      <img src="assets/hero.jpg" alt="" loading="lazy" decoding="async" class="footer-bg-img"/>
+    </picture>
+    <div class="footer-bg-overlay"></div>
   </div>
-</section>
 
-<!-- ============ FOOTER ============ -->
-<footer>
-  <div class="wrap">
-    <h2 class="footer-huge">
-      <div class="row1">Designed.</div>
-      <div class="row2">Crafted.</div>
-      <div class="row3">Customized.</div>
-    </h2>
+  <div class="wrap footer-container">
+    <div class="footer-masthead">
+      <div class="footer-kicker mono">HEAVEN FURNITURE MART · BESPOKE ATELIER</div>
+      <h2 class="footer-brand-huge">HEAVEN</h2>
+      <div class="footer-tagline-row">
+        <span class="footer-sub-word">FURNITURE MART</span>
+        <span class="footer-phrase">Designed. Crafted. Customized.</span>
+      </div>
+    </div>
 
     <div class="footer-grid">
-      <div>
+      <div class="footer-col footer-col-brand">
         <picture>
           <source srcset="assets/heaven-logo.avif" type="image/avif">
-          <img class="footer-logo" src="assets/heaven-logo.jpg" alt="Heaven Furniture Mart official logo" width="480" height="480" loading="eager" decoding="async"/>
+          <img class="footer-logo" src="assets/heaven-logo.jpg" alt="Heaven Furniture Mart official logo" width="480" height="480" loading="lazy" decoding="async"/>
         </picture>
-        <p class="footer-brand">Bespoke atelier, Chattogram.</p>
-        <p>Furniture designed, crafted and customized around your space, your taste, and the way you live.</p>
+        <p class="footer-craft-desc">
+          Bespoke furniture designed, crafted and customized around your space, your taste, and the way you live.
+        </p>
+        <a class="cta on-dark whatsapp-cta footer-cta" href="https://wa.me/8801960481983?text=Hello%20Heaven%20Furniture%20Mart%2C%20I%27d%20like%20to%20discuss%20a%20custom%20furniture%20project." target="_blank" rel="noopener noreferrer" data-whatsapp>
+          Request a Custom Quote <span class="arr">→</span>
+        </a>
       </div>
-      <div>
-        <h3>Visit</h3>
-        <p>Agrabad Access Road,<br/>Chattogram,<br/>Bangladesh</p>
+
+      <div class="footer-col">
+        <h3 class="footer-col-title">Visit</h3>
+        <p class="footer-address">
+          Agrabad Access Road,<br/>
+          Chattogram,<br/>
+          Bangladesh
+        </p>
       </div>
-      <div>
-        <h3>Contact</h3>
-        <ul>
-          <li><a href="tel:+8801960481983">+880 1960-481983</a></li>
-          <li><a href="mailto:heavenfurnituremart@gmail.com" data-email-user="heavenfurnituremart" data-email-domain="gmail.com">heavenfurnituremart@gmail.com</a></li>
-          <li><a href="https://wa.me/8801960481983?text=Hello%20Heaven%20Furniture%20Mart%2C%20I%27d%20like%20to%20discuss%20a%20custom%20furniture%20project." target="_blank" rel="noopener noreferrer" data-whatsapp>WhatsApp</a></li>
+
+      <div class="footer-col">
+        <h3 class="footer-col-title">Contact</h3>
+        <ul class="footer-links">
+          <li><a href="tel:+8801960481983" class="footer-link">+880 1960-481983</a></li>
+          <li><a href="mailto:heavenfurnituremart@gmail.com" class="footer-link" data-email-user="heavenfurnituremart" data-email-domain="gmail.com">heavenfurnituremart@gmail.com</a></li>
+          <li><a href="https://wa.me/8801960481983?text=Hello%20Heaven%20Furniture%20Mart%2C%20I%27d%20like%20to%20discuss%20a%20custom%20furniture%20project." class="footer-link" target="_blank" rel="noopener noreferrer" data-whatsapp>WhatsApp</a></li>
         </ul>
       </div>
-      <div>
-        <h3>Follow</h3>
-        <ul>
-          <li><a href="https://facebook.com/HeavenFurnitureMart" target="_blank" rel="noopener noreferrer">Facebook</a></li>
-          <li><a href="https://instagram.com/heaven_furniture_ltd" target="_blank" rel="noopener noreferrer">Instagram</a></li>
-          <li><a href="https://youtube.com/@HeavenFurnitureMart" target="_blank" rel="noopener noreferrer">YouTube</a></li>
+
+      <div class="footer-col">
+        <h3 class="footer-col-title">Follow</h3>
+        <ul class="footer-links">
+          <li><a href="https://facebook.com/HeavenFurnitureMart" target="_blank" rel="noopener noreferrer" class="footer-link">Facebook</a></li>
+          <li><a href="https://instagram.com/heaven_furniture_ltd" target="_blank" rel="noopener noreferrer" class="footer-link">Instagram</a></li>
+          <li><a href="https://youtube.com/@HeavenFurnitureMart" target="_blank" rel="noopener noreferrer" class="footer-link">YouTube</a></li>
         </ul>
       </div>
     </div>
 
     <div class="footer-bottom">
-      <div>© 2020–2026 Heaven Furniture Mart · Chattogram</div>
-      <div>Designed. Crafted. Customized.</div>
+      <div>© 2020–2026 Heaven Furniture Mart · Agrabad, Chattogram, Bangladesh</div>
+      <div class="mono" style="font-size:11px; letter-spacing:0.18em; color:var(--brass-2);">DESIGNED · CRAFTED · CUSTOMIZED</div>
     </div>
   </div>
 </footer>
