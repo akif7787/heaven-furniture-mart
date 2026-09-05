@@ -14,7 +14,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-<link rel="preload" as="image" href="assets/hero.avif" type="image/avif" fetchpriority="high">
+<link rel="preload" as="image" href="assets/hero-video-poster.avif" type="image/avif" fetchpriority="high">
 
 <style>
 /* ---------- TOKENS ---------- */
@@ -320,16 +320,28 @@ button{ font: inherit; color:inherit; background:none; border:0; cursor:pointer;
   overflow:hidden;
   will-change: transform;
 }
-.hero-media img{
+.hero-media img,
+.hero-video{
   position:absolute; inset:0;
   width:100%; height:100%;
   object-fit: cover;
+  will-change: transform;
+}
+.hero-media img{
   transform: scale(1.06);
   transition: transform 1.8s var(--ease-out), opacity 1.2s var(--ease);
   opacity: 0;
-  will-change: transform;
 }
 .hero.loaded .hero-media img{ transform: scale(1); opacity: 1; }
+.hero-video{
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 1.2s var(--ease);
+  z-index: 0;
+}
+.hero-video.is-playing{
+  opacity: 1;
+}
 .hero-media::after{
   content:""; position:absolute; inset:0;
   background: linear-gradient(180deg,
@@ -338,6 +350,7 @@ button{ font: inherit; color:inherit; background:none; border:0; cursor:pointer;
     rgba(15,20,18,0.15) 55%,
     rgba(15,20,18,0.75) 100%);
   pointer-events:none;
+  z-index: 1;
 }
 .hero-top{
   position: relative; z-index: 2;
@@ -1264,6 +1277,7 @@ footer{
 /* Hero + header start hidden, revealed after preloader */
 body.preloading{ overflow: hidden; }
 body.preloading .hero-media img,
+body.preloading .hero-video,
 body.preloading .hero-headline .line > span,
 body.preloading .hero-top .meta,
 body.preloading .hero-right,
@@ -1283,6 +1297,7 @@ body:not(.preloading) .hdr{ opacity: 1; transform: none; }
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
   }
+  .hero-video{ display: none !important; }
   .hero-headline .line > span{ transform: none !important; }
   .reveal{ opacity: 1 !important; transform: none !important; }
   .reveal-img{ clip-path: none !important; }
@@ -1299,6 +1314,7 @@ body:not(.preloading) .hdr{ opacity: 1; transform: none; }
   #preloader { display: none !important; }
   body.preloading { overflow: auto !important; }
   .hdr { opacity: 1 !important; transform: none !important; }
+  .hero-video { display: none !important; }
   .hero-media img { opacity: 1 !important; transform: scale(1) !important; }
   .hero-headline .line > span { transform: none !important; }
   .hero-top .meta, .hero-right, .hero-bottom { opacity: 1 !important; transform: none !important; }
@@ -1375,9 +1391,13 @@ body:not(.preloading) .hdr{ opacity: 1; transform: none; }
 <section id="top" class="hero" aria-label="Introduction">
   <div class="hero-media">
     <picture>
+      <source srcset="assets/hero-video-poster.avif" type="image/avif">
       <source srcset="assets/hero.avif" type="image/avif">
-      <img src="assets/hero.jpg" alt="A warm, editorial interior featuring bespoke handcrafted furniture" width="2560" height="1920" fetchpriority="high" decoding="async"/>
+      <img src="assets/hero-video-poster.jpg" alt="A warm, editorial interior featuring bespoke handcrafted furniture" width="1920" height="1080" fetchpriority="high" decoding="async"/>
     </picture>
+    <video class="hero-video" autoplay muted loop playsinline preload="metadata" aria-hidden="true" tabindex="-1">
+      <source src="assets/hero-web.mp4" type="video/mp4">
+    </video>
   </div>
 
   <div class="hero-top">
@@ -1847,7 +1867,9 @@ body:not(.preloading) .hdr{ opacity: 1; transform: none; }
   var preloader = document.getElementById('preloader');
   var hero = document.querySelector('.hero');
   var heroImg = hero && hero.querySelector('img');
+  var heroVideo = hero && hero.querySelector('.hero-video');
   var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var isDataSaver = navigator.connection && (navigator.connection.saveData || /2g/i.test(navigator.connection.effectiveType || ''));
   var hasSeenIntro = false;
   try {
     hasSeenIntro = window.sessionStorage && sessionStorage.getItem('hfm_intro_seen') === '1';
@@ -1855,9 +1877,31 @@ body:not(.preloading) .hdr{ opacity: 1; transform: none; }
     hasSeenIntro = false;
   }
 
+  if (heroVideo) {
+    if (reducedMotion || isDataSaver) {
+      heroVideo.pause();
+      heroVideo.removeAttribute('src');
+      heroVideo.load();
+      heroVideo.remove();
+    } else {
+      heroVideo.addEventListener('playing', function(){
+        heroVideo.classList.add('is-playing');
+      }, { once: true });
+      if (!heroVideo.paused && heroVideo.readyState >= 3){
+        heroVideo.classList.add('is-playing');
+      }
+    }
+  }
+
   function startHero(){
     requestAnimationFrame(function(){
       if (hero) hero.classList.add('loaded');
+      if (heroVideo && !reducedMotion && !isDataSaver && heroVideo.paused){
+        var p = heroVideo.play();
+        if (p && typeof p.catch === 'function'){
+          p.catch(function(){ /* Graceful fallback to poster */ });
+        }
+      }
     });
   }
 
