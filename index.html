@@ -265,10 +265,10 @@ button{ font: inherit; color:inherit; background:none; border:0; cursor:pointer;
   display: none;
 }
 .nav{
-  display:flex; align-items:center; gap: 44px;
+  display:flex; align-items:center; gap: clamp(16px, 2vw, 32px);
 }
 .nav a{
-  font-size: 11.5px; letter-spacing: 0.24em; text-transform: uppercase; font-weight: 500;
+  font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 500;
   position:relative;
   transition: opacity .3s var(--ease);
   opacity: .9;
@@ -282,13 +282,33 @@ button{ font: inherit; color:inherit; background:none; border:0; cursor:pointer;
 }
 .nav a:hover::after{ transform: scaleX(1); }
 .hdr .cta{
-  padding: 12px 20px; font-size: 10.5px;
-  border-color: currentColor;
+  padding: 8px 16px; font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  border: 1px solid rgba(244,239,230,0.32);
+  background: transparent;
+  color: rgba(244,239,230,0.85);
+  border-radius: 999px;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  transition: all .3s var(--ease);
 }
 .hdr:not(.scrolled) .cta:hover{
-  background: var(--ivory); color: var(--ink); border-color: var(--ivory);
+  background: rgba(244,239,230,0.12);
+  color: var(--ivory);
+  border-color: rgba(244,239,230,0.6);
 }
-.hdr.scrolled .cta{ border-color: var(--ink); }
+.hdr.scrolled .cta{
+  border-color: rgba(26,36,32,0.25);
+  background: rgba(244,239,230,0.85);
+  color: var(--ink);
+  padding: 7px 15px;
+}
+.hdr.scrolled .cta:hover{
+  background: var(--ink);
+  color: var(--ivory);
+  border-color: var(--ink);
+}
 .cta-txt-short{ display: none; }
 
 .hamburger{
@@ -308,17 +328,14 @@ button{ font: inherit; color:inherit; background:none; border:0; cursor:pointer;
 /* ---------- HERO ---------- */
 .hero{
   position:relative;
-  /* Grow to fit content when viewport is short so headline never
-     tucks under the fixed header. Use svh so mobile browser chrome
-     doesn't cause layout jumps. */
-  min-height: 100svh;
-  min-height: max(100svh, 680px);
+  min-height: clamp(560px, 86vh, 840px);
+  max-height: 88vh;
   overflow: hidden;
   background: var(--ink);
   color: var(--ivory);
   display:flex; flex-direction:column;
   justify-content: space-between;
-  padding: clamp(96px, 12vh, 128px) var(--pad) 28px;
+  padding: clamp(84px, 11vh, 116px) var(--pad) 24px;
 }
 .hero-media{
   position:absolute;
@@ -331,7 +348,7 @@ button{ font: inherit; color:inherit; background:none; border:0; cursor:pointer;
   position:absolute; inset:0;
   width:100%; height:100%;
   object-fit: cover;
-  object-position: center 32%;
+  object-position: center 25%;
   will-change: transform;
 }
 .hero-media img{
@@ -361,12 +378,17 @@ button{ font: inherit; color:inherit; background:none; border:0; cursor:pointer;
 }
 .hero-content{
   position: relative; z-index: 2;
-  margin-top: auto;
-  margin-bottom: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1;
+  margin-top: clamp(8px, 2vh, 24px);
+  margin-bottom: 16px;
 }
 .hero-headline{
   overflow: hidden;
   margin: 0;
+  margin-top: clamp(8px, 1.5vh, 24px);
 }
 .hero-headline .line{
   display:block; overflow:hidden;
@@ -386,7 +408,8 @@ button{ font: inherit; color:inherit; background:none; border:0; cursor:pointer;
 }
 
 .hero-details{
-  margin-top: clamp(28px, 4.5vh, 48px);
+  margin-top: auto;
+  padding-top: clamp(24px, 3.5vh, 40px);
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
@@ -417,6 +440,25 @@ button{ font: inherit; color:inherit; background:none; border:0; cursor:pointer;
   font-size: 15px; line-height: 1.55;
   color: rgba(244,239,230,0.85);
   text-align: right;
+}
+.hero-action .cta{
+  background: var(--brass-2);
+  color: var(--ink);
+  border: 1px solid var(--brass-2);
+  font-size: 11.5px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  padding: 13px 26px;
+  border-radius: 999px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+  transition: all 0.3s var(--ease);
+}
+.hero-action .cta:hover{
+  background: var(--ivory);
+  border-color: var(--ivory);
+  color: var(--ink);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.5);
 }
 
 .hero-bottom{
@@ -464,32 +506,32 @@ button{ font: inherit; color:inherit; background:none; border:0; cursor:pointer;
 }
 .reveal.in{ opacity: 1; transform: none; }
 
-/* Image reveal: masked clip-path + scale (premium editorial) */
+/* Image reveal: safe baseline so content is NEVER hidden if JS observer is delayed */
 .reveal-img{
   overflow: hidden;
-  clip-path: inset(0 0 100% 0);
+  clip-path: none !important;
+  opacity: 1 !important;
+  visibility: visible !important;
   transition: clip-path 1.4s var(--ease-out);
-  will-change: clip-path;
 }
-.reveal-img.in, .reveal-img.revealed{ clip-path: inset(0 0 0 0) !important; }
+.reveal-img.in, .reveal-img.revealed{ clip-path: none !important; opacity: 1 !important; visibility: visible !important; }
 .reveal-img img{
-  transform: scale(1.1);
+  transform: none;
+  opacity: 1 !important;
+  visibility: visible !important;
   transition: transform 1.8s var(--ease-out);
-  will-change: transform;
 }
-.reveal-img.in img, .reveal-img.revealed img{ transform: scale(1); opacity: 1 !important; visibility: visible !important; }
+.reveal-img.in img, .reveal-img.revealed img{ transform: none; opacity: 1 !important; visibility: visible !important; }
 
 /* Left-to-right reveal for Section 01 MD/team image */
 .people-right.reveal-img{
-  clip-path: inset(0 100% 0 0);
-  transition: clip-path 1.4s var(--ease-out);
+  clip-path: none !important;
+  opacity: 1 !important;
+  visibility: visible !important;
 }
-.people-right.reveal-img.in{ clip-path: inset(0 0 0 0); }
-.people-right.reveal-img img{
-  transform: scale(1.03);
-  transition: transform 1.8s var(--ease-out);
-}
-.people-right.reveal-img.in img{ transform: scale(1); }
+.people-right.reveal-img.in{ clip-path: none !important; opacity: 1 !important; visibility: visible !important; }
+.people-right.reveal-img img{ transform: none; }
+.people-right.reveal-img.in img{ transform: none; }
 
 /* Text stagger delays */
 .reveal-delay-1{ transition-delay: .10s; }
@@ -499,22 +541,32 @@ button{ font: inherit; color:inherit; background:none; border:0; cursor:pointer;
 .reveal-img.reveal-delay-1{ transition-delay: .12s; }
 .reveal-img.reveal-delay-2{ transition-delay: .24s; }
 
-/* ---------- 02 / SIGNATURE FURNITURES ---------- */
+/* ---------- 08 / SIGNATURE FURNITURES (PINNED VERTICAL SCROLL TIMELINE) ---------- */
 .sec-signature{
-  padding: var(--pad-y) 0;
+  height: 320vh;
+  position: relative;
   background: var(--ink);
   color: var(--ivory);
-  position: relative;
+}
+.sig-sticky{
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: clamp(60px, 8vh, 84px) var(--pad) clamp(18px, 2.5vh, 28px);
+  box-sizing: border-box;
   overflow: hidden;
 }
 .sig-head{
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  margin-bottom: clamp(36px, 6vw, 64px);
   gap: 24px;
+  margin-bottom: clamp(12px, 2vh, 20px);
 }
-.sig-indicator{
+.sig-progress-counter{
   font-family: var(--mono);
   font-size: 11px;
   letter-spacing: 0.2em;
@@ -526,79 +578,58 @@ button{ font: inherit; color:inherit; background:none; border:0; cursor:pointer;
   padding: 6px 14px;
   border: 1px solid rgba(200,168,117,0.3);
   border-radius: 999px;
-  background: rgba(26,36,32,0.4);
+  background: rgba(26,36,32,0.5);
+  backdrop-filter: blur(8px);
 }
-.sig-showcase{
+.sig-progress-counter .curr{ font-weight: 600; color: var(--ivory); }
+.sig-progress-counter .sep{ opacity: 0.5; }
+.sig-stage{
   position: relative;
-  width: 100%;
-  overflow: hidden;
-  padding: 10px 0 20px;
-}
-.sig-track{
-  display: flex;
-  align-items: center;
-  gap: clamp(20px, 3.5vw, 48px);
-  padding: 0 max(var(--pad), calc((100vw - clamp(320px, 64vw, 840px)) / 2));
-  cursor: grab;
-  user-select: none;
-  -webkit-user-select: none;
-  will-change: transform;
-  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.sig-track.is-dragging{
-  cursor: grabbing;
-  transition: none;
-}
-.sig-card{
-  flex: 0 0 clamp(300px, 64vw, 840px);
-  aspect-ratio: 16/10;
-  position: relative;
+  flex-grow: 1;
+  width: min(1080px, 100%);
+  margin: 0 auto;
   border-radius: 4px;
   overflow: hidden;
   background: var(--ink-2);
-  border: 1px solid rgba(244,239,230,0.08);
-  opacity: 0.5;
-  transform: scale(0.95);
-  transition: opacity 0.5s var(--ease-out), transform 0.5s var(--ease-out), box-shadow 0.5s var(--ease-out), border-color 0.5s var(--ease-out);
+  border: 1px solid rgba(244,239,230,0.1);
+  box-shadow: 0 30px 90px rgba(0,0,0,0.65);
   cursor: pointer;
-  box-shadow: 0 16px 40px rgba(0,0,0,0.4);
 }
-.sig-card.active{
+.sig-slide{
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.98);
+  transition: opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+.sig-slide.active{
   opacity: 1;
+  pointer-events: auto;
   transform: scale(1);
-  border-color: rgba(200,168,117,0.4);
-  box-shadow: 0 30px 80px rgba(0,0,0,0.7);
 }
-.sig-card picture, .sig-card img{
+.sig-slide picture, .sig-slide img{
   width: 100%;
   height: 100%;
   display: block;
   object-fit: cover;
   transition: transform 1.2s var(--ease-out);
 }
-.sig-card:hover img{
+.sig-slide:hover img{
   transform: scale(1.03);
 }
-.sig-card-info{
+.sig-slide-overlay{
   position: absolute;
   inset: auto 0 0 0;
   padding: clamp(20px, 3.5vw, 36px);
-  background: linear-gradient(180deg, transparent 0%, rgba(15,20,18,0.7) 40%, rgba(15,20,18,0.95) 100%);
+  background: linear-gradient(180deg, transparent 0%, rgba(15,20,18,0.72) 35%, rgba(15,20,18,0.96) 100%);
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  gap: 20px;
-  opacity: 0;
-  transform: translateY(14px);
-  transition: opacity 0.4s var(--ease-out), transform 0.4s var(--ease-out);
-  pointer-events: none;
+  gap: 24px;
 }
-.sig-card.active .sig-card-info{
-  opacity: 1;
-  transform: translateY(0);
-  pointer-events: auto;
-}
-.sig-card-cat{
+.sig-slide-cat{
   font-family: var(--mono);
   font-size: 10.5px;
   letter-spacing: 0.24em;
@@ -606,94 +637,82 @@ button{ font: inherit; color:inherit; background:none; border:0; cursor:pointer;
   text-transform: uppercase;
   margin-bottom: 6px;
 }
-.sig-card-title{
+.sig-slide-title{
   font-family: var(--serif);
   font-style: italic;
-  font-size: clamp(20px, 2.8vw, 32px);
+  font-size: clamp(22px, 2.8vw, 34px);
   color: var(--ivory);
   line-height: 1.15;
   margin: 0 0 6px 0;
 }
-.sig-card-sub{
+.sig-slide-sub{
   font-family: var(--sans);
-  font-size: clamp(12px, 1.2vw, 13.5px);
-  color: rgba(244,239,230,0.72);
+  font-size: clamp(12px, 1.15vw, 13.5px);
+  color: rgba(244,239,230,0.78);
   max-width: 520px;
   line-height: 1.45;
   margin: 0;
 }
-.sig-card-expand{
+.sig-slide-actions{
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+.sig-expand-btn{
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 8px 16px;
+  padding: 9px 18px;
   font-family: var(--sans);
   font-size: 11px;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--brass-2);
-  background: rgba(26,36,32,0.6);
-  border: 1px solid rgba(200,168,117,0.3);
+  background: rgba(26,36,32,0.7);
+  border: 1px solid rgba(200,168,117,0.35);
   border-radius: 999px;
   backdrop-filter: blur(8px);
   white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.3s var(--ease);
 }
-.sig-controls{
+.sig-expand-btn:hover{
+  background: var(--brass-2);
+  color: var(--ink);
+  border-color: var(--brass-2);
+}
+.sig-bottom-row{
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: clamp(24px, 4vw, 40px);
-  padding: 0 var(--pad);
-  max-width: 1360px;
-  margin-left: auto;
-  margin-right: auto;
+  gap: 20px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(244,239,230,0.12);
+  width: min(1080px, 100%);
+  margin: 0 auto;
 }
-.sig-dots{
-  display: flex;
-  align-items: center;
-  gap: 8px;
+.sig-progress-track{
+  flex-grow: 1;
+  max-width: 320px;
+  height: 2px;
+  background: rgba(244,239,230,0.15);
+  border-radius: 2px;
+  overflow: hidden;
+  position: relative;
 }
-.sig-dot{
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: rgba(244,239,230,0.22);
-  border: none;
-  padding: 0;
-  cursor: pointer;
-  transition: all 0.3s var(--ease);
-}
-.sig-dot.active{
-  width: 28px;
-  border-radius: 999px;
+.sig-progress-fill{
+  height: 100%;
   background: var(--brass-2);
+  width: 20%;
+  transition: width 0.3s var(--ease);
 }
-.sig-arrows{
-  display: flex;
-  gap: 12px;
-}
-.sig-btn{
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  border: 1px solid rgba(244,239,230,0.2);
-  background: rgba(26,36,32,0.4);
-  color: var(--ivory);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
-  cursor: pointer;
-  transition: all 0.3s var(--ease);
-}
-.sig-btn:hover{
-  border-color: var(--brass-2);
-  color: var(--brass-2);
-  background: rgba(26,36,32,0.8);
-}
-.sig-cta-wrap{
-  text-align: center;
-  margin-top: clamp(40px, 6vw, 64px);
+.sig-hint{
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(244,239,230,0.5);
 }
 
 /* ---------- MARQUEE TICKER RIBBON ---------- */
@@ -737,38 +756,21 @@ button{ font: inherit; color:inherit; background:none; border:0; cursor:pointer;
   100%{ transform: translate3d(-50%,0,0); }
 }
 
-/* ---------- 04 / FEATURED PIECES ---------- */
+/* ---------- 09 / FEATURED PIECES (EDITORIAL ARCHITECTURAL CATALOG) ---------- */
 .sec-featured{
   padding: var(--pad-y) 0;
   background: var(--paper);
   position: relative;
-  overflow: hidden;
 }
 .feat-head{
-  margin-bottom: clamp(32px, 5vw, 56px);
+  margin-bottom: clamp(36px, 6vw, 64px);
 }
-.feat-rail-wrap{
-  position: relative;
-  width: 100%;
-  overflow: hidden;
-  padding: 10px 0 30px;
-}
-.feat-track{
-  display: flex;
-  gap: clamp(20px, 2.5vw, 36px);
-  cursor: grab;
-  user-select: none;
-  -webkit-user-select: none;
-  padding: 0 var(--pad);
-  will-change: transform;
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.feat-track.is-dragging{
-  cursor: grabbing;
-  transition: none;
+.feat-grid{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(20px, 2.5vw, 32px);
 }
 .feat-card{
-  flex: 0 0 clamp(270px, 26vw, 360px);
   background: var(--ivory);
   border: 1px solid var(--line);
   border-radius: 4px;
@@ -844,41 +846,10 @@ button{ font: inherit; color:inherit; background:none; border:0; cursor:pointer;
 .feat-card:hover .feat-link{
   color: var(--brass-text);
 }
-.feat-footer{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 24px;
-  margin-top: clamp(32px, 5vw, 48px);
-}
-.feat-arrows{
-  display: flex;
-  gap: 12px;
-}
-.feat-btn{
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  border: 1px solid var(--line);
-  background: var(--ivory);
-  color: var(--ink);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 15px;
-  cursor: pointer;
-  transition: all 0.3s var(--ease);
-}
-.feat-btn:hover{
-  border-color: var(--ink);
-  background: var(--ink);
-  color: var(--ivory);
-}
 
-/* ---------- 05 / SCROLL-DRIVEN CRAFT STORY ---------- */
+/* ---------- 10 / FROM SKETCH TO SPACE (PURE 2-STATE SCROLL TRANSFORMATION) ---------- */
 .sec-craft-story{
-  height: 280vh;
+  height: 220vh;
   position: relative;
   background: var(--ink);
   color: var(--ivory);
@@ -897,18 +868,15 @@ button{ font: inherit; color:inherit; background:none; border:0; cursor:pointer;
 }
 .craft-header{
   text-align: center;
-  margin-bottom: clamp(20px, 3vh, 36px);
-}
-.craft-header .h-sec{
-  margin: 0;
-  color: var(--ivory);
+  margin-bottom: clamp(16px, 2.5vh, 28px);
 }
 .craft-stage-wrap{
-  width: min(880px, 92vw);
+  width: min(920px, 92vw);
   position: relative;
 }
 .craft-frame{
   aspect-ratio: 16/10;
+  max-height: 58vh;
   width: 100%;
   position: relative;
   border-radius: 4px;
@@ -917,74 +885,76 @@ button{ font: inherit; color:inherit; background:none; border:0; cursor:pointer;
   box-shadow: 0 30px 90px rgba(0,0,0,0.65);
   border: 1px solid rgba(244,239,230,0.1);
 }
-.craft-layer{
+.craft-layer-design{
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  opacity: 0;
-  transform: scale(1.04);
-  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: opacity, transform;
+  z-index: 1;
 }
-.craft-layer.active{
-  opacity: 1;
-  transform: scale(1);
-}
-.craft-layer picture, .craft-layer img{
+.craft-layer-design picture, .craft-layer-design img{
   width: 100%;
   height: 100%;
   display: block;
   object-fit: cover;
 }
-.craft-info-bar{
-  margin-top: clamp(16px, 2.5vh, 28px);
-  display: grid;
-  grid-template-columns: 1fr auto 1.4fr;
+.craft-layer-sketch{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  will-change: opacity;
+  transition: opacity 0.1s linear;
+}
+.craft-layer-sketch img{
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+}
+.craft-caption-bar{
+  margin-top: clamp(14px, 2vh, 24px);
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 24px;
-  padding: 16px 24px;
+  gap: 20px;
+  padding: 14px 24px;
   background: rgba(35,45,41,0.5);
   border: 1px solid rgba(244,239,230,0.1);
   border-radius: 4px;
   backdrop-filter: blur(8px);
 }
-.craft-step-title{
-  font-family: var(--serif);
-  font-style: italic;
-  font-size: clamp(17px, 2vw, 22px);
-  color: var(--ivory);
-  margin: 0;
+.craft-caption-text{
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
-.craft-step-cat{
+.craft-caption-label{
   font-family: var(--mono);
-  font-size: 10px;
+  font-size: 10.5px;
   letter-spacing: 0.22em;
   color: var(--brass-2);
   text-transform: uppercase;
 }
-.craft-indicator{
+.craft-caption-title{
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(16px, 1.8vw, 20px);
+  color: var(--ivory);
+}
+.craft-scroll-hint{
   display: flex;
-  gap: 6px;
   align-items: center;
+  gap: 12px;
+  font-size: 10.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(244,239,230,0.5);
 }
-.craft-bar-segment{
-  width: 24px;
-  height: 2px;
-  background: rgba(244,239,230,0.2);
-  transition: background 0.4s var(--ease), width 0.4s var(--ease);
-}
-.craft-bar-segment.active{
-  background: var(--brass-2);
-  width: 36px;
-}
-.craft-step-desc{
-  font-family: var(--sans);
-  font-size: 12.5px;
-  line-height: 1.45;
-  color: rgba(244,239,230,0.75);
-  margin: 0;
-  text-align: right;
+.craft-progress-pct{
+  color: var(--brass-2);
+  font-weight: 600;
 }
 
 /* ---------- 08 / CLIENT STORIES ---------- */
@@ -1231,15 +1201,26 @@ body.viewer-open{
 
 /* Responsive updates for new sections */
 @media (max-width: 960px){
+  .sec-signature{
+    height: 260vh;
+  }
   .sig-head{
     flex-direction: column;
     align-items: flex-start;
+    gap: 16px;
   }
-  .sig-card{
-    flex: 0 0 84vw;
+  .sig-stage{
+    aspect-ratio: 16/10;
+    max-height: 52vh;
   }
-  .feat-card{
-    flex: 0 0 72vw;
+  .sig-slide-overlay{
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 20px;
+  }
+  .feat-grid{
+    grid-template-columns: repeat(2, 1fr);
   }
   .client-story-row, .client-story-row.reverse{
     grid-template-columns: 1fr;
@@ -1248,13 +1229,14 @@ body.viewer-open{
   .client-story-row.reverse .client-photo-wrap{
     order: 0;
   }
-  .craft-info-bar{
-    grid-template-columns: 1fr;
-    gap: 12px;
-    text-align: left;
+  .sec-craft-story{
+    height: 200vh;
   }
-  .craft-step-desc{
-    text-align: left;
+  .craft-caption-bar{
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 12px 16px;
   }
   .dv-container{
     grid-template-columns: 1fr;
@@ -1267,15 +1249,31 @@ body.viewer-open{
 }
 
 @media (max-width: 560px){
-  .sig-card{
-    flex: 0 0 88vw;
-    aspect-ratio: 4/3;
+  .sec-signature{
+    height: 240vh;
   }
-  .feat-card{
-    flex: 0 0 84vw;
+  .sig-stage{
+    aspect-ratio: 4/3;
+    max-height: 48vh;
+  }
+  .sig-slide-sub{
+    display: none;
+  }
+  .sig-bottom-row{
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .sig-progress-track{
+    width: 100%;
+    max-width: 100%;
+  }
+  .feat-grid{
+    grid-template-columns: 1fr;
   }
   .craft-frame{
     aspect-ratio: 4/3;
+    max-height: 48vh;
   }
   .ticker-track{
     animation-duration: 25s;
@@ -1460,15 +1458,20 @@ body.viewer-open{
   overflow: hidden;
   position: relative;
   background: var(--ink-2);
+  clip-path: none !important;
+  opacity: 1 !important;
+  visibility: visible !important;
 }
 .bespoke-wide.in, .bespoke-wide.revealed{
-  clip-path: inset(0 0 0 0) !important;
+  clip-path: none !important;
 }
 .bespoke-wide img{
   width: 100%; height: 100%;
   object-fit: cover;
   object-position: center 50%;
   display: block;
+  opacity: 1 !important;
+  visibility: visible !important;
 }
 .bespoke-inset{
   position: absolute;
@@ -1481,14 +1484,19 @@ body.viewer-open{
   z-index: 3;
   box-shadow: 0 30px 80px rgba(0,0,0,0.55);
   background: var(--ink-2);
+  clip-path: none !important;
+  opacity: 1 !important;
+  visibility: visible !important;
 }
 .bespoke-inset.in, .bespoke-inset.revealed{
-  clip-path: inset(0 0 0 0) !important;
+  clip-path: none !important;
 }
 .bespoke-inset img{
   width: 100%; height: 100%;
   object-fit: cover;
   display: block;
+  opacity: 1 !important;
+  visibility: visible !important;
 }
 .bespoke-lede{
   max-width: 640px;
@@ -1613,13 +1621,16 @@ body.viewer-open{
   position: relative;
   aspect-ratio: 16/9;
   overflow: hidden;
-  will-change: transform, clip-path;
-  clip-path: inset(0 0 100% 0);
-  transition: clip-path 1.4s var(--ease-out);
+  will-change: transform;
+  clip-path: none !important;
+  opacity: 1 !important;
+  visibility: visible !important;
 }
 .showroom-image-wrap.in,
 .showroom-image-wrap.revealed{
-  clip-path: inset(0 0 0 0) !important;
+  clip-path: none !important;
+  opacity: 1 !important;
+  visibility: visible !important;
 }
 .showroom-image-wrap img{
   position: absolute; inset: 0;
@@ -1775,11 +1786,7 @@ body.viewer-open{
 .sec-final::before{
   content:""; position:absolute;
   top: -12%; bottom: -12%; left: 0; right: 0;
-  background-image: url(assets/final-cta.jpg);
-  background-image: image-set(
-    url(assets/final-cta.avif) type("image/avif"),
-    url(assets/final-cta.jpg) type("image/jpeg")
-  );
+  background-image: url(assets/story.jpg);
   background-size: cover;
   background-position: center;
   opacity: 0.28;
@@ -2220,8 +2227,10 @@ body:not(.preloading) .hdr{ opacity: 1; transform: none; }
   <nav class="nav" aria-label="Primary">
     <a href="#collections">Collections</a>
     <a href="#bespoke">Bespoke</a>
-    <a href="#story">Our Story</a>
     <a href="#showroom">Showroom</a>
+    <a href="#signature">Pieces</a>
+    <a href="#story">Heritage</a>
+    <a href="#final-cta">Contact</a>
   </nav>
   <a class="cta whatsapp-cta" href="https://wa.me/8801960481983?text=Hello%20Heaven%20Furniture%20Mart%2C%20I%27d%20like%20to%20discuss%20a%20custom%20furniture%20project." target="_blank" rel="noopener noreferrer" data-whatsapp>
     <span class="cta-txt-full">Request a Custom Quote</span><span class="cta-txt-short">Quote</span> <span class="arr">→</span>
@@ -2236,8 +2245,10 @@ body:not(.preloading) .hdr{ opacity: 1; transform: none; }
   <nav>
     <a href="#collections" data-mmclose>Collections</a>
     <a href="#bespoke" data-mmclose>Bespoke</a>
-    <a href="#story" data-mmclose>Our Story</a>
     <a href="#showroom" data-mmclose>Showroom</a>
+    <a href="#signature" data-mmclose>Pieces</a>
+    <a href="#story" data-mmclose>Heritage</a>
+    <a href="#final-cta" data-mmclose>Contact</a>
   </nav>
   <div class="foot">
     <a href="tel:+8801960481983">+880 1960-481983</a>
@@ -2296,12 +2307,12 @@ body:not(.preloading) .hdr{ opacity: 1; transform: none; }
   </div>
 </section>
 
-<!-- ============ 01 / THE PEOPLE ============ -->
+<!-- ============ 02 / THE PEOPLE ============ -->
 <section class="sec-people" aria-label="The People">
   <div class="wrap-wide">
     <div class="people-grid">
       <div class="people-left">
-        <div class="section-num reveal"><span class="rule"></span>01 / The People</div>
+        <div class="section-num reveal"><span class="rule"></span>02 / The People</div>
         <h2 class="h-1 reveal reveal-delay-1" style="margin-top: 28px;">A belief in<br/><em style="font-style:italic; color:var(--brass);">craftsmanship</em>.</h2>
         <p class="lede reveal reveal-delay-2" style="margin-top:36px">
           “At Heaven Furniture Mart, we believe furniture is more than function; it is a reflection of lifestyle, taste, and comfort. Every piece we create is designed to bring lasting elegance into the homes of our clients.”
@@ -2315,7 +2326,7 @@ body:not(.preloading) .hdr{ opacity: 1; transform: none; }
         <div class="people-photo">
           <picture>
             <source srcset="assets/md-team.avif" type="image/avif">
-            <img src="assets/md-team.jpg" alt="Abul Kalam Bhuiyan, Managing Director, seated with the Heaven Furniture Mart team" loading="lazy" decoding="async" width="1600" height="1038"/>
+            <img src="assets/md-team.jpg" alt="Abul Kalam Bhuiyan, Managing Director, seated with the Heaven Furniture Mart team" loading="eager" decoding="async" width="1600" height="1038" onload="this.closest('.people-right')?.classList.add('in','revealed');"/>
           </picture>
         </div>
         <figcaption class="people-caption">
@@ -2326,152 +2337,6 @@ body:not(.preloading) .hdr{ opacity: 1; transform: none; }
     </div>
   </div>
 </section>
-
-<!-- ============ 02 / SIGNATURE FURNITURES ============ -->
-<section class="sec-signature" id="signature" aria-label="Signature Furnitures">
-  <div class="wrap-wide">
-    <div class="sig-head">
-      <div class="sig-title-wrap">
-        <div class="section-num reveal" style="color:var(--brass-2)"><span class="rule"></span>02 / Signature Furnitures</div>
-        <h2 class="h-1 reveal reveal-delay-1" style="color:var(--ivory); margin-top:20px;">
-          Pieces made<br/><em style="font-style:italic; color:var(--brass-2);">to be remembered</em>.
-        </h2>
-      </div>
-      <div class="sig-indicator reveal reveal-delay-2">
-        <span>Drag to explore</span> <span class="arr">→</span>
-      </div>
-    </div>
-  </div>
-
-  <div class="sig-showcase" id="sigShowcase">
-    <div class="sig-track" id="sigTrack">
-      <!-- Item 1 -->
-      <div class="sig-card active" data-sig-idx="0" data-cat="LIVING" data-title="Bespoke Sectional &amp; Marble Low Table" data-sub="Tailored bouclé seating paired with handcrafted Italian Arabescato marble joinery." data-img="assets/brand.jpg" data-alt="Bespoke white sectional sofa with Italian marble low coffee table in a luxury living room">
-        <picture>
-          <img src="assets/brand.jpg" alt="Bespoke white sectional sofa with Italian marble low coffee table in a luxury living room" loading="eager" decoding="async" width="2560" height="1440"/>
-        </picture>
-        <div class="sig-card-info">
-          <div>
-            <div class="sig-card-cat">01 · LIVING</div>
-            <h3 class="sig-card-title">Bespoke Sectional &amp; Marble Low Table</h3>
-            <p class="sig-card-sub">Tailored bouclé seating paired with handcrafted Italian Arabescato marble joinery.</p>
-          </div>
-          <span class="sig-card-expand">View Piece ↗</span>
-        </div>
-      </div>
-
-      <!-- Item 2 -->
-      <div class="sig-card" data-sig-idx="1" data-cat="DINING" data-title="Solid Timber Pedestal Dining Suite" data-sub="Continuous-grain oval dining table with fluted timber pedestal and custom leather seating." data-img="assets/dining.jpg" data-alt="Minimal dining room featuring a solid wood oval table and contemporary leather chairs">
-        <picture>
-          <source srcset="assets/dining.avif" type="image/avif">
-          <img src="assets/dining.jpg" alt="Minimal dining room featuring a solid wood oval table and contemporary leather chairs" loading="eager" decoding="async" width="2560" height="1707"/>
-        </picture>
-        <div class="sig-card-info">
-          <div>
-            <div class="sig-card-cat">02 · DINING</div>
-            <h3 class="sig-card-title">Solid Timber Pedestal Dining Suite</h3>
-            <p class="sig-card-sub">Continuous-grain oval dining table with fluted timber pedestal and custom leather seating.</p>
-          </div>
-          <span class="sig-card-expand">View Piece ↗</span>
-        </div>
-      </div>
-
-      <!-- Item 3 -->
-      <div class="sig-card" data-sig-idx="2" data-cat="BEDROOM" data-title="Low Platform Minimalist Bed" data-sub="Solid teak low-profile joinery with integrated floating nightstands and woven linen upholstery." data-img="assets/bedroom.jpg" data-alt="Warm minimal bedroom with low platform bespoke bed and warm architectural lighting">
-        <picture>
-          <source srcset="assets/bedroom.avif" type="image/avif">
-          <img src="assets/bedroom.jpg" alt="Warm minimal bedroom with low platform bespoke bed and warm architectural lighting" loading="lazy" decoding="async" width="2560" height="1440"/>
-        </picture>
-        <div class="sig-card-info">
-          <div>
-            <div class="sig-card-cat">03 · BEDROOM</div>
-            <h3 class="sig-card-title">Low Platform Minimalist Bed</h3>
-            <p class="sig-card-sub">Solid teak low-profile joinery with integrated floating nightstands and woven linen upholstery.</p>
-          </div>
-          <span class="sig-card-expand">View Piece ↗</span>
-        </div>
-      </div>
-
-      <!-- Item 4 -->
-      <div class="sig-card" data-sig-idx="3" data-cat="LIVING" data-title="Sculptural Curved Bouclé Lounge" data-sub="Organic sweeping silhouette crafted with kiln-dried timber framing and artisan bouclé." data-img="assets/story.jpg" data-alt="Double height luxury villa with a curved sculptural white bouclé sofa and travertine tables">
-        <picture>
-          <img src="assets/story.jpg" alt="Double height luxury villa with a curved sculptural white bouclé sofa and travertine tables" loading="lazy" decoding="async" width="2560" height="1707"/>
-        </picture>
-        <div class="sig-card-info">
-          <div>
-            <div class="sig-card-cat">04 · LIVING</div>
-            <h3 class="sig-card-title">Sculptural Curved Bouclé Lounge</h3>
-            <p class="sig-card-sub">Organic sweeping silhouette crafted with kiln-dried timber framing and artisan bouclé.</p>
-          </div>
-          <span class="sig-card-expand">View Piece ↗</span>
-        </div>
-      </div>
-
-      <!-- Item 5 -->
-      <div class="sig-card" data-sig-idx="4" data-cat="OFFICE &amp; STUDY" data-title="Executive Walnut Joinery Desk" data-sub="Architectural study desk featuring hand-cut mitred edges and solid brass hardware inlay." data-img="assets/office.jpg" data-alt="Executive walnut joinery desk with architectural detailing in a refined study">
-        <picture>
-          <source srcset="assets/office.avif" type="image/avif">
-          <img src="assets/office.jpg" alt="Executive walnut joinery desk with architectural detailing in a refined study" loading="lazy" decoding="async" width="570" height="570"/>
-        </picture>
-        <div class="sig-card-info">
-          <div>
-            <div class="sig-card-cat">05 · OFFICE &amp; STUDY</div>
-            <h3 class="sig-card-title">Executive Walnut Joinery Desk</h3>
-            <p class="sig-card-sub">Architectural study desk featuring hand-cut mitred edges and solid brass hardware inlay.</p>
-          </div>
-          <span class="sig-card-expand">View Piece ↗</span>
-        </div>
-      </div>
-
-      <!-- Item 6 -->
-      <div class="sig-card" data-sig-idx="5" data-cat="BESPOKE" data-title="Hand-Fluted Architectural Wall Unit" data-sub="Floor-to-ceiling solid walnut vertical battening with integrated canted shelving." data-img="assets/bespoke-wide.jpg" data-alt="Solid walnut wood joinery wall with fluted vertical battening and canted cantilevered shelves">
-        <picture>
-          <source srcset="assets/bespoke-wide.avif" type="image/avif">
-          <img src="assets/bespoke-wide.jpg" alt="Solid walnut wood joinery wall with fluted vertical battening and canted cantilevered shelves" loading="lazy" decoding="async" width="1670" height="1192"/>
-        </picture>
-        <div class="sig-card-info">
-          <div>
-            <div class="sig-card-cat">06 · BESPOKE</div>
-            <h3 class="sig-card-title">Hand-Fluted Architectural Wall Unit</h3>
-            <p class="sig-card-sub">Floor-to-ceiling solid walnut vertical battening with integrated canted shelving.</p>
-          </div>
-          <span class="sig-card-expand">View Piece ↗</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="sig-controls">
-    <div class="sig-dots" id="sigDots">
-      <button class="sig-dot active" aria-label="Go to signature slide 1"></button>
-      <button class="sig-dot" aria-label="Go to signature slide 2"></button>
-      <button class="sig-dot" aria-label="Go to signature slide 3"></button>
-      <button class="sig-dot" aria-label="Go to signature slide 4"></button>
-      <button class="sig-dot" aria-label="Go to signature slide 5"></button>
-      <button class="sig-dot" aria-label="Go to signature slide 6"></button>
-    </div>
-    <div class="sig-arrows">
-      <button class="sig-btn" id="sigPrev" aria-label="Previous signature piece">←</button>
-      <button class="sig-btn" id="sigNext" aria-label="Next signature piece">→</button>
-    </div>
-  </div>
-
-  <div class="sig-cta-wrap reveal">
-    <a class="cta on-dark whatsapp-cta" href="https://wa.me/8801960481983?text=Hello%20Heaven%20Furniture%20Mart%2C%20I%27d%20like%20to%20request%20a%20quote%20for%20a%20Signature%20piece." target="_blank" rel="noopener noreferrer" data-whatsapp>
-      Request a Custom Quote <span class="arr">→</span>
-    </a>
-  </div>
-</section>
-
-<!-- ============ CONTINUOUS EDITORIAL TICKER RIBBON ============ -->
-<div class="editorial-ticker" aria-hidden="true">
-  <div class="ticker-track">
-    <span class="ticker-item">Handcrafted <span class="sep">◆</span> Made to Order <span class="sep">◆</span> Bespoke Furniture <span class="sep">◆</span> Solid Timber <span class="sep">◆</span> Chattogram Atelier</span>
-    <span class="ticker-item">Handcrafted <span class="sep">◆</span> Made to Order <span class="sep">◆</span> Bespoke Furniture <span class="sep">◆</span> Solid Timber <span class="sep">◆</span> Chattogram Atelier</span>
-    <span class="ticker-item">Handcrafted <span class="sep">◆</span> Made to Order <span class="sep">◆</span> Bespoke Furniture <span class="sep">◆</span> Solid Timber <span class="sep">◆</span> Chattogram Atelier</span>
-    <span class="ticker-item">Handcrafted <span class="sep">◆</span> Made to Order <span class="sep">◆</span> Bespoke Furniture <span class="sep">◆</span> Solid Timber <span class="sep">◆</span> Chattogram Atelier</span>
-  </div>
-</div>
 
 <!-- ============ 03 / COLLECTIONS ============ -->
 <section class="sec-collections" id="collections" aria-label="Collections">
@@ -2561,199 +2426,12 @@ body:not(.preloading) .hdr{ opacity: 1; transform: none; }
   </div>
 </section>
 
-<!-- ============ 04 / FEATURED PIECES ============ -->
-<section class="sec-featured" id="featured" aria-label="Featured Pieces">
-  <div class="wrap">
-    <div class="feat-head">
-      <div class="section-num reveal"><span class="rule"></span>04 / Featured Pieces</div>
-      <h2 class="h-1 reveal reveal-delay-1" style="margin-top:20px;">
-        A few of<br/><em style="font-style:italic;">our favourites</em>.
-      </h2>
-      <p class="lede reveal reveal-delay-2" style="margin-top:20px; max-width:560px;">
-        A curated selection from our living, dining, bedroom and office collections.
-      </p>
-    </div>
-  </div>
-
-  <div class="feat-rail-wrap" id="featRailWrap">
-    <div class="feat-track" id="featTrack">
-      <!-- Feat 1 -->
-      <div class="feat-card" data-cat="LIVING" data-title="Sculptural Charcoal Lounge Chair" data-sub="Tailored charcoal velvet upholstery with kiln-dried solid timber frame." data-img="assets/hero-video-poster.jpg" data-alt="Sculptural charcoal velvet lounge chair in an architectural interior">
-        <div class="feat-media">
-          <picture>
-            <source srcset="assets/hero-video-poster.avif" type="image/avif">
-            <img src="assets/hero-video-poster.jpg" alt="Sculptural charcoal velvet lounge chair in an architectural interior" loading="lazy" decoding="async" width="1920" height="1080"/>
-          </picture>
-        </div>
-        <div class="feat-body">
-          <span class="feat-cat">LIVING</span>
-          <h3 class="feat-title">Sculptural Lounge Chair</h3>
-          <p class="feat-desc">Charcoal velvet tailored upholstery with subtle brass accents.</p>
-          <span class="feat-link">View Piece ↗</span>
-        </div>
-      </div>
-
-      <!-- Feat 2 -->
-      <div class="feat-card" data-cat="LIVING" data-title="Tailored Bouclé Sofa &amp; Fluted Console" data-sub="Architectural curved sofa paired with hand-fluted dark timber pedestal table." data-img="assets/living.jpg" data-alt="Living room with a bespoke sofa and console in soft neutral lighting">
-        <div class="feat-media">
-          <picture>
-            <source srcset="assets/living.avif" type="image/avif">
-            <img src="assets/living.jpg" alt="Living room with a bespoke sofa and console in soft neutral lighting" loading="lazy" decoding="async" width="1560" height="1170"/>
-          </picture>
-        </div>
-        <div class="feat-body">
-          <span class="feat-cat">LIVING</span>
-          <h3 class="feat-title">Tailored Bouclé Sofa</h3>
-          <p class="feat-desc">Curved architectural lounge sofa with bespoke wood accents.</p>
-          <span class="feat-link">View Piece ↗</span>
-        </div>
-      </div>
-
-      <!-- Feat 3 -->
-      <div class="feat-card" data-cat="CRAFT" data-title="Concentric Timber Grain Study" data-sub="Hand-finished natural grain contours showing depth and richness of solid teak." data-img="assets/wood-detail.jpg" data-alt="Close-up detail of hand-finished wood grain with organic curves">
-        <div class="feat-media">
-          <picture>
-            <source srcset="assets/wood-detail.avif" type="image/avif">
-            <img src="assets/wood-detail.jpg" alt="Close-up detail of hand-finished wood grain with organic curves" loading="lazy" decoding="async" width="2560" height="1462"/>
-          </picture>
-        </div>
-        <div class="feat-body">
-          <span class="feat-cat">CRAFT</span>
-          <h3 class="feat-title">Hand-Finished Timber</h3>
-          <p class="feat-desc">Carefully selected timber grains hand-rubbed with natural oils.</p>
-          <span class="feat-link">View Piece ↗</span>
-        </div>
-      </div>
-
-      <!-- Feat 4 -->
-      <div class="feat-card" data-cat="BEDROOM" data-title="Low Platform Bed &amp; Floating Nightstand" data-sub="Solid teak joinery with integrated floating nightstand and woven upholstery." data-img="assets/bedroom.jpg" data-alt="Warm minimal bedroom with a bespoke bed and calm aesthetic">
-        <div class="feat-media">
-          <picture>
-            <source srcset="assets/bedroom.avif" type="image/avif">
-            <img src="assets/bedroom.jpg" alt="Warm minimal bedroom with a bespoke bed and calm aesthetic" loading="lazy" decoding="async" width="2560" height="1440"/>
-          </picture>
-        </div>
-        <div class="feat-body">
-          <span class="feat-cat">BEDROOM</span>
-          <h3 class="feat-title">Minimal Platform Bed</h3>
-          <p class="feat-desc">Solid wood low-profile joinery tailored for restful calm.</p>
-          <span class="feat-link">View Piece ↗</span>
-        </div>
-      </div>
-
-      <!-- Feat 5 -->
-      <div class="feat-card" data-cat="DINING" data-title="Solid Timber Oval Dining Table" data-sub="Continuous-grain tabletop finished with honest joinery and fluted pedestal." data-img="assets/dining.jpg" data-alt="Minimal dining room with a solid-wood table and modern seating">
-        <div class="feat-media">
-          <picture>
-            <source srcset="assets/dining.avif" type="image/avif">
-            <img src="assets/dining.jpg" alt="Minimal dining room with a solid-wood table and modern seating" loading="lazy" decoding="async" width="2560" height="1707"/>
-          </picture>
-        </div>
-        <div class="feat-body">
-          <span class="feat-cat">DINING</span>
-          <h3 class="feat-title">Oval Dining Suite</h3>
-          <p class="feat-desc">Gathering table crafted from continuous solid timber planks.</p>
-          <span class="feat-link">View Piece ↗</span>
-        </div>
-      </div>
-
-      <!-- Feat 6 -->
-      <div class="feat-card" data-cat="BESPOKE" data-title="Studio Reading Chair &amp; Credenza" data-sub="Sculptural reading chair paired with walnut living credenza." data-img="assets/final-cta.jpg" data-alt="Editorial armchair and warm ambient lighting beside bespoke credenza">
-        <div class="feat-media">
-          <picture>
-            <source srcset="assets/final-cta.avif" type="image/avif">
-            <img src="assets/final-cta.jpg" alt="Editorial armchair and warm ambient lighting beside bespoke credenza" loading="lazy" decoding="async" width="1299" height="1390"/>
-          </picture>
-        </div>
-        <div class="feat-body">
-          <span class="feat-cat">BESPOKE</span>
-          <h3 class="feat-title">Studio Reading Chair</h3>
-          <p class="feat-desc">Comfort and architectural character made for quiet living.</p>
-          <span class="feat-link">View Piece ↗</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="wrap">
-    <div class="feat-footer">
-      <div class="feat-arrows">
-        <button class="feat-btn" id="featPrev" aria-label="Previous featured piece">←</button>
-        <button class="feat-btn" id="featNext" aria-label="Next featured piece">→</button>
-      </div>
-      <a class="cta whatsapp-cta" href="https://wa.me/8801960481983?text=Hello%20Heaven%20Furniture%20Mart%2C%20I%27d%20like%20to%20inquire%20about%20your%20Featured%20pieces." target="_blank" rel="noopener noreferrer" data-whatsapp>
-        View / Request a Custom Quote <span class="arr">→</span>
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- ============ 05 / SCROLL-DRIVEN CRAFT STORY ============ -->
-<section class="sec-craft-story" id="craftStory" aria-label="The Craft Process">
-  <div class="craft-sticky" id="craftSticky">
-    <div class="craft-header">
-      <div class="section-num reveal" style="color:var(--brass-2); justify-content:center;"><span class="rule"></span>05 / The Craft Process</div>
-      <h2 class="h-1 h-sec reveal reveal-delay-1" style="margin-top:16px;">
-        From sketch<br/><em style="font-style:italic; color:var(--brass-2);">to space</em>.
-      </h2>
-    </div>
-
-    <div class="craft-stage-wrap">
-      <div class="craft-frame">
-        <!-- Layer 1: Grain Selection -->
-        <div class="craft-layer active" data-step="0">
-          <picture>
-            <source srcset="assets/wood-detail.avif" type="image/avif">
-            <img src="assets/wood-detail.jpg" alt="Raw solid timber grain showing organic growth rings" loading="eager" decoding="async"/>
-          </picture>
-        </div>
-        <!-- Layer 2: Architectural Joinery -->
-        <div class="craft-layer" data-step="1">
-          <picture>
-            <source srcset="assets/bespoke-wide.avif" type="image/avif">
-            <img src="assets/bespoke-wide.jpg" alt="Architectural fluted wall battens and precision fitted joinery" loading="eager" decoding="async"/>
-          </picture>
-        </div>
-        <!-- Layer 3: Tailored Finish -->
-        <div class="craft-layer" data-step="2">
-          <picture>
-            <source srcset="assets/living.avif" type="image/avif">
-            <img src="assets/living.jpg" alt="Hand-upholstered sculptural sofa and custom fluted furniture" loading="eager" decoding="async"/>
-          </picture>
-        </div>
-        <!-- Layer 4: The Finished Space -->
-        <div class="craft-layer" data-step="3">
-          <picture>
-            <img src="assets/story.jpg" alt="Completed luxury architectural interior with custom bespoke furniture" loading="eager" decoding="async"/>
-          </picture>
-        </div>
-      </div>
-
-      <div class="craft-info-bar">
-        <div>
-          <div class="craft-step-cat" id="craftStepCat">01 / 04 · SELECTION</div>
-          <h3 class="craft-step-title" id="craftStepTitle">Grain Selection</h3>
-        </div>
-        <div class="craft-indicator">
-          <div class="craft-bar-segment active"></div>
-          <div class="craft-bar-segment"></div>
-          <div class="craft-bar-segment"></div>
-          <div class="craft-bar-segment"></div>
-        </div>
-        <p class="craft-step-desc" id="craftStepDesc">
-          Every piece starts with inspecting raw kiln-dried timber for stability, natural figure, and character.
-        </p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ 06 / BESPOKE ============ -->
+<!-- ============ 04 / BESPOKE ============ -->
 <section class="sec-bespoke dark" id="bespoke" aria-label="Bespoke">
   <div class="wrap">
     <div class="sec-head">
       <div class="lbl reveal">
-        <div class="section-num"><span class="rule"></span>06 / Bespoke</div>
+        <div class="section-num"><span class="rule"></span>04 / Bespoke</div>
       </div>
       <h2 class="h-1 reveal">Your space.<br/>Your dimensions.<br/><em style="font-style:italic; color:var(--brass-2);">Your piece.</em></h2>
     </div>
@@ -2762,13 +2440,13 @@ body:not(.preloading) .hdr{ opacity: 1; transform: none; }
       <div class="bespoke-wide reveal-img">
         <picture>
           <source srcset="assets/bespoke-wide.avif" type="image/avif">
-          <img src="assets/bespoke-wide.jpg" alt="Walnut wood joinery in warm interior light" width="1670" height="1192" loading="eager" decoding="async" onload="this.closest('.bespoke-wide').classList.add('in','revealed');"/>
+          <img src="assets/bespoke-wide.jpg" alt="Walnut wood joinery in warm interior light" width="1670" height="1192" loading="eager" decoding="async" onload="this.closest('.bespoke-wide')?.classList.add('in','revealed');"/>
         </picture>
       </div>
       <div class="bespoke-inset reveal-img reveal-delay-2">
         <picture>
           <source srcset="assets/wood-detail.avif" type="image/avif">
-          <img src="assets/wood-detail.jpg" alt="Close-up detail of hand-finished wood grain" width="2560" height="1462" loading="eager" decoding="async" onload="this.closest('.bespoke-inset').classList.add('in','revealed');"/>
+          <img src="assets/wood-detail.jpg" alt="Close-up detail of hand-finished wood grain" width="2560" height="1462" loading="eager" decoding="async" onload="this.closest('.bespoke-inset')?.classList.add('in','revealed');"/>
         </picture>
       </div>
     </div>
@@ -2786,22 +2464,25 @@ body:not(.preloading) .hdr{ opacity: 1; transform: none; }
       <div class="process-step reveal reveal-delay-1">
         <span class="num">02</span>
         <span class="title">Design</span>
-        <span class="desc">Concepts, materials and dimensions, tailored to your home.</span>
+        <span class="desc">Drawings, material samples, and exact dimensions for your approval.</span>
       </div>
       <div class="process-step reveal reveal-delay-2">
         <span class="num">03</span>
         <span class="title">Craft</span>
-        <span class="desc">Built with skilled in-house craftsmanship at every stage.</span>
+        <span class="desc">Handcrafted by our own artisans using seasoned timber.</span>
       </div>
       <div class="process-step reveal reveal-delay-3">
         <span class="num">04</span>
-        <span class="title">Delivery + Install</span>
-        <span class="desc">We bring the piece to you, and place it, ourselves.</span>
+        <span class="title">Installation</span>
+        <span class="desc">Delivered and placed in your home by the people who made it.</span>
       </div>
     </div>
 
     <div class="bespoke-cta reveal">
-      <h3 class="h-3">Have something in mind? Let's design it around you.</h3>
+      <div>
+        <p class="lead-in">Ready to start?</p>
+        <p class="sub">Tell us about your project. We respond within hours.</p>
+      </div>
       <a class="cta on-dark whatsapp-cta" href="https://wa.me/8801960481983?text=Hello%20Heaven%20Furniture%20Mart%2C%20I%27d%20like%20to%20discuss%20a%20custom%20furniture%20project." target="_blank" rel="noopener noreferrer" data-whatsapp>
         Request a Custom Quote <span class="arr">→</span>
       </a>
@@ -2809,12 +2490,12 @@ body:not(.preloading) .hdr{ opacity: 1; transform: none; }
   </div>
 </section>
 
-<!-- ============ 07 / WHY HEAVEN ============ -->
+<!-- ============ 05 / WHY HEAVEN ============ -->
 <section class="sec-why" aria-label="Why Heaven">
   <div class="wrap">
     <div class="sec-head why-head">
       <div class="lbl reveal">
-        <div class="section-num"><span class="rule"></span>07 / Why Heaven</div>
+        <div class="section-num"><span class="rule"></span>05 / Why Heaven</div>
       </div>
       <h2 class="h-1 reveal">Craftsmanship you can see.<br/><em style="font-style:italic;">Details you can feel.</em></h2>
     </div>
@@ -2864,62 +2545,42 @@ body:not(.preloading) .hdr{ opacity: 1; transform: none; }
   </div>
 </section>
 
-<!-- ============ 08 / CLIENT STORIES ============ -->
-<section class="sec-clients" id="clients" aria-label="Client Stories">
+<!-- ============ 06 / HERITAGE & JOURNEY ============ -->
+<section class="sec-story" id="story" aria-label="Heritage & Journey">
   <div class="wrap">
-    <div class="clients-head">
-      <div class="section-num reveal"><span class="rule"></span>08 / Client Commissions</div>
-      <h2 class="h-1 reveal reveal-delay-1" style="margin-top:20px;">
-        What our clients say<br/><em style="font-style:italic;">about us</em>.
-      </h2>
-      <p class="lede reveal reveal-delay-2" style="margin-top:20px; max-width:580px;">
-        Real stories from people who chose custom furniture for their spaces.
-      </p>
+    <div class="sec-head">
+      <div class="lbl reveal">
+        <div class="section-num"><span class="rule"></span>06 / Heritage &amp; Journey</div>
+      </div>
+      <h2 class="h-1 reveal">A short<br/><em style="font-style:italic;">history</em> of Heaven.</h2>
     </div>
 
-    <div class="client-story-grid">
-      <!-- Story 01 -->
-      <article class="client-story-row">
-        <div class="client-photo-wrap reveal-img">
-          <picture>
-            <img src="assets/brand.jpg" alt="Residential living room with custom sectional sofa and Arabescato marble coffee table" loading="lazy" decoding="async" width="2560" height="1440"/>
-          </picture>
-        </div>
-        <div class="client-card reveal">
-          <div class="client-badge">COMMISSION 01 · RESIDENTIAL LIVING</div>
-          <blockquote class="client-quote">
-            “From our first consultation to the final placement in our living room, the team understood exactly the proportions our space needed. The joinery and Italian marble table are centerpieces we cherish every day.”
-          </blockquote>
-          <div class="client-meta">
-            <span class="client-name">Private Homeowner</span>
-            <span class="client-loc">Nasirabad Housing Society · Chattogram</span>
-          </div>
-        </div>
-      </article>
-
-      <!-- Story 02 -->
-      <article class="client-story-row reverse">
-        <div class="client-photo-wrap reveal-img">
-          <picture>
-            <img src="assets/story.jpg" alt="Architectural villa with double-height ceiling, bespoke bouclé curved sofa and travertine tables" loading="lazy" decoding="async" width="2560" height="1707"/>
-          </picture>
-        </div>
-        <div class="client-card reveal">
-          <div class="client-badge">COMMISSION 02 · ARCHITECTURAL RESIDENCE</div>
-          <blockquote class="client-quote">
-            “We commissioned a sweeping curved bouclé sofa and dining suite tailored to the double-height architecture of our villa. Heaven Furniture Mart crafted pieces that feel completely organic to our home.”
-          </blockquote>
-          <div class="client-meta">
-            <span class="client-name">Private Homeowner</span>
-            <span class="client-loc">Khulshi Hill Villa · Chattogram</span>
-          </div>
-        </div>
-      </article>
+    <div class="timeline">
+      <div class="tl-row">
+        <div class="tl-year">2020</div>
+        <div class="tl-event"><span class="kicker">Founded</span>Founded in Chattogram by Abul Kalam Bhuiyan.</div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-year">2021</div>
+        <div class="tl-event"><span class="kicker">Showroom</span>Opened the Agrabad showroom.</div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-year">2024<span style="font-size:0.55em; letter-spacing:-.02em; padding:0 .18em;">—</span>25</div>
+        <div class="tl-event"><span class="kicker">Exhibition</span>Exhibited at the International Furniture Fair, Chattogram.</div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-year">2025</div>
+        <div class="tl-event"><span class="kicker">Membership</span>Became a member of the Chamber of Commerce.</div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-year">2026</div>
+        <div class="tl-event"><span class="kicker">Recognition</span>Received nationwide BFIOA recognition.</div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ============ 09 / SHOWROOM ============ -->
+<!-- ============ 07 / SHOWROOM ============ -->
 <section class="sec-showroom dark" id="showroom" aria-label="Showroom">
   <div class="wrap-wide">
     <div class="showroom-grid">
@@ -2928,7 +2589,7 @@ body:not(.preloading) .hdr{ opacity: 1; transform: none; }
           <source media="(max-width: 720px)" srcset="assets/showroom-exterior.avif" type="image/avif" width="800" height="960"/>
           <source media="(max-width: 720px)" srcset="assets/showroom-exterior.jpg" type="image/jpeg" width="800" height="960"/>
           <source srcset="assets/showroom-hd.avif" type="image/avif" width="1454" height="1082"/>
-          <img src="assets/showroom-hd.jpg" alt="Heaven Furniture Mart showroom exterior on Agrabad Access Road, Chattogram" loading="lazy" decoding="async" width="1454" height="1082"/>
+          <img src="assets/showroom-hd.jpg" alt="Heaven Furniture Mart showroom exterior on Agrabad Access Road, Chattogram" loading="eager" decoding="async" width="1454" height="1082" onload="this.closest('.showroom-image-wrap')?.classList.add('in','revealed');"/>
         </picture>
         <div class="showroom-tag">
           <span class="dot"></span>
@@ -2938,7 +2599,7 @@ body:not(.preloading) .hdr{ opacity: 1; transform: none; }
 
       <div class="showroom-body">
         <div class="showroom-content">
-          <div class="section-num reveal" style="color:var(--brass-2)"><span class="rule"></span>09 / Showroom</div>
+          <div class="section-num reveal" style="color:var(--brass-2)"><span class="rule"></span>07 / Showroom</div>
           <h2 class="h-1 reveal reveal-delay-1">Come see<br/><em style="font-style:italic; color:var(--brass-2);">the craft</em>.</h2>
           <p class="lede reveal reveal-delay-2">
             Visit our showroom in Agrabad, Chattogram — and experience the materials, details, and craftsmanship in person.
@@ -2969,45 +2630,303 @@ body:not(.preloading) .hdr{ opacity: 1; transform: none; }
   </div>
 </section>
 
-<!-- ============ OUR STORY ============ -->
-<section class="sec-story" id="story" aria-label="Our Story">
-  <div class="wrap">
-    <div class="sec-head">
-      <div class="lbl reveal">
-        <div class="section-num"><span class="rule"></span>Heritage &amp; Journey</div>
+<!-- ============ CONTINUOUS EDITORIAL TICKER RIBBON ============ -->
+<div class="editorial-ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span class="ticker-item">Handcrafted <span class="sep">◆</span> Made to Order <span class="sep">◆</span> Bespoke Furniture <span class="sep">◆</span> Solid Timber <span class="sep">◆</span> Chattogram Atelier</span>
+    <span class="ticker-item">Handcrafted <span class="sep">◆</span> Made to Order <span class="sep">◆</span> Bespoke Furniture <span class="sep">◆</span> Solid Timber <span class="sep">◆</span> Chattogram Atelier</span>
+    <span class="ticker-item">Handcrafted <span class="sep">◆</span> Made to Order <span class="sep">◆</span> Bespoke Furniture <span class="sep">◆</span> Solid Timber <span class="sep">◆</span> Chattogram Atelier</span>
+    <span class="ticker-item">Handcrafted <span class="sep">◆</span> Made to Order <span class="sep">◆</span> Bespoke Furniture <span class="sep">◆</span> Solid Timber <span class="sep">◆</span> Chattogram Atelier</span>
+  </div>
+</div>
+
+<!-- ============ 08 / SIGNATURE FURNITURES ============ -->
+<section class="sec-signature" id="signature" aria-label="Signature Furnitures">
+  <div class="sig-sticky">
+    <div class="sig-head">
+      <div class="sig-title-wrap">
+        <div class="section-num" style="color:var(--brass-2)"><span class="rule"></span>08 / Signature Furnitures</div>
+        <h2 class="h-1" style="color:var(--ivory); margin-top:14px;">
+          Pieces made<br/><em style="font-style:italic; color:var(--brass-2);">to be remembered</em>.
+        </h2>
       </div>
-      <h2 class="h-1 reveal">A short<br/><em style="font-style:italic;">history</em> of Heaven.</h2>
+      <div class="sig-progress-counter mono" id="sigCounter">
+        <span class="curr" id="sigCurr">01</span><span class="sep">/</span><span class="total">05</span>
+        <span style="color:rgba(244,239,230,0.5); padding: 0 4px;">·</span>
+        <span class="sig-label" id="sigLabel" style="color:var(--ivory);">Living Suite</span>
+      </div>
     </div>
 
-    <div class="timeline">
-      <div class="tl-row">
-        <div class="tl-year">2020</div>
-        <div class="tl-event"><span class="kicker">Founded</span>Founded in Chattogram by Abul Kalam Bhuiyan.</div>
+    <div class="sig-stage" id="sigStage">
+      <!-- Slide 01 -->
+      <div class="sig-slide active" data-sig-idx="0" data-cat="LIVING" data-title="Bespoke Sectional &amp; Marble Low Table" data-sub="Tailored bouclé seating paired with handcrafted Italian Arabescato marble joinery." data-img="assets/brand.jpg" data-alt="Bespoke white sectional sofa with Italian marble low coffee table in a luxury living room">
+        <picture>
+          <img src="assets/brand.jpg" alt="Bespoke white sectional sofa with Italian marble low coffee table in a luxury living room" loading="eager" decoding="async" width="2560" height="1440"/>
+        </picture>
+        <div class="sig-slide-overlay">
+          <div>
+            <div class="sig-slide-cat">01 / 05 · LIVING</div>
+            <h3 class="sig-slide-title">Bespoke Sectional &amp; Marble Low Table</h3>
+            <p class="sig-slide-sub">Tailored bouclé seating paired with handcrafted Italian Arabescato marble joinery.</p>
+          </div>
+          <div class="sig-slide-actions">
+            <button class="sig-expand-btn" data-sig-expand="0" aria-label="Inspect Bespoke Sectional details">View Details ↗</button>
+          </div>
+        </div>
       </div>
-      <div class="tl-row">
-        <div class="tl-year">2021</div>
-        <div class="tl-event"><span class="kicker">Showroom</span>Opened the Agrabad showroom.</div>
+
+      <!-- Slide 02 -->
+      <div class="sig-slide" data-sig-idx="1" data-cat="DINING" data-title="Solid Timber Pedestal Dining Suite" data-sub="Continuous-grain oval dining table with fluted timber pedestal and custom leather seating." data-img="assets/dining.jpg" data-alt="Minimal dining room featuring a solid wood oval table and contemporary leather chairs">
+        <picture>
+          <source srcset="assets/dining.avif" type="image/avif">
+          <img src="assets/dining.jpg" alt="Minimal dining room featuring a solid wood oval table and contemporary leather chairs" loading="lazy" decoding="async" width="2560" height="1707"/>
+        </picture>
+        <div class="sig-slide-overlay">
+          <div>
+            <div class="sig-slide-cat">02 / 05 · DINING</div>
+            <h3 class="sig-slide-title">Solid Timber Pedestal Dining Suite</h3>
+            <p class="sig-slide-sub">Continuous-grain oval dining table with fluted timber pedestal and custom leather seating.</p>
+          </div>
+          <div class="sig-slide-actions">
+            <button class="sig-expand-btn" data-sig-expand="1" aria-label="Inspect Solid Timber Pedestal Dining Suite details">View Details ↗</button>
+          </div>
+        </div>
       </div>
-      <div class="tl-row">
-        <div class="tl-year">2024<span style="font-size:0.55em; letter-spacing:-.02em; padding:0 .18em;">—</span>25</div>
-        <div class="tl-event"><span class="kicker">Exhibition</span>Exhibited at the International Furniture Fair, Chattogram.</div>
+
+      <!-- Slide 03 -->
+      <div class="sig-slide" data-sig-idx="2" data-cat="BEDROOM" data-title="Low Platform Minimalist Bed" data-sub="Solid teak low-profile joinery with integrated floating nightstands and woven linen upholstery." data-img="assets/bedroom.jpg" data-alt="Warm minimal bedroom with low platform bespoke bed and warm architectural lighting">
+        <picture>
+          <source srcset="assets/bedroom.avif" type="image/avif">
+          <img src="assets/bedroom.jpg" alt="Warm minimal bedroom with low platform bespoke bed and warm architectural lighting" loading="lazy" decoding="async" width="2560" height="1440"/>
+        </picture>
+        <div class="sig-slide-overlay">
+          <div>
+            <div class="sig-slide-cat">03 / 05 · BEDROOM</div>
+            <h3 class="sig-slide-title">Low Platform Minimalist Bed</h3>
+            <p class="sig-slide-sub">Solid teak low-profile joinery with integrated floating nightstands and woven linen upholstery.</p>
+          </div>
+          <div class="sig-slide-actions">
+            <button class="sig-expand-btn" data-sig-expand="2" aria-label="Inspect Low Platform Minimalist Bed details">View Details ↗</button>
+          </div>
+        </div>
       </div>
-      <div class="tl-row">
-        <div class="tl-year">2025</div>
-        <div class="tl-event"><span class="kicker">Membership</span>Became a member of the Chamber of Commerce.</div>
+
+      <!-- Slide 04 -->
+      <div class="sig-slide" data-sig-idx="3" data-cat="LIVING" data-title="Sculptural Curved Bouclé Lounge" data-sub="Organic sweeping silhouette crafted with kiln-dried timber framing and artisan bouclé." data-img="assets/story.jpg" data-alt="Double height luxury villa with a curved sculptural white bouclé sofa and travertine tables">
+        <picture>
+          <img src="assets/story.jpg" alt="Double height luxury villa with a curved sculptural white bouclé sofa and travertine tables" loading="lazy" decoding="async" width="2560" height="1707"/>
+        </picture>
+        <div class="sig-slide-overlay">
+          <div>
+            <div class="sig-slide-cat">04 / 05 · LIVING</div>
+            <h3 class="sig-slide-title">Sculptural Curved Bouclé Lounge</h3>
+            <p class="sig-slide-sub">Organic sweeping silhouette crafted with kiln-dried timber framing and artisan bouclé.</p>
+          </div>
+          <div class="sig-slide-actions">
+            <button class="sig-expand-btn" data-sig-expand="3" aria-label="Inspect Sculptural Curved Bouclé Lounge details">View Details ↗</button>
+          </div>
+        </div>
       </div>
-      <div class="tl-row">
-        <div class="tl-year">2026</div>
-        <div class="tl-event"><span class="kicker">Recognition</span>Received nationwide BFIOA recognition.</div>
+
+      <!-- Slide 05 -->
+      <div class="sig-slide" data-sig-idx="4" data-cat="OFFICE &amp; STUDY" data-title="Executive Walnut Joinery Desk" data-sub="Architectural study desk featuring hand-cut mitred edges and solid brass hardware inlay." data-img="assets/office.jpg" data-alt="Executive walnut joinery desk with architectural detailing in a refined study">
+        <picture>
+          <source srcset="assets/office.avif" type="image/avif">
+          <img src="assets/office.jpg" alt="Executive walnut joinery desk with architectural detailing in a refined study" loading="lazy" decoding="async" width="570" height="570"/>
+        </picture>
+        <div class="sig-slide-overlay">
+          <div>
+            <div class="sig-slide-cat">05 / 05 · OFFICE &amp; STUDY</div>
+            <h3 class="sig-slide-title">Executive Walnut Joinery Desk</h3>
+            <p class="sig-slide-sub">Architectural study desk featuring hand-cut mitred edges and solid brass hardware inlay.</p>
+          </div>
+          <div class="sig-slide-actions">
+            <button class="sig-expand-btn" data-sig-expand="4" aria-label="Inspect Executive Walnut Joinery Desk details">View Details ↗</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sig-bottom-row">
+      <div class="sig-progress-track">
+        <div class="sig-progress-fill" id="sigProgressFill"></div>
+      </div>
+      <span class="sig-hint">Scroll to advance timeline · Click to inspect piece</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 09 / FEATURED PIECES ============ -->
+<section class="sec-featured" id="featured" aria-label="Featured Pieces">
+  <div class="wrap">
+    <div class="feat-head">
+      <div class="lbl reveal">
+        <div class="section-num"><span class="rule"></span>09 / Featured Pieces</div>
+      </div>
+      <h2 class="h-1 reveal">Architectural catalog.<br/><em style="font-style:italic;">Formed with intention</em>.</h2>
+    </div>
+
+    <div class="feat-grid">
+      <!-- Card 1 -->
+      <div class="feat-card reveal" data-feat-idx="0" data-cat="LIVING" data-title="Sculptural Charcoal Lounge Chair" data-sub="Tailored charcoal velvet upholstery with kiln-dried solid timber frame." data-img="assets/hero-video-poster.jpg" data-alt="Sculptural charcoal velvet lounge chair in an architectural interior">
+        <div class="feat-media">
+          <picture>
+            <source srcset="assets/hero-video-poster.avif" type="image/avif">
+            <img src="assets/hero-video-poster.jpg" alt="Sculptural charcoal velvet lounge chair in an architectural interior" loading="lazy" decoding="async" width="1920" height="1080"/>
+          </picture>
+        </div>
+        <div class="feat-body">
+          <span class="feat-cat">LIVING</span>
+          <h3 class="feat-title">Sculptural Charcoal Lounge Chair</h3>
+          <p class="feat-desc">Tailored charcoal velvet upholstery with kiln-dried solid timber frame.</p>
+          <span class="feat-link">Inspect Details <span class="arr">→</span></span>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="feat-card reveal reveal-delay-1" data-feat-idx="1" data-cat="BESPOKE" data-title="Solarium Teak Credenza" data-sub="Four-bay slatted front with integrated cable pass-throughs and soft-close German hardware." data-img="assets/brand.jpg" data-alt="Four-bay slatted teak credenza in an architectural living room">
+        <div class="feat-media">
+          <picture>
+            <img src="assets/brand.jpg" alt="Four-bay slatted teak credenza in an architectural living room" loading="lazy" decoding="async" width="2560" height="1440"/>
+          </picture>
+        </div>
+        <div class="feat-body">
+          <span class="feat-cat">BESPOKE</span>
+          <h3 class="feat-title">Solarium Teak Credenza</h3>
+          <p class="feat-desc">Four-bay slatted front with integrated cable pass-throughs and soft-close German hardware.</p>
+          <span class="feat-link">Inspect Details <span class="arr">→</span></span>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="feat-card reveal reveal-delay-2" data-feat-idx="2" data-cat="DINING" data-title="Minimalist Oak Dining Setting" data-sub="Continuous grain round table with cantilevered sculptural backrests." data-img="assets/dining.jpg" data-alt="Solid wood dining setting in a bright minimalist dining room">
+        <div class="feat-media">
+          <picture>
+            <source srcset="assets/dining.avif" type="image/avif">
+            <img src="assets/dining.jpg" alt="Solid wood dining setting in a bright minimalist dining room" loading="lazy" decoding="async" width="2560" height="1707"/>
+          </picture>
+        </div>
+        <div class="feat-body">
+          <span class="feat-cat">DINING</span>
+          <h3 class="feat-title">Minimalist Oak Dining Setting</h3>
+          <p class="feat-desc">Continuous grain round table with cantilevered sculptural backrests.</p>
+          <span class="feat-link">Inspect Details <span class="arr">→</span></span>
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="feat-card reveal reveal-delay-3" data-feat-idx="3" data-cat="OFFICE &amp; STUDY" data-title="Executive Walnut Desk Suite" data-sub="Floating leather blotter inlay, discreet wireless charging module, and wire management." data-img="assets/office.jpg" data-alt="Executive walnut study desk in a tailored home library">
+        <div class="feat-media">
+          <picture>
+            <source srcset="assets/office.avif" type="image/avif">
+            <img src="assets/office.jpg" alt="Executive walnut study desk in a tailored home library" loading="lazy" decoding="async" width="570" height="570"/>
+          </picture>
+        </div>
+        <div class="feat-body">
+          <span class="feat-cat">OFFICE &amp; STUDY</span>
+          <h3 class="feat-title">Executive Walnut Desk Suite</h3>
+          <p class="feat-desc">Floating leather blotter inlay, discreet wireless charging module, and wire management.</p>
+          <span class="feat-link">Inspect Details <span class="arr">→</span></span>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============ 10 / FINAL EDITORIAL CTA ============ -->
-<section class="sec-final" aria-label="Contact">
+<!-- ============ 10 / FROM SKETCH TO SPACE ============ -->
+<section class="sec-craft-story" id="sketch-space" aria-label="From Sketch to Space">
+  <div class="craft-sticky">
+    <div class="craft-header">
+      <div class="section-num" style="color:var(--brass-2); justify-content:center;"><span class="rule"></span>10 / From Sketch to Space</div>
+      <h2 class="h-1" style="color:var(--ivory); margin-top:14px; text-align:center;">
+        From pencil<br/><em style="font-style:italic; color:var(--brass-2);">to provenance</em>.
+      </h2>
+    </div>
+
+    <div class="craft-stage-wrap">
+      <div class="craft-frame" id="craftFrame">
+        <!-- Layer 1: Realized design (bottom) -->
+        <div class="craft-layer-design">
+          <picture>
+            <img src="assets/story.jpg" alt="The Realization — Bespoke executive living suite in solid timber" width="2560" height="1707" loading="eager" decoding="async"/>
+          </picture>
+        </div>
+        <!-- Layer 2: Architectural sketch (top overlay, dissolves on scroll) -->
+        <div class="craft-layer-sketch" id="craftSketchLayer">
+          <img src="assets/sketch-story.jpg" alt="The Conception — Architectural line drawing and joinery study" width="1920" height="1280" loading="eager" decoding="async"/>
+        </div>
+      </div>
+
+      <div class="craft-caption-bar">
+        <div class="craft-caption-text">
+          <span class="craft-caption-label" id="craftLabel">THE CONCEPTION</span>
+          <span class="craft-caption-title" id="craftTitle">Architectural proportion and joinery study</span>
+        </div>
+        <div class="craft-scroll-hint mono">
+          <span>Scroll to transform</span>
+          <span class="craft-progress-pct" id="craftPct">0%</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 11 / CLIENT STORIES ============ -->
+<section class="sec-clients" id="clients" aria-label="Client Stories">
+  <div class="wrap">
+    <div class="sec-head clients-head">
+      <div class="lbl reveal">
+        <div class="section-num"><span class="rule"></span>11 / Client Stories</div>
+      </div>
+      <h2 class="h-1 reveal">Spaces lived in.<br/><em style="font-style:italic;">Stories told</em>.</h2>
+    </div>
+
+    <div class="client-story-grid">
+      <!-- Story 1 -->
+      <article class="client-story-row">
+        <div class="client-photo-wrap reveal-img">
+          <picture>
+            <img src="assets/brand.jpg" alt="Bespoke Heaven Furniture pieces inside a high-ceiling residential interior in Khulshi, Chattogram" loading="eager" decoding="async" width="2560" height="1440"/>
+          </picture>
+        </div>
+        <div class="client-card reveal">
+          <div class="client-badge">Residential Commission · Khulshi</div>
+          <blockquote class="client-quote">
+            “Heaven created a bespoke sectional and low marble table that completely anchored our high-ceiling living space. The wood tone is impeccable.”
+          </blockquote>
+          <div class="client-meta">
+            <span class="client-name">Engr. Tariq &amp; Farzana Rahman</span>
+            <span class="client-loc">Khulshi Hills, Chattogram</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Story 2 -->
+      <article class="client-story-row reverse">
+        <div class="client-photo-wrap reveal-img">
+          <picture>
+            <img src="assets/story.jpg" alt="Custom curved bouclé lounge and walnut millwork in a contemporary duplex villa in Nasirabad" loading="eager" decoding="async" width="2560" height="1707"/>
+          </picture>
+        </div>
+        <div class="client-card reveal">
+          <div class="client-badge">Duplex Villa · Nasirabad Housing</div>
+          <blockquote class="client-quote">
+            “Every joint, edge, and finish feels deliberate and architectural. It is rare to find this standard of craftsmanship locally in Bangladesh.”
+          </blockquote>
+          <div class="client-meta">
+            <span class="client-name">Dr. M. S. Chowdhury</span>
+            <span class="client-loc">Nasirabad, Chattogram</span>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 12 / BESPOKE COMMISSIONS (FINAL CTA) ============ -->
+<section class="sec-final" id="final-cta" aria-label="Contact">
   <div class="wrap final-inner">
-    <div class="section-num reveal" style="color:var(--brass-2)"><span class="rule"></span>10 / Bespoke Commissions</div>
+    <div class="section-num reveal" style="color:var(--brass-2)"><span class="rule"></span>12 / Bespoke Commissions</div>
     <h2 class="h-display reveal">
       Made to be lived with,<br/><em style="font-style:italic; color:var(--brass-2);">not looked at</em>.
     </h2>
@@ -3498,7 +3417,10 @@ body:not(.preloading) .hdr{ opacity: 1; transform: none; }
       }
     }
 
-    // 7. SCROLL-DRIVEN CRAFT STORY
+    // 7. SIGNATURE SCROLL TIMELINE
+    if (typeof updateSignatureTimeline === 'function') updateSignatureTimeline();
+
+    // 8. SCROLL-DRIVEN FROM SKETCH TO SPACE
     if (typeof updateCraftStory === 'function') updateCraftStory();
   }
 
@@ -3518,168 +3440,137 @@ body:not(.preloading) .hdr{ opacity: 1; transform: none; }
   // Initial calculation after page settles
   setTimeout(requestScrollTick, hasSeenIntro || reducedMotion ? 100 : 1600);
 
-  // ---------- 02 / SIGNATURE FURNITURES SHOWCASE ----------
-  var sigTrack = document.getElementById('sigTrack');
-  var sigCards = sigTrack ? Array.from(sigTrack.querySelectorAll('.sig-card')) : [];
-  var sigDots = Array.from(document.querySelectorAll('.sig-dot'));
-  var sigPrev = document.getElementById('sigPrev');
-  var sigNext = document.getElementById('sigNext');
+  // ---------- 08 / SIGNATURE FURNITURES (PINNED VERTICAL SCROLL TIMELINE) ----------
+  var sigSec = document.getElementById('signature');
+  var sigSlides = sigSec ? Array.from(sigSec.querySelectorAll('.sig-slide')) : [];
+  var sigCurr = document.getElementById('sigCurr');
+  var sigLabel = document.getElementById('sigLabel');
+  var sigProgressFill = document.getElementById('sigProgressFill');
   var sigActiveIdx = 0;
-  var sigStartX = 0;
-  var sigCurrentX = 0;
-  var sigIsDragging = false;
-  var sigDragThreshold = 50;
 
-  function updateSigSlide(idx, animate){
-    if (!sigTrack || sigCards.length === 0) return;
-    sigActiveIdx = Math.max(0, Math.min(sigCards.length - 1, idx));
-    
-    sigCards.forEach(function(c, i){
-      c.classList.toggle('active', i === sigActiveIdx);
+  var sigPieces = sigSlides.map(function(slide){
+    return {
+      cat: slide.getAttribute('data-cat') || 'LIVING',
+      title: slide.getAttribute('data-title') || 'Signature Piece',
+      sub: slide.getAttribute('data-sub') || '',
+      img: slide.getAttribute('data-img') || '',
+      alt: slide.getAttribute('data-alt') || ''
+    };
+  });
+
+  function setSignatureSlide(idx){
+    if (!sigSlides.length) return;
+    sigActiveIdx = Math.max(0, Math.min(sigSlides.length - 1, idx));
+    sigSlides.forEach(function(s, i){
+      s.classList.toggle('active', i === sigActiveIdx);
     });
-
-    sigDots.forEach(function(d, i){
-      d.classList.toggle('active', i === sigActiveIdx);
-    });
-
-    var activeCard = sigCards[sigActiveIdx];
-    var cardCenter = activeCard.offsetLeft + activeCard.offsetWidth / 2;
-    var trackCenter = sigTrack.parentElement.offsetWidth / 2;
-    var targetTranslate = trackCenter - cardCenter;
-
-    if (animate !== false){
-      sigTrack.style.transition = 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)';
-    } else {
-      sigTrack.style.transition = 'none';
-    }
-    sigTrack.style.transform = 'translate3d(' + targetTranslate.toFixed(2) + 'px, 0, 0)';
+    if (sigCurr) sigCurr.textContent = (sigActiveIdx + 1 < 10 ? '0' : '') + (sigActiveIdx + 1);
+    if (sigLabel && sigPieces[sigActiveIdx]) sigLabel.textContent = sigPieces[sigActiveIdx].title;
+    if (sigProgressFill) sigProgressFill.style.width = (((sigActiveIdx + 1) / sigSlides.length) * 100) + '%';
   }
 
-  if (sigTrack){
-    updateSigSlide(0, false);
-    window.addEventListener('resize', function(){ updateSigSlide(sigActiveIdx, false); }, { passive: true });
+  function updateSignatureTimeline(){
+    if (!sigSec || sigSlides.length === 0) return;
+    var rect = sigSec.getBoundingClientRect();
+    var vh = window.innerHeight;
+    var totalScroll = sigSec.offsetHeight - vh;
+    if (totalScroll <= 0) return;
 
-    if (sigPrev) sigPrev.addEventListener('click', function(){ updateSigSlide(sigActiveIdx - 1); });
-    if (sigNext) sigNext.addEventListener('click', function(){ updateSigSlide(sigActiveIdx + 1); });
-
-    sigDots.forEach(function(dot, i){
-      dot.addEventListener('click', function(){ updateSigSlide(i); });
-    });
-
-    var _hasMoved = false;
-    sigTrack.addEventListener('pointerdown', function(e){
-      sigIsDragging = true;
-      _hasMoved = false;
-      sigStartX = e.clientX;
-      sigCurrentX = e.clientX;
-      sigTrack.classList.add('is-dragging');
-    });
-
-    window.addEventListener('pointermove', function(e){
-      if (!sigIsDragging) return;
-      sigCurrentX = e.clientX;
-      var diffX = sigCurrentX - sigStartX;
-      if (Math.abs(diffX) > 6) _hasMoved = true;
-      var activeCard = sigCards[sigActiveIdx];
-      var cardCenter = activeCard.offsetLeft + activeCard.offsetWidth / 2;
-      var trackCenter = sigTrack.parentElement.offsetWidth / 2;
-      var currentOffset = trackCenter - cardCenter;
-      sigTrack.style.transition = 'none';
-      sigTrack.style.transform = 'translate3d(' + (currentOffset + diffX).toFixed(2) + 'px, 0, 0)';
-    });
-
-    window.addEventListener('pointerup', function(){
-      if (!sigIsDragging) return;
-      sigIsDragging = false;
-      sigTrack.classList.remove('is-dragging');
-      var diffX = sigCurrentX - sigStartX;
-      if (diffX < -sigDragThreshold){
-        updateSigSlide(sigActiveIdx + 1);
-      } else if (diffX > sigDragThreshold){
-        updateSigSlide(sigActiveIdx - 1);
-      } else {
-        updateSigSlide(sigActiveIdx);
+    if (rect.top <= 0 && rect.bottom >= vh){
+      var progress = Math.max(0, Math.min(0.999, -rect.top / totalScroll));
+      var idx = Math.floor(progress * sigSlides.length);
+      if (idx !== sigActiveIdx){
+        setSignatureSlide(idx);
       }
-    });
+    } else if (rect.top > 0){
+      if (sigActiveIdx !== 0) setSignatureSlide(0);
+    } else if (rect.bottom < vh){
+      if (sigActiveIdx !== sigSlides.length - 1) setSignatureSlide(sigSlides.length - 1);
+    }
+  }
 
-    sigCards.forEach(function(card, idx){
-      card.addEventListener('click', function(){
-        if (_hasMoved) return;
-        if (idx !== sigActiveIdx){
-          updateSigSlide(idx);
+  // Click on slide stage opens Detail Viewer
+  sigSlides.forEach(function(slide, idx){
+    slide.addEventListener('click', function(e){
+      if (e.target.closest('.whatsapp-cta')) return;
+      openDetailViewer(idx, sigPieces);
+    });
+  });
+
+  var sigStageEl = document.getElementById('sigStage');
+  if (sigStageEl){
+    sigStageEl.addEventListener('click', function(e){
+      if (e.target.closest('.whatsapp-cta')) return;
+      openDetailViewer(sigActiveIdx, sigPieces);
+    });
+  }
+
+  // ---------- 09 / FEATURED PIECES (ARCHITECTURAL CATALOG) ----------
+  var featCards = Array.from(document.querySelectorAll('.feat-card'));
+  var featPieces = featCards.map(function(card){
+    return {
+      cat: card.getAttribute('data-cat') || 'FEATURED',
+      title: card.getAttribute('data-title') || 'Featured Piece',
+      sub: card.getAttribute('data-sub') || '',
+      img: card.getAttribute('data-img') || '',
+      alt: card.getAttribute('data-alt') || ''
+    };
+  });
+
+  featCards.forEach(function(card, idx){
+    card.addEventListener('click', function(e){
+      if (e.target.closest('.whatsapp-cta')) return;
+      openDetailViewer(idx, featPieces);
+    });
+  });
+
+  // ---------- 10 / FROM SKETCH TO SPACE (PURE 2-STATE SCROLL ENGINE) ----------
+  var craftStorySec = document.getElementById('sketch-space') || document.querySelector('.sec-craft-story');
+  var craftSketchLayer = document.getElementById('craftSketchLayer');
+  var craftLabel = document.getElementById('craftLabel');
+  var craftTitle = document.getElementById('craftTitle');
+  var craftPct = document.getElementById('craftPct');
+
+  function updateCraftStory(){
+    if (!craftStorySec) return;
+    var rect = craftStorySec.getBoundingClientRect();
+    var vh = window.innerHeight;
+    var totalScroll = craftStorySec.offsetHeight - vh;
+    if (totalScroll <= 0) return;
+
+    if (rect.top <= 0 && rect.bottom >= vh){
+      var progress = Math.max(0, Math.min(1, -rect.top / totalScroll));
+      
+      // Pure 2-state transformation:
+      // At start (0%): 100% Sketch
+      // At end (100%): 100% Finished Design
+      var sketchOpacity = Math.max(0, Math.min(1, 1 - progress * 1.3));
+      if (craftSketchLayer){
+        craftSketchLayer.style.opacity = sketchOpacity.toFixed(3);
+      }
+      if (craftPct){
+        craftPct.textContent = Math.round(progress * 100) + '%';
+      }
+      if (craftLabel && craftTitle){
+        if (progress < 0.5){
+          craftLabel.textContent = 'THE CONCEPTION';
+          craftTitle.textContent = 'Architectural proportion and joinery study';
         } else {
-          openDetailViewer(idx, sigPieces);
+          craftLabel.textContent = 'THE REALIZATION';
+          craftTitle.textContent = 'Bespoke executive living suite in solid timber';
         }
-      });
-    });
-  }
-
-  // ---------- 04 / FEATURED PIECES RAIL ----------
-  var featTrack = document.getElementById('featTrack');
-  var featPrev = document.getElementById('featPrev');
-  var featNext = document.getElementById('featNext');
-  var featCards = featTrack ? Array.from(featTrack.querySelectorAll('.feat-card')) : [];
-  var featOffset = 0;
-  var featIsDragging = false;
-  var featStartX = 0;
-  var featCurrentX = 0;
-  var featMoved = false;
-
-  function setFeatOffset(offset){
-    if (!featTrack) return;
-    var maxOffset = Math.max(0, featTrack.scrollWidth - featTrack.parentElement.offsetWidth);
-    featOffset = Math.max(0, Math.min(maxOffset, offset));
-    featTrack.style.transform = 'translate3d(' + (-featOffset).toFixed(2) + 'px, 0, 0)';
-  }
-
-  if (featTrack){
-    if (featPrev){
-      featPrev.addEventListener('click', function(){
-        var cardW = featCards[0] ? featCards[0].offsetWidth + 24 : 320;
-        setFeatOffset(featOffset - cardW);
-      });
+      }
+    } else if (rect.top > 0){
+      if (craftSketchLayer) craftSketchLayer.style.opacity = '1';
+      if (craftPct) craftPct.textContent = '0%';
+      if (craftLabel) craftLabel.textContent = 'THE CONCEPTION';
+      if (craftTitle) craftTitle.textContent = 'Architectural proportion and joinery study';
+    } else if (rect.bottom < vh){
+      if (craftSketchLayer) craftSketchLayer.style.opacity = '0';
+      if (craftPct) craftPct.textContent = '100%';
+      if (craftLabel) craftLabel.textContent = 'THE REALIZATION';
+      if (craftTitle) craftTitle.textContent = 'Bespoke executive living suite in solid timber';
     }
-    if (featNext){
-      featNext.addEventListener('click', function(){
-        var cardW = featCards[0] ? featCards[0].offsetWidth + 24 : 320;
-        setFeatOffset(featOffset + cardW);
-      });
-    }
-
-    featTrack.addEventListener('pointerdown', function(e){
-      featIsDragging = true;
-      featMoved = false;
-      featStartX = e.clientX;
-      featCurrentX = e.clientX;
-      featTrack.classList.add('is-dragging');
-    });
-
-    window.addEventListener('pointermove', function(e){
-      if (!featIsDragging) return;
-      featCurrentX = e.clientX;
-      var diffX = featCurrentX - featStartX;
-      if (Math.abs(diffX) > 6) featMoved = true;
-      var maxOffset = Math.max(0, featTrack.scrollWidth - featTrack.parentElement.offsetWidth);
-      var target = featOffset - diffX;
-      featTrack.style.transition = 'none';
-      featTrack.style.transform = 'translate3d(' + (-Math.max(-40, Math.min(maxOffset + 40, target))).toFixed(2) + 'px, 0, 0)';
-    });
-
-    window.addEventListener('pointerup', function(){
-      if (!featIsDragging) return;
-      featIsDragging = false;
-      featTrack.classList.remove('is-dragging');
-      featTrack.style.transition = 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)';
-      var diffX = featCurrentX - featStartX;
-      setFeatOffset(featOffset - diffX);
-    });
-
-    featCards.forEach(function(card, idx){
-      card.addEventListener('click', function(){
-        if (featMoved) return;
-        openDetailViewer(idx, featPieces);
-      });
-    });
   }
 
   // ---------- FURNITURE DETAIL VIEWER (LIGHTBOX) ----------
@@ -3698,26 +3589,6 @@ body:not(.preloading) .hdr{ opacity: 1; transform: none; }
 
   var currentViewerPieces = [];
   var currentViewerIdx = 0;
-
-  var sigPieces = sigCards.map(function(card){
-    return {
-      cat: card.getAttribute('data-cat') || 'LIVING',
-      title: card.getAttribute('data-title') || 'Signature Piece',
-      sub: card.getAttribute('data-sub') || '',
-      img: card.getAttribute('data-img') || '',
-      alt: card.getAttribute('data-alt') || ''
-    };
-  });
-
-  var featPieces = featCards.map(function(card){
-    return {
-      cat: card.getAttribute('data-cat') || 'FEATURED',
-      title: card.getAttribute('data-title') || 'Featured Piece',
-      sub: card.getAttribute('data-sub') || '',
-      img: card.getAttribute('data-img') || '',
-      alt: card.getAttribute('data-alt') || ''
-    };
-  });
 
   function renderViewerPiece(idx){
     if (!currentViewerPieces || currentViewerPieces.length === 0) return;
@@ -3743,7 +3614,7 @@ body:not(.preloading) .hdr{ opacity: 1; transform: none; }
   }
 
   function openDetailViewer(idx, piecesArray){
-    currentViewerPieces = piecesArray && piecesArray.length > 0 ? piecesArray : sigPieces;
+    currentViewerPieces = piecesArray && piecesArray.length > 0 ? piecesArray : (sigPieces.length ? sigPieces : featPieces);
     renderViewerPiece(idx);
     if (detailViewer){
       detailViewer.classList.add('is-open');
@@ -3762,8 +3633,8 @@ body:not(.preloading) .hdr{ opacity: 1; transform: none; }
 
   if (dvClose) dvClose.addEventListener('click', closeDetailViewer);
   if (dvBackdrop) dvBackdrop.addEventListener('click', closeDetailViewer);
-  if (dvPrev) dvPrev.addEventListener('click', function(){ renderViewerPiece(currentViewerIdx - 1); });
-  if (dvNext) dvNext.addEventListener('click', function(){ renderViewerPiece(currentViewerIdx + 1); });
+  if (dvPrev) dvPrev.addEventListener('click', function(e){ e.stopPropagation(); renderViewerPiece(currentViewerIdx - 1); });
+  if (dvNext) dvNext.addEventListener('click', function(e){ e.stopPropagation(); renderViewerPiece(currentViewerIdx + 1); });
 
   window.addEventListener('keydown', function(e){
     if (!detailViewer || !detailViewer.classList.contains('is-open')) return;
@@ -3784,54 +3655,6 @@ body:not(.preloading) .hdr{ opacity: 1; transform: none; }
         else if (diff < -50) renderViewerPiece(currentViewerIdx + 1);
       }
     }, { passive: true });
-  }
-
-  // ---------- 05 / SCROLL-DRIVEN CRAFT STORY ENGINE ----------
-  var craftStorySec = document.getElementById('craftStory');
-  var craftLayers = craftStorySec ? Array.from(craftStorySec.querySelectorAll('.craft-layer')) : [];
-  var craftBars = craftStorySec ? Array.from(craftStorySec.querySelectorAll('.craft-bar-segment')) : [];
-  var craftStepCat = document.getElementById('craftStepCat');
-  var craftStepTitle = document.getElementById('craftStepTitle');
-  var craftStepDesc = document.getElementById('craftStepDesc');
-
-  var craftData = [
-    { cat: '01 / 04 · SELECTION', title: 'Grain Selection', desc: 'Every piece starts with inspecting raw kiln-dried timber for stability, natural figure, and character.' },
-    { cat: '02 / 04 · JOINERY', title: 'Architectural Joinery', desc: 'Hand-fluted solid battens and precision fitted joints shaped by master artisans in our Chattogram atelier.' },
-    { cat: '03 / 04 · FINISHING', title: 'Tailored Upholstery', desc: 'Hand-rubbed organic oils and sculptural textile tailoring brought together for enduring tactile comfort.' },
-    { cat: '04 / 04 · THE SPACE', title: 'The Completed Space', desc: 'Installed and seamlessly integrated into the architectural rhythm of your personal home.' }
-  ];
-
-  function updateCraftStory(){
-    if (!craftStorySec || craftLayers.length === 0) return;
-    var rect = craftStorySec.getBoundingClientRect();
-    var vh = window.innerHeight;
-    var totalScroll = craftStorySec.offsetHeight - vh;
-    if (totalScroll <= 0) return;
-
-    if (rect.top <= 0 && rect.bottom >= vh){
-      var progress = Math.max(0, Math.min(0.999, -rect.top / totalScroll));
-      var step = Math.floor(progress * 4);
-
-      craftLayers.forEach(function(layer, i){
-        layer.classList.toggle('active', i === step);
-      });
-      craftBars.forEach(function(bar, i){
-        bar.classList.toggle('active', i === step);
-      });
-
-      var data = craftData[step];
-      if (data && craftStepTitle && craftStepTitle.textContent !== data.title){
-        if (craftStepCat) craftStepCat.textContent = data.cat;
-        if (craftStepTitle) craftStepTitle.textContent = data.title;
-        if (craftStepDesc) craftStepDesc.textContent = data.desc;
-      }
-    } else if (rect.top > 0){
-      craftLayers.forEach(function(layer, i){ layer.classList.toggle('active', i === 0); });
-      craftBars.forEach(function(bar, i){ bar.classList.toggle('active', i === 0); });
-    } else if (rect.bottom < vh){
-      craftLayers.forEach(function(layer, i){ layer.classList.toggle('active', i === 3); });
-      craftBars.forEach(function(bar, i){ bar.classList.toggle('active', i === 3); });
-    }
   }
 })();
 </script>
