@@ -45,6 +45,7 @@
 
   --pad: clamp(20px, 4vw, 64px);
   --pad-y: clamp(80px, 12vh, 160px);
+  --hdr-h: 76px;
 }
 
 /* ---------- RESET ---------- */
@@ -53,6 +54,9 @@ html,body{ margin:0; padding:0; }
 html{
   scroll-behavior:smooth;
   -webkit-text-size-adjust:100%;
+}
+section, [id]{
+  scroll-margin-top: calc(var(--hdr-h, 76px) + 20px);
 }
 body{
   font-family: var(--sans);
@@ -328,14 +332,14 @@ button{ font: inherit; color:inherit; background:none; border:0; cursor:pointer;
 /* ---------- HERO ---------- */
 .hero{
   position:relative;
-  min-height: clamp(520px, 78vh, 760px);
-  max-height: 82vh;
+  min-height: clamp(500px, 75vh, 720px);
+  max-height: 79vh;
   overflow: hidden;
   background: var(--ink);
   color: var(--ivory);
   display:flex; flex-direction:column;
   justify-content: space-between;
-  padding: clamp(72px, 8.5vh, 96px) var(--pad) 20px;
+  padding: clamp(68px, 8vh, 90px) var(--pad) 20px;
 }
 .hero-media{
   position:absolute;
@@ -382,8 +386,8 @@ button{ font: inherit; color:inherit; background:none; border:0; cursor:pointer;
   flex-direction: column;
   justify-content: space-between;
   flex-grow: 1;
-  margin-top: clamp(6px, 1.5vh, 18px);
-  margin-bottom: 12px;
+  margin-top: 0;
+  margin-bottom: 8px;
 }
 .hero-headline{
   overflow: hidden;
@@ -409,7 +413,7 @@ button{ font: inherit; color:inherit; background:none; border:0; cursor:pointer;
 
 .hero-details{
   margin-top: auto;
-  padding-top: clamp(36px, 4.8vh, 60px);
+  padding-top: clamp(28px, 4vh, 48px);
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
@@ -933,9 +937,9 @@ button{ font: inherit; color:inherit; background:none; border:0; cursor:pointer;
   }
 }
 
-/* ---------- 10 / FROM SKETCH TO SPACE (PURE 2-STATE SCROLL TRANSFORMATION) ---------- */
+/* ---------- 08 / FROM SKETCH TO SPACE (2-PNG ARCHITECTURAL TRANSFORMATION) ---------- */
 .sec-craft-story{
-  height: 220vh;
+  height: 240vh;
   position: relative;
   background: var(--ink);
   color: var(--ivory);
@@ -946,75 +950,108 @@ button{ font: inherit; color:inherit; background:none; border:0; cursor:pointer;
   height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   overflow: hidden;
-  padding: 32px var(--pad);
+  padding: clamp(52px, 6.5vh, 76px) var(--pad) clamp(20px, 2.5vh, 32px);
   box-sizing: border-box;
 }
 .craft-header{
   text-align: center;
-  margin-bottom: clamp(16px, 2.5vh, 28px);
+  max-width: 840px;
 }
 .craft-stage-wrap{
-  width: min(920px, 92vw);
+  width: min(840px, 94vw);
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(14px, 2vh, 22px);
+  margin: auto;
 }
 .craft-frame{
-  aspect-ratio: 16/10;
-  max-height: 58vh;
-  width: 100%;
+  aspect-ratio: 4/3;
+  max-height: clamp(340px, 50vh, 520px);
+  width: min(720px, 88vw);
   position: relative;
-  border-radius: 4px;
+  border-radius: 8px;
   overflow: hidden;
-  background: var(--ink-2);
-  box-shadow: 0 30px 90px rgba(0,0,0,0.65);
-  border: 1px solid rgba(244,239,230,0.1);
+  background: #fbf9f5;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.45);
+  border: 1px solid rgba(244,239,230,0.16);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
-.craft-layer-design{
+.craft-frame::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(26,36,32,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(26,36,32,0.04) 1px, transparent 1px);
+  background-size: 24px 24px;
+  pointer-events: none;
+  z-index: 0;
+}
+.craft-layer{
   position: absolute;
   inset: 0;
   width: 100%;
   height: 100%;
-  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  box-sizing: border-box;
 }
-.craft-layer-design picture, .craft-layer-design img{
+.craft-layer img{
   width: 100%;
   height: 100%;
+  object-fit: contain;
   display: block;
-  object-fit: cover;
+}
+.craft-layer-sofa{
+  z-index: 1;
+  filter: drop-shadow(0 20px 30px rgba(26,36,32,0.22));
+  clip-path: inset(0 100% 0 0);
+  will-change: clip-path;
 }
 .craft-layer-sketch{
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
   z-index: 2;
-  will-change: opacity;
-  transition: opacity 0.1s linear;
+  clip-path: inset(0 0 0 0);
+  will-change: clip-path;
 }
-.craft-layer-sketch img{
-  width: 100%;
-  height: 100%;
-  display: block;
-  object-fit: cover;
+.craft-scanner-line{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 2px;
+  background: linear-gradient(180deg, transparent 0%, var(--brass-2) 25%, #ffffff 50%, var(--brass-2) 75%, transparent 100%);
+  box-shadow: 0 0 14px rgba(184,150,97,0.8), 0 0 4px #ffffff;
+  z-index: 3;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.2s ease;
 }
 .craft-caption-bar{
-  margin-top: clamp(14px, 2vh, 24px);
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 20px;
-  padding: 14px 24px;
-  background: rgba(35,45,41,0.5);
-  border: 1px solid rgba(244,239,230,0.1);
-  border-radius: 4px;
+  width: min(720px, 88vw);
+  padding: 10px 18px;
+  background: rgba(35,45,41,0.65);
+  border: 1px solid rgba(244,239,230,0.12);
+  border-radius: 6px;
   backdrop-filter: blur(8px);
+  box-sizing: border-box;
 }
 .craft-caption-text{
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 2px;
 }
 .craft-caption-label{
   font-family: var(--mono);
@@ -1024,112 +1061,193 @@ button{ font: inherit; color:inherit; background:none; border:0; cursor:pointer;
   text-transform: uppercase;
 }
 .craft-caption-title{
-  font-family: var(--serif);
-  font-style: italic;
-  font-size: clamp(16px, 1.8vw, 20px);
+  font-family: var(--sans);
+  font-size: clamp(12px, 1.1vw, 13.5px);
   color: var(--ivory);
+  opacity: 0.88;
 }
 .craft-scroll-hint{
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   font-size: 10.5px;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: rgba(244,239,230,0.5);
+  color: rgba(244,239,230,0.55);
 }
 .craft-progress-pct{
   color: var(--brass-2);
   font-weight: 600;
 }
 
-/* ---------- 08 / CLIENT STORIES ---------- */
+/* ---------- 09 / CLIENT STORIES (SCROLL-DRIVEN SEQUENCE) ---------- */
 .sec-clients{
-  padding: var(--pad-y) 0;
-  background: var(--paper);
+  height: 200vh;
   position: relative;
+  background: var(--paper);
 }
-.clients-head{
-  margin-bottom: clamp(48px, 8vw, 84px);
-}
-.client-story-grid{
+.client-sticky{
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  gap: clamp(64px, 10vw, 120px);
+  justify-content: space-between;
+  padding: clamp(40px, 5.5vh, 64px) var(--pad) 24px;
+  box-sizing: border-box;
 }
-.client-story-row{
-  display: grid;
-  grid-template-columns: 6.5fr 5.5fr;
-  gap: clamp(36px, 6vw, 80px);
+.clients-head{
+  max-width: 1100px;
+  width: 100%;
+  margin: 0 auto;
+}
+.client-stage-container{
+  position: relative;
+  flex-grow: 1;
+  margin: clamp(12px, 1.8vh, 22px) auto;
+  width: min(1080px, 100%);
+  display: flex;
   align-items: center;
+  justify-content: center;
 }
-.client-story-row.reverse{
-  grid-template-columns: 5.5fr 6.5fr;
+.client-slide{
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  gap: clamp(24px, 4vw, 56px);
+  align-items: center;
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.97) translateY(16px);
+  transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
 }
-.client-story-row.reverse .client-photo-wrap{
-  order: 2;
+.client-slide.is-active{
+  opacity: 1;
+  pointer-events: auto;
+  transform: scale(1) translateY(0);
 }
 .client-photo-wrap{
-  aspect-ratio: 16/11;
+  aspect-ratio: 16/10;
   position: relative;
   overflow: hidden;
-  border-radius: 4px;
+  border-radius: 6px;
   background: var(--ivory-2);
-  box-shadow: 0 24px 60px rgba(26,36,32,0.12);
+  box-shadow: 0 20px 60px rgba(26,36,32,0.14);
 }
 .client-photo-wrap picture, .client-photo-wrap img{
   width: 100%;
   height: 100%;
   display: block;
   object-fit: cover;
-  transition: transform 1.6s var(--ease-out);
+  transition: transform 1.4s var(--ease-out);
 }
 .client-photo-wrap:hover img{
   transform: scale(1.03);
 }
 .client-card{
-  padding: clamp(28px, 4vw, 48px);
-  background: var(--ivory);
+  padding: clamp(24px, 3.5vw, 40px);
+  background: #ffffff;
   border: 1px solid var(--line);
-  border-radius: 4px;
+  border-radius: 12px;
   position: relative;
-  box-shadow: 0 16px 40px rgba(26,36,32,0.06);
+  box-shadow: 0 20px 50px rgba(26,36,32,0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
 }
 .client-badge{
   font-family: var(--mono);
   font-size: 10.5px;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--brass-text);
-  margin-bottom: 20px;
 }
 .client-quote{
   font-family: var(--serif);
-  font-size: clamp(20px, 2.2vw, 26px);
+  font-size: clamp(19px, 2.2vw, 26px);
   font-style: italic;
-  line-height: 1.4;
+  line-height: 1.35;
   color: var(--ink);
-  margin: 0 0 24px 0;
+  margin: 0;
 }
 .client-meta{
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  padding-top: 18px;
+  gap: 3px;
+  padding-top: 12px;
   border-top: 1px solid var(--line);
 }
 .client-name{
   font-family: var(--sans);
-  font-size: 12.5px;
+  font-size: 13px;
   font-weight: 600;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--ink);
 }
 .client-loc{
-  font-family: var(--sans);
-  font-size: 12px;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
   color: var(--muted);
+}
+.client-bottom-row{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+  width: min(1080px, 100%);
+  margin: 0 auto;
+}
+.client-progress-track{
+  flex-grow: 1;
+  max-width: 320px;
+  height: 2px;
+  background: var(--line);
+  border-radius: 2px;
+  overflow: hidden;
+  position: relative;
+}
+.client-progress-fill{
+  height: 100%;
+  background: var(--brass-text);
+  width: 50%;
+  transition: width 0.35s var(--ease);
+}
+.client-counter{
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+@media (max-width: 768px){
+  .client-slide{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 12px;
+  }
+  .client-photo-wrap{
+    width: 100%;
+    aspect-ratio: 16/9;
+  }
+  .client-card{
+    padding: 16px 18px;
+    gap: 8px;
+  }
+  .client-quote{
+    font-size: 15px;
+    line-height: 1.35;
+  }
+  .client-meta{
+    padding-top: 8px;
+  }
 }
 
 /* ---------- FURNITURE DETAIL VIEWER (LIGHTBOX) ---------- */
@@ -2599,7 +2717,7 @@ body:not(.preloading) .hdr{ opacity: 1; transform: none; }
 </section>
 
 <!-- ============ 05 / WHY HEAVEN ============ -->
-<section class="sec-why" aria-label="Why Heaven">
+<section class="sec-why" id="why" aria-label="Why Heaven">
   <div class="wrap">
     <div class="sec-head why-head">
       <div class="lbl reveal">
@@ -2647,7 +2765,7 @@ body:not(.preloading) .hdr{ opacity: 1; transform: none; }
       <li class="why-item">
         <span class="idx">08</span>
         <span class="ttl">Trusted by hundreds of happy homeowners</span>
-        <span class="dsc"></span>
+        <span class="dsc">A decade of handcrafted excellence and lasting relationships across Chattogram.</span>
       </li>
     </ul>
   </div>
@@ -2656,10 +2774,10 @@ body:not(.preloading) .hdr{ opacity: 1; transform: none; }
 <!-- ============ CONTINUOUS EDITORIAL TICKER RIBBON ============ -->
 <div class="editorial-ticker" aria-hidden="true">
   <div class="ticker-track">
-    <span class="ticker-item">Handcrafted <span class="sep">◆</span> Made to Order <span class="sep">◆</span> Bespoke Furniture <span class="sep">◆</span> Solid Timber <span class="sep">◆</span> Chattogram Atelier</span>
-    <span class="ticker-item">Handcrafted <span class="sep">◆</span> Made to Order <span class="sep">◆</span> Bespoke Furniture <span class="sep">◆</span> Solid Timber <span class="sep">◆</span> Chattogram Atelier</span>
-    <span class="ticker-item">Handcrafted <span class="sep">◆</span> Made to Order <span class="sep">◆</span> Bespoke Furniture <span class="sep">◆</span> Solid Timber <span class="sep">◆</span> Chattogram Atelier</span>
-    <span class="ticker-item">Handcrafted <span class="sep">◆</span> Made to Order <span class="sep">◆</span> Bespoke Furniture <span class="sep">◆</span> Solid Timber <span class="sep">◆</span> Chattogram Atelier</span>
+    <span class="ticker-item">HANDCRAFTED <span class="sep">·</span> MADE TO ORDER <span class="sep">·</span> BESPOKE FURNITURE <span class="sep">·</span> SOLID TIMBER <span class="sep">·</span></span>
+    <span class="ticker-item">HANDCRAFTED <span class="sep">·</span> MADE TO ORDER <span class="sep">·</span> BESPOKE FURNITURE <span class="sep">·</span> SOLID TIMBER <span class="sep">·</span></span>
+    <span class="ticker-item">HANDCRAFTED <span class="sep">·</span> MADE TO ORDER <span class="sep">·</span> BESPOKE FURNITURE <span class="sep">·</span> SOLID TIMBER <span class="sep">·</span></span>
+    <span class="ticker-item">HANDCRAFTED <span class="sep">·</span> MADE TO ORDER <span class="sep">·</span> BESPOKE FURNITURE <span class="sep">·</span> SOLID TIMBER <span class="sep">·</span></span>
   </div>
 </div>
 
@@ -2877,22 +2995,22 @@ body:not(.preloading) .hdr{ opacity: 1; transform: none; }
 
     <div class="craft-stage-wrap">
       <div class="craft-frame" id="craftFrame">
-        <!-- Layer 1: Realized design (bottom) -->
-        <div class="craft-layer-design">
-          <picture>
-            <img src="assets/story.jpg" alt="The Realization — Bespoke executive living suite in solid timber" width="2560" height="1707" loading="eager" decoding="async"/>
-          </picture>
+        <!-- Layer 1: Real sofa / design (transparent PNG) -->
+        <div class="craft-layer craft-layer-sofa" id="craftSofaLayer">
+          <img src="assets/sketch-to-space-sofa.png" alt="The Realization — Bespoke green velvet lounge in custom solid timber" width="1080" height="1350" loading="eager" decoding="async"/>
         </div>
-        <!-- Layer 2: Architectural sketch (top overlay, dissolves on scroll) -->
-        <div class="craft-layer-sketch" id="craftSketchLayer">
-          <img src="assets/sketch-story.jpg" alt="The Conception — Architectural line drawing and joinery study" width="1920" height="1280" loading="eager" decoding="async"/>
+        <!-- Layer 2: Original pencil sketch (transparent PNG) -->
+        <div class="craft-layer craft-layer-sketch" id="craftSketchLayer">
+          <img src="assets/sketch-to-space-sketch.png" alt="The Conception — Original architectural pencil sketch" width="1080" height="1350" loading="eager" decoding="async"/>
         </div>
+        <!-- Traveling drafting / scanner line -->
+        <div class="craft-scanner-line" id="craftScannerLine" aria-hidden="true"></div>
       </div>
 
       <div class="craft-caption-bar">
         <div class="craft-caption-text">
-          <span class="craft-caption-label" id="craftLabel">THE CONCEPTION</span>
-          <span class="craft-caption-title" id="craftTitle">Architectural proportion and joinery study</span>
+          <span class="craft-caption-label" id="craftLabel">STATE 01 · THE CONCEPTION</span>
+          <span class="craft-caption-title" id="craftTitle">Original architectural pencil sketch</span>
         </div>
         <div class="craft-scroll-hint mono">
           <span>Scroll to transform</span>
@@ -2905,52 +3023,64 @@ body:not(.preloading) .hdr{ opacity: 1; transform: none; }
 
 <!-- ============ 09 / CLIENT STORIES ============ -->
 <section class="sec-clients" id="clients" aria-label="Client Stories">
-  <div class="wrap">
-    <div class="sec-head clients-head">
-      <div class="lbl reveal">
-        <div class="section-num"><span class="rule"></span>09 / Client Stories</div>
+  <div class="client-sticky">
+    <div class="wrap" style="width:100%; display:flex; flex-direction:column; height:100%; justify-content:space-between;">
+      <div class="sec-head clients-head">
+        <div class="lbl">
+          <div class="section-num"><span class="rule"></span>09 / Client Stories</div>
+        </div>
+        <h2 class="h-1" style="margin-top:10px;">Spaces lived in.<br/><em style="font-style:italic; color:var(--brass-text);">Stories told</em>.</h2>
       </div>
-      <h2 class="h-1 reveal">Spaces lived in.<br/><em style="font-style:italic;">Stories told</em>.</h2>
-    </div>
 
-    <div class="client-story-grid">
-      <!-- Story 1 -->
-      <article class="client-story-row">
-        <div class="client-photo-wrap reveal-img">
-          <picture>
-            <img src="assets/brand.jpg" alt="Bespoke Heaven Furniture pieces inside a high-ceiling residential interior in Khulshi, Chattogram" loading="eager" decoding="async" width="2560" height="1440"/>
-          </picture>
-        </div>
-        <div class="client-card reveal">
-          <div class="client-badge">Residential Commission · Khulshi</div>
-          <blockquote class="client-quote">
-            “Heaven created a bespoke sectional and low marble table that completely anchored our high-ceiling living space. The wood tone is impeccable.”
-          </blockquote>
-          <div class="client-meta">
-            <span class="client-name">Engr. Tariq &amp; Farzana Rahman</span>
-            <span class="client-loc">Khulshi Hills, Chattogram</span>
+      <div class="client-stage-container">
+        <!-- Story 1 -->
+        <article class="client-slide is-active" data-client-idx="0">
+          <div class="client-photo-wrap">
+            <picture>
+              <img src="assets/brand.jpg" alt="Bespoke Heaven Furniture pieces inside a high-ceiling residential interior in Khulshi, Chattogram" loading="eager" decoding="async" width="2560" height="1440"/>
+            </picture>
           </div>
-        </div>
-      </article>
+          <div class="client-card">
+            <div class="client-badge">Residential Commission · Khulshi</div>
+            <blockquote class="client-quote">
+              “Heaven created a bespoke sectional and low marble table that completely anchored our high-ceiling living space. The wood tone is impeccable.”
+            </blockquote>
+            <div class="client-meta">
+              <span class="client-name">Engr. Tariq &amp; Farzana Rahman</span>
+              <span class="client-loc">Khulshi Hills, Chattogram</span>
+            </div>
+          </div>
+        </article>
 
-      <!-- Story 2 -->
-      <article class="client-story-row reverse">
-        <div class="client-photo-wrap reveal-img">
-          <picture>
-            <img src="assets/story.jpg" alt="Custom curved bouclé lounge and walnut millwork in a contemporary duplex villa in Nasirabad" loading="eager" decoding="async" width="2560" height="1707"/>
-          </picture>
-        </div>
-        <div class="client-card reveal">
-          <div class="client-badge">Duplex Villa · Nasirabad Housing</div>
-          <blockquote class="client-quote">
-            “Every joint, edge, and finish feels deliberate and architectural. It is rare to find this standard of craftsmanship locally in Bangladesh.”
-          </blockquote>
-          <div class="client-meta">
-            <span class="client-name">Dr. M. S. Chowdhury</span>
-            <span class="client-loc">Nasirabad, Chattogram</span>
+        <!-- Story 2 -->
+        <article class="client-slide" data-client-idx="1">
+          <div class="client-photo-wrap">
+            <picture>
+              <img src="assets/story.jpg" alt="Custom curved bouclé lounge and walnut millwork in a contemporary duplex villa in Nasirabad" loading="eager" decoding="async" width="2560" height="1707"/>
+            </picture>
           </div>
+          <div class="client-card">
+            <div class="client-badge">Duplex Villa · Nasirabad Housing</div>
+            <blockquote class="client-quote">
+              “Every joint, edge, and finish feels deliberate and architectural. It is rare to find this standard of craftsmanship locally in Bangladesh.”
+            </blockquote>
+            <div class="client-meta">
+              <span class="client-name">Dr. M. S. Chowdhury</span>
+              <span class="client-loc">Nasirabad, Chattogram</span>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div class="client-bottom-row">
+        <div class="client-progress-track">
+          <div class="client-progress-fill" id="clientProgressFill"></div>
         </div>
-      </article>
+        <div class="client-counter mono" id="clientCounter">
+          <span id="clientCurr">01</span> / 02
+          <span style="color:var(--muted); margin-left:8px;">Scroll to transition story</span>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -3182,6 +3312,39 @@ body:not(.preloading) .hdr{ opacity: 1; transform: none; }
   onHdrScroll();
   window.addEventListener('scroll', onHdrScroll, { passive: true });
 
+  // Dynamic header offset & smooth anchor scrolling to guarantee header clearance
+  var body = document.body;
+  function updateHeaderHeight(){
+    var h = hdr ? hdr.offsetHeight : 76;
+    document.documentElement.style.setProperty('--hdr-h', h + 'px');
+  }
+  updateHeaderHeight();
+  window.addEventListener('resize', updateHeaderHeight, { passive: true });
+
+  document.querySelectorAll('a[href^="#"]').forEach(function(anchor){
+    anchor.addEventListener('click', function(e){
+      var targetId = this.getAttribute('href');
+      if (!targetId || targetId === '#' || targetId.length < 2) return;
+      var targetEl = document.querySelector(targetId);
+      if (targetEl){
+        e.preventDefault();
+        var hdrH = hdr ? hdr.offsetHeight : 76;
+        var offset = hdrH + 20;
+        var bodyRect = document.body.getBoundingClientRect().top;
+        var elementRect = targetEl.getBoundingClientRect().top;
+        window.scrollTo({
+          top: Math.max(0, elementRect - bodyRect - offset),
+          behavior: 'smooth'
+        });
+        if (body.classList.contains('mobile-open')){
+          body.classList.remove('mobile-open');
+          var mm = document.getElementById('mobileMenu');
+          if (mm) mm.setAttribute('aria-hidden', 'true');
+        }
+      }
+    });
+  });
+
   // ---------- SESSION-AWARE PRELOADER SEQUENCE ----------
   var preloader = document.getElementById('preloader');
   var hero = document.querySelector('.hero');
@@ -3372,7 +3535,6 @@ body:not(.preloading) .hdr{ opacity: 1; transform: none; }
   setTimeout(scrollSweep, 3000);
 
   // ---------- MOBILE MENU ----------
-  var body = document.body;
   var hamburger = document.getElementById('hamburger');
   var mm = document.getElementById('mobileMenu');
   if (hamburger){
@@ -3542,6 +3704,9 @@ body:not(.preloading) .hdr{ opacity: 1; transform: none; }
 
     // 9. SCROLL-DRIVEN FROM SKETCH TO SPACE
     if (typeof updateCraftStory === 'function') updateCraftStory();
+
+    // 10. CLIENT STORIES SCROLL TIMELINE
+    if (typeof updateClientStoriesTimeline === 'function') updateClientStoriesTimeline();
   }
 
   function requestScrollTick(){
@@ -3754,9 +3919,11 @@ body:not(.preloading) .hdr{ opacity: 1; transform: none; }
     });
   });
 
-  // ---------- 08 / FROM SKETCH TO SPACE (PURE 2-STATE SCROLL ENGINE) ----------
+  // ---------- 08 / FROM SKETCH TO SPACE (2-PNG ARCHITECTURAL TRANSFORMATION) ----------
   var craftStorySec = document.getElementById('sketch-space') || document.querySelector('.sec-craft-story');
   var craftSketchLayer = document.getElementById('craftSketchLayer');
+  var craftSofaLayer = document.getElementById('craftSofaLayer');
+  var craftScannerLine = document.getElementById('craftScannerLine');
   var craftLabel = document.getElementById('craftLabel');
   var craftTitle = document.getElementById('craftTitle');
   var craftPct = document.getElementById('craftPct');
@@ -3771,35 +3938,91 @@ body:not(.preloading) .hdr{ opacity: 1; transform: none; }
     if (rect.top <= 0 && rect.bottom >= vh){
       var progress = Math.max(0, Math.min(1, -rect.top / totalScroll));
       
-      // Pure 2-state transformation:
-      // At start (0%): 100% Sketch
-      // At end (100%): 100% Finished Design
-      var sketchOpacity = Math.max(0, Math.min(1, 1 - progress * 1.3));
+      // Progressive architectural reveal transformation (2 PNG layers):
+      // Initial: 100% original pencil sketch, real sofa hidden
+      // 4% to 96%: progressive wipe across with traveling hairline drafting scanner
+      // Final: 100% real sofa in custom timber, sketch transitioned away
+      var reveal = Math.max(0, Math.min(1, (progress - 0.04) / 0.92));
+      var pct = (reveal * 100).toFixed(2);
+
+      if (craftSofaLayer){
+        craftSofaLayer.style.clipPath = 'inset(0 ' + (100 - pct) + '% 0 0)';
+      }
       if (craftSketchLayer){
-        craftSketchLayer.style.opacity = sketchOpacity.toFixed(3);
+        craftSketchLayer.style.clipPath = 'inset(0 0 0 ' + pct + '%)';
+      }
+      if (craftScannerLine){
+        craftScannerLine.style.left = pct + '%';
+        craftScannerLine.style.opacity = (reveal > 0.01 && reveal < 0.99) ? '1' : '0';
       }
       if (craftPct){
-        craftPct.textContent = Math.round(progress * 100) + '%';
+        craftPct.textContent = Math.round(reveal * 100) + '%';
       }
       if (craftLabel && craftTitle){
-        if (progress < 0.5){
-          craftLabel.textContent = 'THE CONCEPTION';
-          craftTitle.textContent = 'Architectural proportion and joinery study';
+        if (reveal < 0.12){
+          craftLabel.textContent = 'STATE 01 · THE CONCEPTION';
+          craftTitle.textContent = 'Original architectural pencil sketch';
+        } else if (reveal < 0.88){
+          craftLabel.textContent = 'TRANSFORMATION IN PROGRESS';
+          craftTitle.textContent = 'Materializing solid timber framing and tailored velvet';
         } else {
-          craftLabel.textContent = 'THE REALIZATION';
-          craftTitle.textContent = 'Bespoke executive living suite in solid timber';
+          craftLabel.textContent = 'STATE 02 · THE REALIZATION';
+          craftTitle.textContent = 'Bespoke green velvet lounge in custom solid timber';
         }
       }
     } else if (rect.top > 0){
-      if (craftSketchLayer) craftSketchLayer.style.opacity = '1';
+      // Above section: 100% sketch
+      if (craftSofaLayer) craftSofaLayer.style.clipPath = 'inset(0 100% 0 0)';
+      if (craftSketchLayer) craftSketchLayer.style.clipPath = 'inset(0 0 0 0)';
+      if (craftScannerLine) craftScannerLine.style.opacity = '0';
       if (craftPct) craftPct.textContent = '0%';
-      if (craftLabel) craftLabel.textContent = 'THE CONCEPTION';
-      if (craftTitle) craftTitle.textContent = 'Architectural proportion and joinery study';
+      if (craftLabel) craftLabel.textContent = 'STATE 01 · THE CONCEPTION';
+      if (craftTitle) craftTitle.textContent = 'Original architectural pencil sketch';
     } else if (rect.bottom < vh){
-      if (craftSketchLayer) craftSketchLayer.style.opacity = '0';
+      // Below section: 100% real sofa
+      if (craftSofaLayer) craftSofaLayer.style.clipPath = 'inset(0 0 0 0)';
+      if (craftSketchLayer) craftSketchLayer.style.clipPath = 'inset(0 0 0 100%)';
+      if (craftScannerLine) craftScannerLine.style.opacity = '0';
       if (craftPct) craftPct.textContent = '100%';
-      if (craftLabel) craftLabel.textContent = 'THE REALIZATION';
-      if (craftTitle) craftTitle.textContent = 'Bespoke executive living suite in solid timber';
+      if (craftLabel) craftLabel.textContent = 'STATE 02 · THE REALIZATION';
+      if (craftTitle) craftTitle.textContent = 'Bespoke green velvet lounge in custom solid timber';
+    }
+  }
+
+  // ---------- 09 / CLIENT STORIES (SCROLL-DRIVEN SEQUENCE) ----------
+  var clientSec = document.getElementById('clients');
+  var clientSlides = clientSec ? Array.from(clientSec.querySelectorAll('.client-slide')) : [];
+  var clientCurr = document.getElementById('clientCurr');
+  var clientProgressFill = document.getElementById('clientProgressFill');
+  var clientActiveIdx = 0;
+
+  function setClientSlide(idx){
+    if (!clientSlides.length) return;
+    clientActiveIdx = Math.max(0, Math.min(clientSlides.length - 1, idx));
+    clientSlides.forEach(function(s, i){
+      s.classList.toggle('is-active', i === clientActiveIdx);
+    });
+    if (clientCurr) clientCurr.textContent = (clientActiveIdx + 1 < 10 ? '0' : '') + (clientActiveIdx + 1);
+    if (clientProgressFill) clientProgressFill.style.width = (((clientActiveIdx + 1) / clientSlides.length) * 100) + '%';
+  }
+
+  function updateClientStoriesTimeline(){
+    if (!clientSec || clientSlides.length === 0) return;
+    var rect = clientSec.getBoundingClientRect();
+    var vh = window.innerHeight;
+    var totalScroll = clientSec.offsetHeight - vh;
+    if (totalScroll <= 0) return;
+
+    if (rect.top <= 0 && rect.bottom >= vh){
+      var progress = Math.max(0, Math.min(0.999, -rect.top / totalScroll));
+      var idx = Math.floor(progress * clientSlides.length);
+      if (idx !== clientActiveIdx){
+        setClientSlide(idx);
+      }
+    } else if (rect.top > 0){
+      if (clientActiveIdx !== 0) setClientSlide(0);
+    } else if (rect.bottom < vh){
+      if (clientActiveIdx !== clientSlides.length - 1) setClientSlide(clientSlides.length - 1);
     }
   }
 
