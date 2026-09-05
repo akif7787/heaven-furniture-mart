@@ -2123,10 +2123,22 @@ footer{
   padding: 100px var(--pad) 40px;
   display: flex; flex-direction: column; justify-content: space-between;
   transform: translateY(-100%);
-  transition: transform .6s var(--ease-out);
-  pointer-events:none;
+  transition: transform .5s var(--ease-out), visibility .5s;
+  pointer-events: none;
+  visibility: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
-.mobile-open .mobile-menu{ transform: translateY(0); pointer-events:auto; }
+.mobile-open .mobile-menu{
+  transform: translateY(0);
+  pointer-events: auto;
+  visibility: visible;
+}
+@media (min-width: 961px){
+  .mobile-menu{
+    display: none !important;
+  }
+}
 .mobile-menu nav{
   display:flex; flex-direction:column; gap: 4px;
 }
