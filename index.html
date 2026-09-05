@@ -1,0 +1,2174 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+<title>Heaven Furniture Mart — Bespoke Furniture Crafted Around You</title>
+<meta name="description" content="Luxury bespoke furniture and interior styling from Heaven Furniture Mart, Chattogram. Furniture designed, crafted and customized around your space and taste."/>
+<meta property="og:title" content="Heaven Furniture Mart — Bespoke Furniture Crafted Around You"/>
+<meta property="og:description" content="Luxury bespoke furniture designed, crafted and customized around your space, your taste, and the way you live."/>
+<meta property="og:type" content="website"/>
+<meta property="og:image" content="assets/hero.jpg"/>
+<meta name="theme-color" content="#1a2420"/>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="assets/hero.avif" type="image/avif" fetchpriority="high">
+
+<style>
+/* ---------- TOKENS ---------- */
+:root{
+  --ink:        #1a2420;   /* deep charcoal-teal */
+  --ink-2:      #232d29;
+  --ivory:      #f4efe6;   /* warm ivory */
+  --ivory-2:    #ebe4d6;
+  --paper:      #f8f5ee;
+  --brass:      #a88547;
+  --brass-2:    #b89661;
+  --brass-text: #7a5c28;   /* accessible contrast for small text on light surfaces */
+  --brown:      #3a2e24;
+  --tan:        #c8a875;
+  --muted:      #7a746a;
+  --line:       rgba(26,36,32,0.14);
+  --line-dark:  rgba(244,239,230,0.16);
+
+  --serif: "Cormorant Garamond", "Playfair Display", Georgia, serif;
+  --sans:  "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  --ease: cubic-bezier(0.4, 0.0, 0.2, 1);
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --pad: clamp(20px, 4vw, 64px);
+  --pad-y: clamp(80px, 12vh, 160px);
+}
+
+/* ---------- RESET ---------- */
+*,*:before,*:after{ box-sizing:border-box; }
+html,body{ margin:0; padding:0; }
+html{
+  scroll-behavior:smooth;
+  -webkit-text-size-adjust:100%;
+}
+body{
+  font-family: var(--sans);
+  background: var(--ivory);
+  color: var(--ink);
+  font-weight:400;
+  font-size:16px;
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  position: relative;
+  /* Keep horizontal overflow contained via a boundary rather than
+     overflow-x on body (which would turn body into a scroll container
+     and decouple IntersectionObserver from the actual scroll root). */
+}
+/* Prevent horizontal overflow with a fixed viewport-width limit */
+body > *{ max-width: 100vw; }
+picture{ display: contents; }
+img{ display:block; max-width:100%; height:auto; }
+a{ color:inherit; text-decoration:none; }
+button{ font: inherit; color:inherit; background:none; border:0; cursor:pointer; padding:0; }
+:focus-visible{
+  outline: 2px solid var(--brass);
+  outline-offset: 3px;
+}
+.cta:focus-visible, .mobile-cta:focus-visible{
+  outline: 2px solid var(--brass);
+  outline-offset: 4px;
+}
+::selection{ background: var(--ink); color: var(--ivory); }
+
+/* ---------- HELPERS ---------- */
+.wrap{
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 var(--pad);
+}
+.wrap-wide{
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 0 var(--pad);
+}
+.mono{
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+.rule{
+  width: 32px; height:1px; background: var(--brass); display:inline-block;
+  vertical-align: middle; margin-right: 14px;
+}
+.section-num{
+  color: var(--brass-text);
+  font-family: var(--sans);
+  font-weight:500;
+  font-size:11px;
+  letter-spacing: 0.24em;
+}
+.dark{ background: var(--ink); color: var(--ivory); }
+.dark ::selection{ background: var(--ivory); color: var(--ink); }
+.dark .rule{ background: var(--brass-2); }
+.dark .section-num{ color: var(--brass-2); }
+
+/* ---------- TYPE ---------- */
+.h-display{
+  font-family: var(--serif);
+  font-weight: 400;
+  font-style: normal;
+  font-size: clamp(56px, 10vw, 168px);
+  line-height: 0.94;
+  letter-spacing: -0.02em;
+}
+.h-1{
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(44px, 6.8vw, 112px);
+  line-height: 0.98;
+  letter-spacing: -0.015em;
+}
+.h-2{
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(36px, 5.2vw, 84px);
+  line-height: 1.02;
+  letter-spacing: -0.012em;
+}
+.h-3{
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(28px, 3.4vw, 54px);
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+}
+.lede{
+  font-family: var(--serif);
+  font-weight: 400;
+  font-style: italic;
+  font-size: clamp(20px, 2vw, 28px);
+  line-height: 1.4;
+  color: var(--ink);
+  max-width: 46ch;
+}
+.dark .lede{ color: var(--ivory); }
+.body{
+  font-size: 15.5px;
+  line-height: 1.65;
+  color: rgba(26,36,32,0.78);
+  max-width: 52ch;
+}
+.dark .body{ color: rgba(244,239,230,0.72); }
+
+/* ---------- CTA ---------- */
+.cta{
+  display:inline-flex; align-items:center; gap:14px;
+  padding: 18px 28px;
+  border: 1px solid var(--ink);
+  color: var(--ink);
+  background: transparent;
+  font-family: var(--sans);
+  font-size: 12px; font-weight:500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  border-radius: 999px;
+  transition: background .5s var(--ease), color .5s var(--ease), border-color .5s var(--ease), transform .5s var(--ease);
+  cursor: pointer;
+}
+.cta .arr{
+  display:inline-block; transition: transform .5s var(--ease-out);
+}
+.cta:hover{
+  background: var(--ink); color: var(--ivory); border-color: var(--ink);
+}
+.cta:hover .arr{ transform: translateX(6px); }
+.cta.on-dark{
+  border-color: var(--ivory); color: var(--ivory);
+}
+.cta.on-dark:hover{
+  background: var(--ivory); color: var(--ink);
+}
+.cta.solid{
+  background: var(--ink); color: var(--ivory); border-color: var(--ink);
+}
+.cta.solid:hover{
+  background: transparent; color: var(--ink);
+}
+.cta.brass{
+  background: var(--brass); color: var(--ivory); border-color: var(--brass);
+}
+.cta.brass:hover{
+  background: transparent; color: var(--brass);
+}
+
+.link-underline{
+  display:inline-flex; align-items:baseline; gap:10px;
+  border-bottom:1px solid currentColor;
+  padding-bottom:4px;
+  font-size:12px; letter-spacing: 0.22em; text-transform: uppercase;
+  font-weight:500;
+  transition: gap .5s var(--ease-out);
+}
+.link-underline:hover{ gap:18px; }
+
+/* ---------- HEADER ---------- */
+.hdr{
+  position: fixed; inset: 0 0 auto 0;
+  z-index: 100;
+  padding: 24px var(--pad);
+  display:flex; align-items:center; justify-content:space-between; gap: 24px;
+  transition: background .55s var(--ease), color .55s var(--ease), backdrop-filter .55s, border-color .55s, padding .4s;
+  color: var(--ivory);
+  border-bottom: 1px solid transparent;
+  min-height: 76px;
+}
+.hdr.scrolled{
+  background: rgba(244,239,230,0.86);
+  backdrop-filter: saturate(1.2) blur(14px);
+  -webkit-backdrop-filter: saturate(1.2) blur(14px);
+  color: var(--ink);
+  border-bottom-color: var(--line);
+  padding: 14px var(--pad);
+  min-height: 60px;
+}
+.brand{
+  display: inline-flex; align-items: center;
+  height: 44px;
+  transition: transform .5s var(--ease);
+  flex-shrink: 0;
+}
+.brand img{
+  height: 36px; width: auto; display: block;
+  border-radius: 3px;
+  transition: height .4s var(--ease);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+}
+.hdr.scrolled .brand img{
+  height: 30px;
+  box-shadow: 0 4px 12px rgba(26,36,32,0.15);
+}
+.brand:hover{ transform: translateY(-1px); }
+.brand .fallback-text{
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  display: none;
+}
+.nav{
+  display:flex; align-items:center; gap: 44px;
+}
+.nav a{
+  font-size: 11.5px; letter-spacing: 0.24em; text-transform: uppercase; font-weight: 500;
+  position:relative;
+  transition: opacity .3s var(--ease);
+  opacity: .9;
+}
+.nav a:hover{ opacity: 1; }
+.nav a::after{
+  content:""; position:absolute; left:0; right:0; bottom:-6px; height:1px;
+  background: currentColor;
+  transform: scaleX(0); transform-origin: left;
+  transition: transform .5s var(--ease-out);
+}
+.nav a:hover::after{ transform: scaleX(1); }
+.hdr .cta{
+  padding: 12px 20px; font-size: 10.5px;
+  border-color: currentColor;
+}
+.hdr:not(.scrolled) .cta:hover{
+  background: var(--ivory); color: var(--ink); border-color: var(--ivory);
+}
+.hdr.scrolled .cta{ border-color: var(--ink); }
+
+.hamburger{
+  display:none;
+  width:36px; height:36px; align-items:center; justify-content:center;
+  position:relative;
+}
+.hamburger span{
+  position:absolute; left:8px; right:8px; height:1px; background: currentColor;
+  transition: transform .4s var(--ease), opacity .3s;
+}
+.hamburger span:nth-child(1){ top: 14px; }
+.hamburger span:nth-child(2){ bottom: 14px; }
+.mobile-open .hamburger span:nth-child(1){ top: 50%; transform: rotate(45deg); }
+.mobile-open .hamburger span:nth-child(2){ bottom: 50%; transform: translateY(50%) rotate(-45deg); }
+
+/* ---------- HERO ---------- */
+.hero{
+  position:relative;
+  /* Grow to fit content when viewport is short so headline never
+     tucks under the fixed header. Use svh so mobile browser chrome
+     doesn't cause layout jumps. */
+  min-height: 100svh;
+  min-height: max(100svh, 720px);
+  overflow: hidden;
+  background: var(--ink);
+  color: var(--ivory);
+  display:flex; flex-direction:column;
+}
+/* hero-top pinned to top with its 140px safe zone; hero-body pushed
+   toward the bottom via margin-top:auto; hero-bottom stays at bottom */
+.hero > .hero-body{ margin-top: auto; }
+.hero-media{
+  position:absolute;
+  top: -60px; bottom: -60px; left: 0; right: 0;
+  overflow:hidden;
+  will-change: transform;
+}
+.hero-media img{
+  position:absolute; inset:0;
+  width:100%; height:100%;
+  object-fit: cover;
+  transform: scale(1.06);
+  transition: transform 1.8s var(--ease-out), opacity 1.2s var(--ease);
+  opacity: 0;
+  will-change: transform;
+}
+.hero.loaded .hero-media img{ transform: scale(1); opacity: 1; }
+.hero-media::after{
+  content:""; position:absolute; inset:0;
+  background: linear-gradient(180deg,
+    rgba(15,20,18,0.55) 0%,
+    rgba(15,20,18,0.15) 30%,
+    rgba(15,20,18,0.15) 55%,
+    rgba(15,20,18,0.75) 100%);
+  pointer-events:none;
+}
+.hero-top{
+  position: relative; z-index: 2;
+  padding: 140px var(--pad) 0;
+  display:flex; justify-content:space-between; align-items:flex-start;
+  color: var(--ivory);
+}
+.hero-top .meta{
+  display:flex; flex-direction:column; gap: 6px;
+  opacity: 0; transform: translateY(12px);
+  transition: opacity 1s var(--ease) .5s, transform 1s var(--ease) .5s;
+}
+.hero.loaded .hero-top .meta{ opacity:.9; transform: none; }
+.hero-top .meta .m2{ color: rgba(244,239,230,0.65); }
+
+.hero-body{
+  position:relative; z-index: 2;
+  padding: 0 var(--pad) clamp(48px, 8vh, 96px);
+  display:grid;
+  grid-template-columns: 1fr auto;
+  gap: 48px;
+  align-items:end;
+}
+.hero-headline{
+  overflow: hidden;
+}
+.hero-headline .line{
+  display:block; overflow:hidden;
+}
+.hero-headline .line > span{
+  display:block;
+  transform: translateY(110%);
+  transition: transform 1.1s var(--ease-out);
+}
+.hero.loaded .hero-headline .line:nth-child(1) > span{ transition-delay: .15s; transform: none; }
+.hero.loaded .hero-headline .line:nth-child(2) > span{ transition-delay: .3s;  transform: none; }
+.hero.loaded .hero-headline .line:nth-child(3) > span{ transition-delay: .45s; transform: none; }
+
+.hero-headline em{
+  font-style: italic;
+  color: var(--brass-2);
+}
+
+.hero-right{
+  text-align: right;
+  display:flex; flex-direction:column; align-items:flex-end; gap: 24px;
+  opacity: 0; transform: translateY(12px);
+  transition: opacity 1s var(--ease) .8s, transform 1s var(--ease) .8s;
+  max-width: 320px;
+}
+.hero.loaded .hero-right{ opacity: 1; transform: none; }
+.hero-right p{
+  margin: 0;
+  font-size: 15px; line-height: 1.55;
+  color: rgba(244,239,230,0.82);
+  text-align: right;
+}
+
+.hero-bottom{
+  position: relative; z-index: 2;
+  padding: 0 var(--pad) 28px;
+  display:flex; justify-content:space-between; align-items:center;
+  gap: 24px;
+  border-top: 1px solid rgba(244,239,230,0.15);
+  margin-top: 32px;
+  padding-top: 22px;
+  opacity: 0;
+  transition: opacity 1s var(--ease) 1s;
+}
+.hero.loaded .hero-bottom{ opacity: 1; }
+.hero-bottom .tagline{
+  color: rgba(244,239,230,0.8);
+}
+.hero-bottom .scroll{
+  display:flex; align-items:center; gap: 12px;
+  color: rgba(244,239,230,0.7);
+}
+.hero-bottom .scroll .bar{
+  width: 1px; height: 32px; background: rgba(244,239,230,0.35);
+  position: relative; overflow: hidden;
+  display:inline-block;
+}
+.hero-bottom .scroll .bar::after{
+  content:""; position:absolute; inset:0;
+  background: var(--brass-2);
+  transform: translateY(-100%);
+  animation: scrollBar 2.4s var(--ease) infinite;
+}
+@keyframes scrollBar{
+  0%   { transform: translateY(-100%); }
+  50%  { transform: translateY(0); }
+  100% { transform: translateY(100%); }
+}
+
+/* ---------- REVEAL ---------- */
+.reveal{
+  opacity: 0;
+  transform: translate3d(0, 32px, 0);
+  transition: opacity 1.1s var(--ease-out), transform 1.1s var(--ease-out);
+  will-change: opacity, transform;
+}
+.reveal.in{ opacity: 1; transform: none; }
+
+/* Image reveal: masked clip-path + scale (premium editorial) */
+.reveal-img{
+  overflow: hidden;
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path 1.4s var(--ease-out);
+  will-change: clip-path;
+}
+.reveal-img.in{ clip-path: inset(0 0 0 0); }
+.reveal-img img{
+  transform: scale(1.1);
+  transition: transform 1.8s var(--ease-out);
+  will-change: transform;
+}
+.reveal-img.in img{ transform: scale(1); }
+
+/* Left-to-right reveal for Section 01 MD/team image */
+.people-right.reveal-img{
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 1.4s var(--ease-out);
+}
+.people-right.reveal-img.in{ clip-path: inset(0 0 0 0); }
+.people-right.reveal-img img{
+  transform: scale(1.03);
+  transition: transform 1.8s var(--ease-out);
+}
+.people-right.reveal-img.in img{ transform: scale(1); }
+
+/* Text stagger delays */
+.reveal-delay-1{ transition-delay: .10s; }
+.reveal-delay-2{ transition-delay: .22s; }
+.reveal-delay-3{ transition-delay: .34s; }
+.reveal-delay-4{ transition-delay: .46s; }
+.reveal-img.reveal-delay-1{ transition-delay: .12s; }
+.reveal-img.reveal-delay-2{ transition-delay: .24s; }
+
+/* ---------- SECTION 01 — THE PEOPLE ---------- */
+.sec-people{
+  padding: var(--pad-y) 0;
+  background: var(--paper);
+}
+.people-grid{
+  display: grid;
+  grid-template-columns: 5fr 7fr;
+  gap: clamp(40px, 6vw, 96px);
+  align-items: center;
+}
+.people-left h2{ margin: 0; }
+.attribution{
+  margin-top: 40px;
+  display: flex; flex-direction: column;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+  max-width: 400px;
+}
+.attribution .name{
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 24px;
+  color: var(--ink);
+}
+.attribution .role{
+  color: var(--muted);
+  font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+  margin-top: 6px;
+  font-weight: 500;
+}
+.people-right{
+  margin: 0;
+  position: relative;
+}
+.people-photo{
+  aspect-ratio: 5/4;
+  overflow: hidden;
+  position: relative;
+  will-change: transform;
+}
+.people-photo img{
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center 40%;
+  transition: transform 1.8s var(--ease-out);
+}
+.people-right:hover .people-photo img{ transform: scale(1.03); }
+.people-caption{
+  margin-top: 20px;
+  display: flex; flex-direction: column; gap: 6px;
+  padding-left: 16px;
+  border-left: 1px solid var(--brass);
+}
+.people-caption .cap-label{
+  font-family: var(--sans);
+  font-size: 10.5px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--brass-text);
+  font-weight: 500;
+}
+.people-caption .cap-body{
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 16px;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+/* ---------- SECTION 02 — COLLECTIONS ---------- */
+.sec-collections{
+  padding: var(--pad-y) 0;
+  background: var(--ivory);
+}
+.sec-head{
+  display:grid;
+  grid-template-columns: 1fr 1.6fr;
+  gap: clamp(24px, 4vw, 80px);
+  margin-bottom: clamp(48px, 8vw, 96px);
+}
+.sec-head h2{ margin: 0; }
+.sec-head .lbl{
+  padding-top: 12px;
+}
+
+.collection{
+  display: grid;
+  grid-template-columns: 6fr 6fr;
+  gap: clamp(32px, 5vw, 80px);
+  align-items: center;
+  padding: clamp(48px, 8vw, 96px) 0;
+  border-top: 1px solid var(--line);
+}
+.collection:last-child{ border-bottom: 1px solid var(--line); }
+.collection.reverse .col-image{ order: 2; }
+.col-image{
+  aspect-ratio: 4/5;
+  overflow: hidden;
+  position: relative;
+}
+.col-image img{
+  width:100%; height:100%; object-fit: cover;
+  transition: transform 1.4s var(--ease-out);
+}
+.collection:hover .col-image img{ transform: scale(1.04); }
+
+.col-body{
+  display:flex; flex-direction:column; gap: 24px;
+  padding: 0 clamp(0px, 2vw, 24px);
+}
+.col-index{
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(64px, 8vw, 120px);
+  line-height: 1;
+  color: var(--brass);
+  font-style: italic;
+}
+.col-title{
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(40px, 5vw, 72px);
+  line-height: 1;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+.col-items{
+  list-style: none; padding: 0; margin: 12px 0 0;
+  display:flex; flex-wrap: wrap; gap: 8px 24px;
+  color: var(--muted);
+  font-size: 13px; letter-spacing: 0.06em;
+}
+.col-items li{ position: relative; }
+.col-items li + li::before{
+  content: "·"; margin-right: 22px; margin-left: -18px; color: var(--brass);
+}
+.col-desc{
+  font-size: 15.5px; line-height: 1.6; color: rgba(26,36,32,0.72); max-width: 42ch;
+  margin: 8px 0 0;
+}
+.col-cta{
+  margin-top: 16px;
+  display: inline-flex; align-items:center; gap: 12px;
+  font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; font-weight:500;
+  color: var(--ink);
+  position: relative;
+  padding-bottom: 6px;
+}
+.col-cta::before{
+  content:""; position:absolute; left:0; bottom:0; height:1px; width: 24px; background: var(--brass);
+  transition: width .5s var(--ease-out);
+}
+.collection:hover .col-cta::before{ width: 100%; }
+.col-cta .arr{ transition: transform .5s var(--ease-out); display:inline-block; }
+.collection:hover .col-cta .arr{ transform: translateX(6px); }
+
+/* ---------- SECTION 03 — BESPOKE (DARK) ---------- */
+.sec-bespoke{
+  background: var(--ink);
+  color: var(--ivory);
+  padding: var(--pad-y) 0;
+  position: relative;
+  overflow: hidden;
+}
+.sec-bespoke .sec-head{ margin-bottom: 64px; }
+.bespoke-stage{
+  position: relative;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 12fr;
+  gap: 32px;
+}
+.bespoke-wide{
+  aspect-ratio: 21/9;
+  overflow: hidden;
+  position: relative;
+}
+.bespoke-wide img{
+  width:100%; height:100%; object-fit: cover;
+}
+.bespoke-inset{
+  position: absolute;
+  width: clamp(180px, 22vw, 340px);
+  aspect-ratio: 1/1;
+  right: clamp(24px, 5vw, 64px);
+  bottom: -70px;
+  overflow: hidden;
+  border: 8px solid var(--ink);
+  z-index: 3;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+}
+.bespoke-inset img{
+  width:100%; height:100%; object-fit: cover;
+}
+.bespoke-lede{
+  max-width: 640px;
+  margin-top: 40px;
+  color: rgba(244,239,230,0.85);
+}
+.process{
+  margin-top: clamp(120px, 15vh, 180px);
+  display:grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(24px, 3vw, 56px);
+  border-top: 1px solid var(--line-dark);
+  padding-top: 56px;
+}
+.process-step{
+  display:flex; flex-direction:column; gap: 20px;
+}
+.process-step .num{
+  font-family: var(--serif);
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(56px, 6vw, 88px);
+  line-height: 1;
+  color: var(--brass-2);
+}
+.process-step .title{
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--ivory);
+}
+.process-step .desc{
+  font-size: 14px; line-height: 1.6;
+  color: rgba(244,239,230,0.65);
+  max-width: 22ch;
+}
+.bespoke-cta{
+  margin-top: clamp(64px, 8vw, 96px);
+  display:flex; align-items:center; justify-content:space-between; gap: 32px;
+  flex-wrap: wrap;
+}
+.bespoke-cta .h-3{ max-width: 20ch; }
+
+/* ---------- SECTION 04 — WHY HEAVEN ---------- */
+.sec-why{
+  padding: var(--pad-y) 0;
+  background: var(--paper);
+}
+.why-list{
+  list-style: none; padding: 0; margin: 0;
+  border-top: 1px solid var(--line);
+}
+.why-item{
+  border-bottom: 1px solid var(--line);
+  padding: clamp(22px, 3vw, 34px) 0;
+  display: grid;
+  grid-template-columns: 60px 1fr auto;
+  gap: clamp(24px, 4vw, 64px);
+  align-items: baseline;
+  cursor: default;
+  /* Base reveal — hidden until .why-list gets .in (from IntersectionObserver) */
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity .9s var(--ease-out), transform .9s var(--ease-out);
+}
+/* Sequential reveal once the list enters viewport — 80ms stagger per item */
+.why-list.in .why-item{ opacity: 1; transform: none; }
+.why-list.in .why-item:nth-child(1){ transition-delay: 0.02s; }
+.why-list.in .why-item:nth-child(2){ transition-delay: 0.10s; }
+.why-list.in .why-item:nth-child(3){ transition-delay: 0.18s; }
+.why-list.in .why-item:nth-child(4){ transition-delay: 0.26s; }
+.why-list.in .why-item:nth-child(5){ transition-delay: 0.34s; }
+.why-list.in .why-item:nth-child(6){ transition-delay: 0.42s; }
+.why-list.in .why-item:nth-child(7){ transition-delay: 0.50s; }
+.why-list.in .why-item:nth-child(8){ transition-delay: 0.58s; }
+/* Hover: focus one, quiet the rest */
+.why-list:hover .why-item{ opacity: 0.35; transition-delay: 0s; }
+.why-list .why-item:hover{ opacity: 1; }
+.why-item .idx{
+  font-family: var(--sans);
+  font-size: 11px; letter-spacing: 0.22em; color: var(--brass);
+  font-weight: 500;
+}
+.why-item .ttl{
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(26px, 3vw, 44px);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  transition: transform .5s var(--ease-out);
+}
+.why-list .why-item:hover .ttl{
+  transform: translateX(8px);
+}
+.why-item .dsc{
+  font-size: 13.5px;
+  color: var(--muted);
+  max-width: 26ch;
+  text-align: right;
+  line-height: 1.55;
+}
+.why-head{
+  margin-bottom: clamp(48px, 8vw, 96px);
+}
+
+/* ---------- SECTION 05 — SHOWROOM ---------- */
+.sec-showroom{
+  position: relative;
+  background: var(--ink);
+  color: var(--ivory);
+  padding: var(--pad-y) 0;
+  overflow: hidden;
+}
+.showroom-grid{
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(48px, 6vw, 96px);
+}
+.showroom-image-wrap{
+  position: relative;
+  aspect-ratio: 16/9;
+  overflow: hidden;
+  will-change: transform, clip-path;
+  clip-path: inset(0 0 100% 0);
+  transition: clip-path 1.4s var(--ease-out);
+}
+.showroom-image-wrap.in{
+  clip-path: inset(0 0 0 0);
+}
+.showroom-image-wrap img{
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center 55%;
+  transform: scale(1.08);
+  transition: transform 2.4s var(--ease-out);
+  image-rendering: -webkit-optimize-contrast;
+}
+.showroom-image-wrap.in img{ transform: scale(1); }
+.showroom-image-wrap::before{
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(15,20,18,0) 60%, rgba(15,20,18,0.4) 100%);
+  z-index: 2; pointer-events: none;
+}
+.showroom-tag{
+  position: absolute;
+  left: clamp(16px, 2vw, 28px);
+  bottom: clamp(16px, 2vw, 28px);
+  z-index: 3;
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 16px;
+  background: rgba(26,36,32,0.75);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(244,239,230,0.14);
+}
+.showroom-tag .dot{
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--brass-2);
+  box-shadow: 0 0 0 4px rgba(184,150,97,0.15);
+}
+.showroom-tag span{
+  font-size: 10.5px; letter-spacing: 0.24em; text-transform: uppercase;
+  color: var(--ivory); font-weight: 500;
+}
+.showroom-body{
+  display: grid;
+  grid-template-columns: 6fr 6fr;
+  gap: clamp(40px, 6vw, 96px);
+  align-items: start;
+}
+.showroom-content{
+  display: flex; flex-direction: column;
+  gap: 28px;
+}
+.showroom-content h2{ margin: 0; color: var(--ivory); }
+.showroom-content .lede{
+  color: rgba(244,239,230,0.82);
+  max-width: 40ch;
+}
+.showroom-side{
+  display: flex; flex-direction: column;
+  gap: 28px;
+  padding-top: 12px;
+}
+.showroom-info{
+  display: flex; flex-direction: column;
+  gap: 20px;
+  padding-top: 28px;
+  border-top: 1px solid var(--line-dark);
+}
+.info-block{
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  gap: 20px;
+  align-items: baseline;
+}
+.info-block .lbl{
+  font-size: 10.5px; letter-spacing: 0.24em; text-transform: uppercase;
+  color: rgba(244,239,230,0.5); font-weight: 500;
+}
+.info-block .val{
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(18px, 1.6vw, 22px);
+  line-height: 1.35;
+  color: var(--ivory);
+}
+.info-block a.val{
+  position: relative;
+  transition: color .3s var(--ease);
+}
+.info-block a.val:hover{ color: var(--brass-2); }
+.showroom-cta{ margin-top: 16px; align-self: flex-start; }
+
+/* ---------- SECTION 06 — OUR STORY ---------- */
+.sec-story{
+  padding: var(--pad-y) 0;
+  background: var(--ivory);
+}
+.timeline{
+  border-top: 1px solid var(--line);
+  margin-top: clamp(40px, 6vw, 72px);
+}
+.tl-row{
+  display: grid;
+  grid-template-columns: minmax(180px, 240px) 1fr;
+  gap: clamp(40px, 6vw, 96px);
+  align-items: baseline;
+  padding: clamp(32px, 4vw, 56px) 0;
+  border-bottom: 1px solid var(--line);
+  transition: background .5s var(--ease), opacity 1s var(--ease-out), transform 1s var(--ease-out);
+}
+/* Sequential timeline reveal */
+.timeline.in .tl-row{ opacity: 1; transform: none; }
+.timeline .tl-row{ opacity: 0; transform: translateY(24px); }
+.timeline.in .tl-row:nth-child(1){ transition-delay: 0.02s; }
+.timeline.in .tl-row:nth-child(2){ transition-delay: 0.14s; }
+.timeline.in .tl-row:nth-child(3){ transition-delay: 0.26s; }
+.timeline.in .tl-row:nth-child(4){ transition-delay: 0.38s; }
+.timeline.in .tl-row:nth-child(5){ transition-delay: 0.50s; }
+.tl-row:hover{
+  background: rgba(0,0,0,0.02);
+}
+.tl-year{
+  font-family: var(--serif);
+  font-weight: 300;
+  font-size: clamp(56px, 7vw, 104px);
+  line-height: 1;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  font-style: italic;
+}
+.tl-event{
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(24px, 2.6vw, 40px);
+  line-height: 1.2;
+  color: var(--ink);
+  max-width: 28ch;
+}
+.tl-event .kicker{
+  display:block;
+  font-family: var(--sans);
+  font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--brass-text);
+  margin-bottom: 12px;
+  font-weight:500;
+}
+
+/* ---------- FINAL CTA ---------- */
+.sec-final{
+  background: var(--ink);
+  color: var(--ivory);
+  padding: clamp(120px, 20vh, 200px) 0;
+  position: relative;
+  overflow: hidden;
+}
+.sec-final::before{
+  content:""; position:absolute;
+  top: -12%; bottom: -12%; left: 0; right: 0;
+  background-image: url(assets/final-cta.jpg);
+  background-image: image-set(
+    url(assets/final-cta.avif) type("image/avif"),
+    url(assets/final-cta.jpg) type("image/jpeg")
+  );
+  background-size: cover;
+  background-position: center;
+  opacity: 0.28;
+  filter: saturate(0.7);
+  transform: translate3d(0, var(--cta-drift, 0px), 0) scale(1.05);
+  will-change: transform;
+}
+.sec-final::after{
+  content:""; position:absolute; inset:0;
+  background: linear-gradient(180deg, rgba(26,36,32,0.85) 0%, rgba(26,36,32,0.6) 50%, rgba(26,36,32,0.95) 100%);
+}
+.final-inner{
+  position: relative; z-index: 2;
+  display:flex; flex-direction:column; gap: clamp(32px, 5vh, 56px);
+  align-items:flex-start;
+}
+.final-inner .h-display{
+  max-width: 14ch;
+}
+.final-inner .lede{
+  color: rgba(244,239,230,0.82);
+  max-width: 40ch;
+}
+.final-micro{
+  display:flex; align-items:center; gap: 24px;
+  font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: rgba(244,239,230,0.55);
+}
+.final-micro .sep{ opacity: .5; }
+
+/* ---------- FOOTER ---------- */
+footer{
+  background: var(--ink);
+  color: var(--ivory);
+  padding: 96px 0 40px;
+  border-top: 1px solid var(--line-dark);
+}
+.footer-huge{
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: clamp(64px, 12vw, 200px);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  margin: 0 0 clamp(64px, 10vw, 120px);
+}
+.footer-huge .row2{ font-style: italic; color: rgba(244,239,230,0.7); }
+.footer-huge .row3{ color: var(--brass-2); }
+
+.footer-grid{
+  display:grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: clamp(24px, 4vw, 64px);
+  padding-top: 48px;
+  border-top: 1px solid var(--line-dark);
+}
+.footer-grid h3, .footer-grid h4{
+  font-family: var(--sans);
+  font-size: 10.5px; letter-spacing: 0.24em; text-transform: uppercase;
+  color: rgba(244,239,230,0.55);
+  font-weight:500;
+  margin: 0 0 20px;
+}
+.footer-grid p, .footer-grid a{
+  font-size: 14px; line-height: 1.7;
+  color: rgba(244,239,230,0.88);
+  margin: 0;
+}
+.footer-grid ul{ list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap: 8px; }
+.footer-grid a:hover{ color: var(--brass-2); }
+.footer-brand{
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 20px;
+  color: var(--ivory);
+  margin: 20px 0 12px;
+}
+.footer-logo{
+  width: 120px;
+  height: auto;
+  border-radius: 4px;
+  display: block;
+  margin-bottom: 4px;
+}
+.footer-bottom{
+  margin-top: 64px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line-dark);
+  display:flex; justify-content:space-between; align-items:center;
+  font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: rgba(244,239,230,0.5);
+}
+
+/* ---------- STICKY MOBILE CTA ---------- */
+.mobile-cta{
+  display:none;
+  position: fixed;
+  left: 16px; right: 16px; bottom: 16px;
+  padding: 16px 22px;
+  background: var(--ink);
+  color: var(--ivory);
+  border-radius: 999px;
+  z-index: 90;
+  align-items: center; justify-content: space-between;
+  font-size: 11px; letter-spacing: 0.22em; text-transform: uppercase; font-weight: 500;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+  transform: translateY(120%);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform .45s var(--ease-out), opacity .45s var(--ease);
+}
+.mobile-cta.visible{
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+.mobile-open .mobile-cta{
+  transform: translateY(120%) !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+/* ---------- MOBILE MENU ---------- */
+.mobile-menu{
+  position: fixed; inset: 0;
+  background: var(--ivory);
+  color: var(--ink);
+  z-index: 99;
+  padding: 100px var(--pad) 40px;
+  display: flex; flex-direction: column; justify-content: space-between;
+  transform: translateY(-100%);
+  transition: transform .6s var(--ease-out);
+  pointer-events:none;
+}
+.mobile-open .mobile-menu{ transform: translateY(0); pointer-events:auto; }
+.mobile-menu nav{
+  display:flex; flex-direction:column; gap: 4px;
+}
+.mobile-menu nav a{
+  font-family: var(--serif);
+  font-size: clamp(40px, 9vw, 64px);
+  line-height: 1.05;
+  color: var(--ink);
+  padding: 8px 0;
+  border-bottom: 1px solid var(--line);
+}
+.mobile-menu .foot{
+  display: flex; flex-direction: column; gap: 16px;
+  font-size: 13px; color: var(--muted);
+}
+.mobile-menu .foot a{ color: var(--ink); }
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width: 960px){
+  .nav{ display:none; }
+  .hamburger{ display:flex; }
+  .hdr .cta{ display: none; }
+  .hdr{ padding: 18px var(--pad); min-height: 68px; }
+  .hdr.scrolled{ padding: 12px var(--pad); min-height: 56px; }
+  .brand img{ height: 30px; }
+  .hdr.scrolled .brand img{ height: 26px; }
+
+  .hero-top{ padding-top: 116px; }
+  .hero-body{
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .hero-right{
+    text-align: left; align-items: flex-start; max-width: 100%;
+  }
+  .hero-right p{ text-align: left; }
+  .hero-bottom{ flex-wrap: wrap; gap: 16px; }
+
+  .people-grid{ grid-template-columns: 1fr; gap: 40px; }
+  .people-photo{ aspect-ratio: 4/3; }
+
+  .sec-head{ grid-template-columns: 1fr; gap: 16px; }
+
+  .collection{
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding: 56px 0;
+  }
+  .collection.reverse .col-image{ order: 0; }
+  .col-image{ aspect-ratio: 4/5; }
+  .col-body{ padding: 0; }
+
+  .bespoke-inset{
+    width: 45%; right: 20px; bottom: -32px;
+    border-width: 4px;
+  }
+  .bespoke-wide{ aspect-ratio: 4/5; }
+  .process{
+    grid-template-columns: 1fr 1fr;
+    gap: 40px 24px;
+    margin-top: 80px;
+  }
+  .bespoke-cta{ flex-direction: column; align-items: flex-start; gap: 24px; }
+
+  .why-item{ grid-template-columns: 40px 1fr; gap: 16px; }
+  .why-item .dsc{ display: none; }
+
+  .showroom-body{ grid-template-columns: 1fr; gap: 32px; }
+  .info-block{ grid-template-columns: 80px 1fr; gap: 16px; }
+
+  .tl-row{ grid-template-columns: 1fr; gap: 8px; padding: 32px 0; }
+
+  .footer-grid{ grid-template-columns: 1fr 1fr; gap: 40px 24px; }
+  .footer-huge{ font-size: clamp(48px, 15vw, 84px); }
+
+  .mobile-cta{ display: flex; }
+  body{ padding-bottom: 80px; }
+
+  .hero-bottom .tagline{ font-size: 10px; }
+}
+
+@media (max-width: 720px){
+  /* Showroom switches to portrait crop where the <picture> serves the
+     square exterior — keep the framing tight around the storefront. */
+  .showroom-image-wrap{ aspect-ratio: 4/5; }
+}
+
+@media (max-width: 560px){
+  .footer-grid{ grid-template-columns: 1fr; }
+  .hero-top{ padding-top: 108px; }
+  .hero-body{ padding-bottom: 56px; }
+  .hero-headline em{ display: inline; }
+  .hero-bottom .tagline{ display: none; }
+  .col-items{ font-size: 12px; }
+  .process{ grid-template-columns: 1fr; }
+}
+
+/* ---------- PRELOADER ---------- */
+.preloader{
+  position: fixed; inset: 0; z-index: 999;
+  background: var(--ink);
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+  transition: transform 1.2s var(--ease-out), opacity .6s var(--ease) .4s, visibility 1.2s;
+}
+/* Exit as a curtain moving upward — more editorial than a plain fade */
+.preloader.done{
+  transform: translateY(-100%);
+  opacity: 1;
+  visibility: hidden;
+  pointer-events: none;
+}
+.preloader-inner{
+  display: flex; flex-direction: column; align-items: center; gap: 28px;
+  padding: 0 20px;
+  transition: opacity .5s var(--ease), transform .8s var(--ease-out);
+}
+.preloader.done .preloader-inner{
+  opacity: 0;
+  transform: translateY(-16px);
+}
+.preloader-logo{
+  width: clamp(200px, 28vw, 300px);
+  aspect-ratio: 1/1;
+  opacity: 0;
+  transform: scale(0.96);
+  filter: blur(10px);
+  transition: opacity .9s var(--ease-out), transform 1.1s var(--ease-out), filter .9s var(--ease-out);
+  display: block;
+  border-radius: 3px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+}
+.preloader.step-1 .preloader-logo{
+  opacity: 1; transform: scale(1); filter: blur(0);
+}
+.preloader-line{
+  width: 0;
+  height: 1px;
+  background: var(--brass-2);
+  transition: width .9s var(--ease-out);
+  margin-top: 4px;
+  transform-origin: center;
+}
+.preloader.step-2 .preloader-line{ width: clamp(140px, 22vw, 220px); }
+.preloader-tagline{
+  font-family: var(--sans);
+  font-size: 10.5px;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  color: rgba(244,239,230,0.72);
+  font-weight: 500;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity .6s var(--ease-out), transform .6s var(--ease-out);
+  display: flex; gap: 14px; align-items: center;
+}
+.preloader-tagline span{ display: inline-block; }
+.preloader-tagline .sep{ opacity: .4; color: var(--brass-2); }
+.preloader.step-3 .preloader-tagline{ opacity: 1; transform: none; }
+
+/* Hero image — clip-path reveal on preloader handoff */
+.hero.loaded .hero-media{
+  animation: heroMaskIn 1.4s var(--ease-out) both;
+}
+@keyframes heroMaskIn{
+  0%   { clip-path: inset(0 0 100% 0); }
+  100% { clip-path: inset(0 0 0 0); }
+}
+
+/* Hero + header start hidden, revealed after preloader */
+body.preloading{ overflow: hidden; }
+body.preloading .hero-media img,
+body.preloading .hero-headline .line > span,
+body.preloading .hero-top .meta,
+body.preloading .hero-right,
+body.preloading .hero-bottom{
+  transition-delay: 0s !important;
+}
+.hdr{
+  opacity: 0;
+  transform: translateY(-6px);
+  transition: opacity .8s var(--ease-out) .3s, transform .8s var(--ease-out) .3s, background .55s var(--ease), color .55s var(--ease), backdrop-filter .55s, border-color .55s, padding .4s, min-height .4s;
+}
+body:not(.preloading) .hdr{ opacity: 1; transform: none; }
+
+/* ---------- REDUCED MOTION ---------- */
+@media (prefers-reduced-motion: reduce){
+  *,*:before,*:after{
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+  .hero-headline .line > span{ transform: none !important; }
+  .reveal{ opacity: 1 !important; transform: none !important; }
+  .reveal-img{ clip-path: none !important; }
+  .reveal-img img{ opacity: 1 !important; transform: none !important; }
+  .showroom-image-wrap{ clip-path: none !important; }
+  .showroom-image-wrap img{ transform: none !important; }
+  .preloader-logo{ opacity: 1 !important; transform: none !important; filter: none !important; }
+  .preloader-line{ width: 180px !important; }
+  .preloader-tagline{ opacity: 1 !important; transform: none !important; }
+}
+</style>
+<noscript>
+<style>
+  #preloader { display: none !important; }
+  body.preloading { overflow: auto !important; }
+  .hdr { opacity: 1 !important; transform: none !important; }
+  .hero-media img { opacity: 1 !important; transform: scale(1) !important; }
+  .hero-headline .line > span { transform: none !important; }
+  .hero-top .meta, .hero-right, .hero-bottom { opacity: 1 !important; transform: none !important; }
+  .reveal { opacity: 1 !important; transform: none !important; }
+  .reveal-img { clip-path: none !important; }
+  .reveal-img img { opacity: 1 !important; transform: none !important; }
+  .showroom-image-wrap { clip-path: none !important; }
+  .showroom-image-wrap img { transform: none !important; }
+  .why-item { opacity: 1 !important; transform: none !important; }
+  .tl-row { opacity: 1 !important; transform: none !important; }
+  .mobile-cta { display: flex !important; transform: none !important; opacity: 1 !important; pointer-events: auto !important; }
+</style>
+</noscript>
+</head>
+<body class="preloading">
+
+<!-- ============ PRELOADER ============ -->
+<div class="preloader" id="preloader" aria-hidden="true">
+  <div class="preloader-inner">
+    <picture>
+      <source srcset="assets/heaven-logo.avif" type="image/avif">
+      <img class="preloader-logo" src="assets/heaven-logo.jpg" alt="Heaven Furniture Mart official logo" width="480" height="480" decoding="async"/>
+    </picture>
+    <span class="preloader-line" aria-hidden="true"></span>
+    <div class="preloader-tagline">
+      <span>Designed</span>
+      <span class="sep">·</span>
+      <span>Crafted</span>
+      <span class="sep">·</span>
+      <span>Customized</span>
+    </div>
+  </div>
+</div>
+
+<!-- ============ HEADER ============ -->
+<header class="hdr" id="hdr">
+  <a href="#top" class="brand" aria-label="Heaven Furniture Mart — home">
+    <picture>
+      <source srcset="assets/heaven-logo-tight.avif" type="image/avif">
+      <img src="assets/heaven-logo-tight.jpg" alt="Heaven Furniture Mart official logo" width="280" height="130" decoding="async"/>
+    </picture>
+    <span class="fallback-text">Heaven Furniture Mart</span>
+  </a>
+  <nav class="nav" aria-label="Primary">
+    <a href="#collections">Collections</a>
+    <a href="#bespoke">Bespoke</a>
+    <a href="#story">Our Story</a>
+    <a href="#showroom">Showroom</a>
+  </nav>
+  <a class="cta whatsapp-cta" href="https://wa.me/8801960481983?text=Hello%20Heaven%20Furniture%20Mart%2C%20I%27d%20like%20to%20discuss%20a%20custom%20furniture%20project." target="_blank" rel="noopener noreferrer" data-whatsapp>
+    Request a Custom Quote <span class="arr">→</span>
+  </a>
+  <button class="hamburger" aria-label="Menu" id="hamburger">
+    <span></span><span></span>
+  </button>
+</header>
+
+<!-- ============ MOBILE MENU ============ -->
+<div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+  <nav>
+    <a href="#collections" data-mmclose>Collections</a>
+    <a href="#bespoke" data-mmclose>Bespoke</a>
+    <a href="#story" data-mmclose>Our Story</a>
+    <a href="#showroom" data-mmclose>Showroom</a>
+  </nav>
+  <div class="foot">
+    <a href="tel:+8801960481983">+880 1960-481983</a>
+    <a href="mailto:heavenfurnituremart@gmail.com" data-email-user="heavenfurnituremart" data-email-domain="gmail.com">heavenfurnituremart@gmail.com</a>
+    <p style="margin:0">Agrabad Access Road, Chattogram, Bangladesh</p>
+  </div>
+</div>
+
+<!-- ============ HERO ============ -->
+<section id="top" class="hero" aria-label="Introduction">
+  <div class="hero-media">
+    <picture>
+      <source srcset="assets/hero.avif" type="image/avif">
+      <img src="assets/hero.jpg" alt="A warm, editorial interior featuring bespoke handcrafted furniture" width="2560" height="1920" fetchpriority="high" decoding="async"/>
+    </picture>
+  </div>
+
+  <div class="hero-top">
+    <div class="meta mono">
+      <div>Agrabad · Chattogram</div>
+      <div class="m2">Bangladesh</div>
+    </div>
+    <div class="meta mono" style="text-align:right">
+      <div>Est. 2020</div>
+      <div class="m2">Bespoke Atelier</div>
+    </div>
+  </div>
+
+  <div class="hero-body">
+    <h1 class="h-display hero-headline">
+      <span class="line"><span>Furniture,</span></span>
+      <span class="line"><span>crafted</span></span>
+      <span class="line"><span>around <em>you</em>.</span></span>
+    </h1>
+    <div class="hero-right">
+      <p>Bespoke furniture designed around your space, your taste, and the way you live.</p>
+      <a class="cta on-dark whatsapp-cta" href="https://wa.me/8801960481983?text=Hello%20Heaven%20Furniture%20Mart%2C%20I%27d%20like%20to%20discuss%20a%20custom%20furniture%20project." target="_blank" rel="noopener noreferrer" data-whatsapp>
+        Request a Custom Quote <span class="arr">→</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="hero-bottom">
+    <div class="tagline mono">Designed · Crafted · Customized</div>
+    <div class="scroll mono">
+      <span>Scroll to explore</span>
+      <span class="bar"></span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 01 / THE PEOPLE ============ -->
+<section class="sec-people" aria-label="The People">
+  <div class="wrap-wide">
+    <div class="people-grid">
+      <div class="people-left">
+        <div class="section-num reveal"><span class="rule"></span>01 / The People</div>
+        <h2 class="h-1 reveal reveal-delay-1" style="margin-top: 28px;">A belief in<br/><em style="font-style:italic; color:var(--brass);">craftsmanship</em>.</h2>
+        <p class="lede reveal reveal-delay-2" style="margin-top:36px">
+          “At Heaven Furniture Mart, we believe furniture is more than function; it is a reflection of lifestyle, taste, and comfort. Every piece we create is designed to bring lasting elegance into the homes of our clients.”
+        </p>
+        <div class="attribution reveal reveal-delay-3">
+          <span class="name">Abul Kalam Bhuiyan</span>
+          <span class="role">Managing Director · Founder</span>
+        </div>
+      </div>
+      <figure class="people-right reveal-img">
+        <div class="people-photo">
+          <picture>
+            <source srcset="assets/md-team.avif" type="image/avif">
+            <img src="assets/md-team.jpg" alt="Abul Kalam Bhuiyan, Managing Director, seated with the Heaven Furniture Mart team" loading="lazy" decoding="async" width="1600" height="1038"/>
+          </picture>
+        </div>
+        <figcaption class="people-caption">
+          <span class="cap-label">Photographed at</span>
+          <span class="cap-body">International Furniture Fair,<br/>Chattogram · 2024–25</span>
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 02 / COLLECTIONS ============ -->
+<section class="sec-collections" id="collections" aria-label="Collections">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="lbl reveal">
+        <div class="section-num"><span class="rule"></span>02 / Collections</div>
+      </div>
+      <h2 class="h-1 reveal">Spaces,<br/><em style="font-style:italic;">shaped beautifully</em>.</h2>
+    </div>
+
+    <!-- LIVING -->
+    <article class="collection">
+      <div class="col-image reveal-img">
+        <picture>
+          <source srcset="assets/living.avif" type="image/avif">
+          <img src="assets/living.jpg" alt="Living room with a bespoke sofa and console" width="1560" height="1170" loading="lazy" decoding="async"/>
+        </picture>
+      </div>
+      <div class="col-body">
+        <span class="col-index reveal">01</span>
+        <h3 class="col-title reveal">Living</h3>
+        <ul class="col-items reveal reveal-delay-1">
+          <li>Sofas</li><li>Coffee Tables</li><li>TV Units</li><li>Consoles</li>
+        </ul>
+        <p class="col-desc reveal reveal-delay-2">Anchor pieces designed for the rooms where life gathers — proportioned to your space, upholstered to your touch.</p>
+        <a href="https://wa.me/8801960481983?text=Hello%20Heaven%20Furniture%20Mart%2C%20I%27d%20like%20to%20discuss%20a%20custom%20furniture%20project." target="_blank" rel="noopener noreferrer" class="col-cta whatsapp-cta" data-whatsapp>Request a Custom Quote <span class="arr">→</span></a>
+      </div>
+    </article>
+
+    <!-- BEDROOM -->
+    <article class="collection reverse">
+      <div class="col-image reveal-img">
+        <picture>
+          <source srcset="assets/bedroom.avif" type="image/avif">
+          <img src="assets/bedroom.jpg" alt="Warm minimal bedroom with a bespoke bed" width="2560" height="1440" loading="lazy" decoding="async"/>
+        </picture>
+      </div>
+      <div class="col-body">
+        <span class="col-index reveal">02</span>
+        <h3 class="col-title reveal">Bedroom</h3>
+        <ul class="col-items reveal reveal-delay-1">
+          <li>Beds</li><li>Wardrobes</li><li>Dressing Tables</li><li>Bedside Tables</li>
+        </ul>
+        <p class="col-desc reveal reveal-delay-2">Quiet rooms deserve considered pieces. Built to your dimensions, finished in the wood and tone that suit your home.</p>
+        <a href="https://wa.me/8801960481983?text=Hello%20Heaven%20Furniture%20Mart%2C%20I%27d%20like%20to%20discuss%20a%20custom%20furniture%20project." target="_blank" rel="noopener noreferrer" class="col-cta whatsapp-cta" data-whatsapp>Request a Custom Quote <span class="arr">→</span></a>
+      </div>
+    </article>
+
+    <!-- DINING -->
+    <article class="collection">
+      <div class="col-image reveal-img">
+        <picture>
+          <source srcset="assets/dining.avif" type="image/avif">
+          <img src="assets/dining.jpg" alt="Minimal dining room with a solid-wood table" width="2560" height="1707" loading="lazy" decoding="async"/>
+        </picture>
+      </div>
+      <div class="col-body">
+        <span class="col-index reveal">03</span>
+        <h3 class="col-title reveal">Dining</h3>
+        <ul class="col-items reveal reveal-delay-1">
+          <li>Dining Tables</li><li>Dining Chairs</li><li>Cabinets</li>
+        </ul>
+        <p class="col-desc reveal reveal-delay-2">A dining room is a stage for the people you love. Solid timber, honest joinery, and seating shaped for long evenings.</p>
+        <a href="https://wa.me/8801960481983?text=Hello%20Heaven%20Furniture%20Mart%2C%20I%27d%20like%20to%20discuss%20a%20custom%20furniture%20project." target="_blank" rel="noopener noreferrer" class="col-cta whatsapp-cta" data-whatsapp>Request a Custom Quote <span class="arr">→</span></a>
+      </div>
+    </article>
+
+    <!-- OFFICE -->
+    <article class="collection reverse">
+      <div class="col-image reveal-img">
+        <picture>
+          <source srcset="assets/office.avif" type="image/avif">
+          <img src="assets/office.jpg" alt="Executive walnut desk in a considered study" width="570" height="570" loading="lazy" decoding="async"/>
+        </picture>
+      </div>
+      <div class="col-body">
+        <span class="col-index reveal">04</span>
+        <h3 class="col-title reveal">Office &amp; Study</h3>
+        <ul class="col-items reveal reveal-delay-1">
+          <li>Executive Tables</li><li>Bookshelves</li><li>Workstations</li>
+        </ul>
+        <p class="col-desc reveal reveal-delay-2">Rooms for focus. Executive desks, considered bookshelves and workstations — proportioned around how you actually work.</p>
+        <a href="https://wa.me/8801960481983?text=Hello%20Heaven%20Furniture%20Mart%2C%20I%27d%20like%20to%20discuss%20a%20custom%20furniture%20project." target="_blank" rel="noopener noreferrer" class="col-cta whatsapp-cta" data-whatsapp>Request a Custom Quote <span class="arr">→</span></a>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ============ 03 / BESPOKE ============ -->
+<section class="sec-bespoke dark" id="bespoke" aria-label="Bespoke">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="lbl reveal">
+        <div class="section-num"><span class="rule"></span>03 / Bespoke</div>
+      </div>
+      <h2 class="h-1 reveal">Your space.<br/>Your dimensions.<br/><em style="font-style:italic; color:var(--brass-2);">Your piece.</em></h2>
+    </div>
+
+    <div class="bespoke-stage">
+      <div class="bespoke-wide reveal-img">
+        <picture>
+          <source srcset="assets/bespoke-wide.avif" type="image/avif">
+          <img src="assets/bespoke-wide.jpg" alt="Walnut wood joinery in warm interior light" width="1670" height="1193" loading="lazy" decoding="async"/>
+        </picture>
+      </div>
+      <div class="bespoke-inset reveal-img reveal-delay-2">
+        <picture>
+          <source srcset="assets/wood-detail.avif" type="image/avif">
+          <img src="assets/wood-detail.jpg" alt="Close-up detail of hand-finished wood grain" width="2560" height="1462" loading="lazy" decoding="async"/>
+        </picture>
+      </div>
+    </div>
+
+    <p class="lede bespoke-lede reveal">
+      Fully bespoke furniture, built around your space — not mass-produced. Every commission begins with a conversation and ends with a piece that could only belong to your home.
+    </p>
+
+    <div class="process">
+      <div class="process-step reveal">
+        <span class="num">01</span>
+        <span class="title">Consultation</span>
+        <span class="desc">A free conversation about your space, needs, and taste.</span>
+      </div>
+      <div class="process-step reveal reveal-delay-1">
+        <span class="num">02</span>
+        <span class="title">Design</span>
+        <span class="desc">Concepts, materials and dimensions, tailored to your home.</span>
+      </div>
+      <div class="process-step reveal reveal-delay-2">
+        <span class="num">03</span>
+        <span class="title">Craft</span>
+        <span class="desc">Built with skilled in-house craftsmanship at every stage.</span>
+      </div>
+      <div class="process-step reveal reveal-delay-3">
+        <span class="num">04</span>
+        <span class="title">Delivery + Install</span>
+        <span class="desc">We bring the piece to you, and place it, ourselves.</span>
+      </div>
+    </div>
+
+    <div class="bespoke-cta reveal">
+      <h3 class="h-3">Have something in mind? Let's design it around you.</h3>
+      <a class="cta on-dark whatsapp-cta" href="https://wa.me/8801960481983?text=Hello%20Heaven%20Furniture%20Mart%2C%20I%27d%20like%20to%20discuss%20a%20custom%20furniture%20project." target="_blank" rel="noopener noreferrer" data-whatsapp>
+        Request a Custom Quote <span class="arr">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 04 / WHY HEAVEN ============ -->
+<section class="sec-why" aria-label="Why Heaven">
+  <div class="wrap">
+    <div class="sec-head why-head">
+      <div class="lbl reveal">
+        <div class="section-num"><span class="rule"></span>04 / Why Heaven</div>
+      </div>
+      <h2 class="h-1 reveal">Craftsmanship you can see.<br/><em style="font-style:italic;">Details you can feel.</em></h2>
+    </div>
+
+    <ul class="why-list reveal">
+      <li class="why-item">
+        <span class="idx">01</span>
+        <span class="ttl">Free design consultation</span>
+        <span class="dsc">Every project starts with a conversation, at no cost.</span>
+      </li>
+      <li class="why-item">
+        <span class="idx">02</span>
+        <span class="ttl">Fully bespoke, never mass-produced</span>
+        <span class="dsc">Built to your dimensions, taste and material choice.</span>
+      </li>
+      <li class="why-item">
+        <span class="idx">03</span>
+        <span class="ttl">Premium wood &amp; materials</span>
+        <span class="dsc">Sourced carefully. Chosen for how they age.</span>
+      </li>
+      <li class="why-item">
+        <span class="idx">04</span>
+        <span class="ttl">Skilled in-house craftsmanship</span>
+        <span class="dsc">Every piece is made by our own in-house team.</span>
+      </li>
+      <li class="why-item">
+        <span class="idx">05</span>
+        <span class="ttl">Large showroom in Agrabad, Chattogram</span>
+        <span class="dsc">Come see and feel the work in person.</span>
+      </li>
+      <li class="why-item">
+        <span class="idx">06</span>
+        <span class="ttl">Delivery &amp; installation included</span>
+        <span class="dsc">We deliver and place every piece ourselves.</span>
+      </li>
+      <li class="why-item">
+        <span class="idx">07</span>
+        <span class="ttl">Easy payment options</span>
+        <span class="dsc">Flexible arrangements to suit larger projects.</span>
+      </li>
+      <li class="why-item">
+        <span class="idx">08</span>
+        <span class="ttl">Trusted by hundreds of happy homeowners</span>
+        <span class="dsc"></span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ 05 / SHOWROOM ============ -->
+<section class="sec-showroom dark" id="showroom" aria-label="Showroom">
+  <div class="wrap-wide">
+    <div class="showroom-grid">
+      <div class="showroom-image-wrap">
+        <picture>
+          <source media="(max-width: 720px)" srcset="assets/showroom-exterior.avif" type="image/avif" width="800" height="960"/>
+          <source media="(max-width: 720px)" srcset="assets/showroom-exterior.jpg" type="image/jpeg" width="800" height="960"/>
+          <source srcset="assets/showroom-wide.avif" type="image/avif" width="1600" height="900"/>
+          <img src="assets/showroom-wide.jpg" alt="Heaven Furniture Mart showroom exterior on Agrabad Access Road, Chattogram" loading="lazy" decoding="async" width="1600" height="900"/>
+        </picture>
+        <div class="showroom-tag">
+          <span class="dot"></span>
+          <span>Agrabad · Chattogram</span>
+        </div>
+      </div>
+
+      <div class="showroom-body">
+        <div class="showroom-content">
+          <div class="section-num reveal" style="color:var(--brass-2)"><span class="rule"></span>05 / Showroom</div>
+          <h2 class="h-1 reveal reveal-delay-1">Come see<br/><em style="font-style:italic; color:var(--brass-2);">the craft</em>.</h2>
+          <p class="lede reveal reveal-delay-2">
+            Visit our showroom in Agrabad, Chattogram — and experience the materials, details, and craftsmanship in person.
+          </p>
+        </div>
+
+        <div class="showroom-side">
+          <div class="showroom-info reveal reveal-delay-3">
+            <div class="info-block">
+              <span class="lbl">Address</span>
+              <span class="val">Agrabad Access Road,<br/>Chattogram, Bangladesh</span>
+            </div>
+            <div class="info-block">
+              <span class="lbl">Phone</span>
+              <a class="val" href="tel:+8801960481983">+880 1960-481983</a>
+            </div>
+            <div class="info-block">
+              <span class="lbl">Email</span>
+              <a class="val" href="mailto:heavenfurnituremart@gmail.com" data-email-user="heavenfurnituremart" data-email-domain="gmail.com">heavenfurnituremart@gmail.com</a>
+            </div>
+          </div>
+          <a class="cta on-dark whatsapp-cta showroom-cta reveal reveal-delay-3" href="https://wa.me/8801960481983?text=Hello%20Heaven%20Furniture%20Mart%2C%20I%27d%20like%20to%20discuss%20a%20custom%20furniture%20project." target="_blank" rel="noopener noreferrer" data-whatsapp>
+            Request a Custom Quote <span class="arr">→</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 06 / OUR STORY ============ -->
+<section class="sec-story" id="story" aria-label="Our Story">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="lbl reveal">
+        <div class="section-num"><span class="rule"></span>06 / Our Story</div>
+      </div>
+      <h2 class="h-1 reveal">A short<br/><em style="font-style:italic;">history</em> of Heaven.</h2>
+    </div>
+
+    <div class="timeline">
+      <div class="tl-row">
+        <div class="tl-year">2020</div>
+        <div class="tl-event"><span class="kicker">Founded</span>Founded in Chattogram by Abul Kalam Bhuiyan.</div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-year">2021</div>
+        <div class="tl-event"><span class="kicker">Showroom</span>Opened the Agrabad showroom.</div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-year">2024<span style="font-size:0.55em; letter-spacing:-.02em; padding:0 .18em;">—</span>25</div>
+        <div class="tl-event"><span class="kicker">Exhibition</span>Exhibited at the International Furniture Fair, Chattogram.</div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-year">2025</div>
+        <div class="tl-event"><span class="kicker">Membership</span>Became a member of the Chamber of Commerce.</div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-year">2026</div>
+        <div class="tl-event"><span class="kicker">Recognition</span>Received nationwide BFIOA recognition.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FINAL CTA ============ -->
+<section class="sec-final" aria-label="Contact">
+  <div class="wrap final-inner">
+    <div class="section-num reveal" style="color:var(--brass-2)"><span class="rule"></span>Request a Custom Quote</div>
+    <h2 class="h-display reveal">
+      Make something<br/>that belongs<br/><em style="font-style:italic; color:var(--brass-2);">to your space</em>.
+    </h2>
+    <p class="lede reveal reveal-delay-1">
+      Tell us what you have in mind. We'll help turn the idea into something made around you.
+    </p>
+    <a class="cta on-dark reveal reveal-delay-2 whatsapp-cta" href="https://wa.me/8801960481983?text=Hello%20Heaven%20Furniture%20Mart%2C%20I%27d%20like%20to%20discuss%20a%20custom%20furniture%20project." target="_blank" rel="noopener noreferrer" data-whatsapp>
+      Request a Custom Quote <span class="arr">→</span>
+    </a>
+    <div class="final-micro reveal reveal-delay-3">
+      <span>Free Design Consultation</span>
+      <span class="sep">·</span>
+      <span>Delivery &amp; Installation Included</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="wrap">
+    <h2 class="footer-huge">
+      <div class="row1">Designed.</div>
+      <div class="row2">Crafted.</div>
+      <div class="row3">Customized.</div>
+    </h2>
+
+    <div class="footer-grid">
+      <div>
+        <picture>
+          <source srcset="assets/heaven-logo.avif" type="image/avif">
+          <img class="footer-logo" src="assets/heaven-logo.jpg" alt="Heaven Furniture Mart official logo" width="480" height="480" loading="lazy" decoding="async"/>
+        </picture>
+        <p class="footer-brand">Bespoke atelier, Chattogram.</p>
+        <p>Furniture designed, crafted and customized around your space, your taste, and the way you live.</p>
+      </div>
+      <div>
+        <h3>Visit</h3>
+        <p>Agrabad Access Road,<br/>Chattogram,<br/>Bangladesh</p>
+      </div>
+      <div>
+        <h3>Contact</h3>
+        <ul>
+          <li><a href="tel:+8801960481983">+880 1960-481983</a></li>
+          <li><a href="mailto:heavenfurnituremart@gmail.com" data-email-user="heavenfurnituremart" data-email-domain="gmail.com">heavenfurnituremart@gmail.com</a></li>
+          <li><a href="https://wa.me/8801960481983?text=Hello%20Heaven%20Furniture%20Mart%2C%20I%27d%20like%20to%20discuss%20a%20custom%20furniture%20project." target="_blank" rel="noopener noreferrer" data-whatsapp>WhatsApp</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3>Follow</h3>
+        <ul>
+          <li><a href="https://facebook.com/HeavenFurnitureMart" target="_blank" rel="noopener noreferrer">Facebook</a></li>
+          <li><a href="https://instagram.com/heaven_furniture_ltd" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+          <li><a href="https://youtube.com/@HeavenFurnitureMart" target="_blank" rel="noopener noreferrer">YouTube</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div>© 2020–2026 Heaven Furniture Mart · Chattogram</div>
+      <div>Designed. Crafted. Customized.</div>
+    </div>
+  </div>
+</footer>
+
+<!-- ============ MOBILE STICKY CTA ============ -->
+<a class="mobile-cta" href="https://wa.me/8801960481983?text=Hello%20Heaven%20Furniture%20Mart%2C%20I%27d%20like%20to%20discuss%20a%20custom%20furniture%20project." target="_blank" rel="noopener noreferrer" data-whatsapp>
+  <span>Request a Custom Quote</span>
+  <span>→</span>
+</a>
+
+<script>
+(function(){
+  // WhatsApp CTA hydration
+  var WA_PHONE = '8801960481983';
+  var WA_MSG = "Hello Heaven Furniture Mart, I'd like to discuss a custom furniture project.";
+  var WA_URL = 'https://wa.me/' + WA_PHONE + '?text=' + encodeURIComponent(WA_MSG);
+  document.querySelectorAll('[data-whatsapp]').forEach(function(el){
+    el.setAttribute('href', WA_URL);
+    el.setAttribute('target', '_blank');
+    el.setAttribute('rel', 'noopener noreferrer');
+  });
+
+  // Email hydration
+  document.querySelectorAll('[data-email-user][data-email-domain]').forEach(function(el){
+    var addr = el.getAttribute('data-email-user') + '@' + el.getAttribute('data-email-domain');
+    el.setAttribute('href', 'mailto:' + addr);
+    if (!el.textContent.trim()) el.textContent = addr;
+  });
+
+  // Header and Mobile Sticky CTA scroll state
+  var hdr = document.getElementById('hdr');
+  var mobileCta = document.querySelector('.mobile-cta');
+  var onHdrScroll = function(){
+    var sy = window.scrollY;
+    if (sy > 40) hdr.classList.add('scrolled');
+    else hdr.classList.remove('scrolled');
+
+    if (mobileCta){
+      if (sy > 120) mobileCta.classList.add('visible');
+      else mobileCta.classList.remove('visible');
+    }
+  };
+  onHdrScroll();
+  window.addEventListener('scroll', onHdrScroll, { passive: true });
+
+  // ---------- SESSION-AWARE PRELOADER SEQUENCE ----------
+  var preloader = document.getElementById('preloader');
+  var hero = document.querySelector('.hero');
+  var heroImg = hero && hero.querySelector('img');
+  var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var hasSeenIntro = false;
+  try {
+    hasSeenIntro = window.sessionStorage && sessionStorage.getItem('hfm_intro_seen') === '1';
+  } catch (e) {
+    hasSeenIntro = false;
+  }
+
+  function startHero(){
+    requestAnimationFrame(function(){
+      if (hero) hero.classList.add('loaded');
+    });
+  }
+
+  function handleInitialHash(){
+    if (window.location.hash && window.location.hash !== '#top'){
+      var target = document.querySelector(window.location.hash);
+      if (target){
+        setTimeout(function(){
+          target.scrollIntoView({ behavior: 'smooth' });
+        }, 60);
+      }
+    }
+  }
+
+  function skipPreloader(){
+    if (preloader){
+      preloader.classList.add('done');
+      preloader.style.display = 'none';
+    }
+    document.body.classList.remove('preloading');
+    startHero();
+    handleInitialHash();
+  }
+
+  var isMobilePre = window.matchMedia('(max-width: 720px)').matches;
+  var _preRan = false;
+
+  function runPreloader(){
+    if (_preRan) return;
+    _preRan = true;
+
+    try {
+      if (window.sessionStorage) sessionStorage.setItem('hfm_intro_seen', '1');
+    } catch (e) {}
+
+    if (hasSeenIntro || reducedMotion || !preloader){
+      skipPreloader();
+      return;
+    }
+
+    // First visit in this session:
+    // Desktop: ~1.5s sequence. Mobile: ~1.1s sequence.
+    var t1 = isMobilePre ? 60  : 80;    // logo sharpens
+    var t2 = isMobilePre ? 420 : 580;   // brass line draws smoothly
+    var t3 = isMobilePre ? 680 : 920;   // tagline emerges
+    var t4 = isMobilePre ? 1050 : 1420; // preloader curtain lifts, hero reveals
+    var t5 = isMobilePre ? 1400 : 1850; // unlock scroll
+
+    setTimeout(function(){ preloader.classList.add('step-1'); }, t1);
+    setTimeout(function(){ preloader.classList.add('step-2'); }, t2);
+    setTimeout(function(){ preloader.classList.add('step-3'); }, t3);
+    setTimeout(function(){
+      preloader.classList.add('done');
+      startHero();
+    }, t4);
+    setTimeout(function(){
+      document.body.classList.remove('preloading');
+      handleInitialHash();
+    }, t5);
+  }
+
+  if (hasSeenIntro || reducedMotion || !preloader){
+    skipPreloader();
+  } else {
+    var toLoad = [heroImg, preloader.querySelector('.preloader-logo')].filter(Boolean);
+    var loaded = 0;
+    function onOne(){
+      loaded++;
+      if (loaded >= toLoad.length) runPreloader();
+    }
+    if (toLoad.length === 0) runPreloader();
+    else {
+      toLoad.forEach(function(img){
+        if (img.complete && img.naturalWidth > 0) onOne();
+        else {
+          img.addEventListener('load', onOne, { once: true });
+          img.addEventListener('error', onOne, { once: true });
+        }
+      });
+      // Hard fallback: never let preloader hang beyond 2.2s
+      setTimeout(runPreloader, 2200);
+    }
+  }
+
+  // ---------- REVEAL SYSTEM ----------
+  // Dual strategy: IntersectionObserver + rAF-throttled scroll sweep fallback
+  var revealsList = Array.from(document.querySelectorAll('.reveal, .reveal-img, .showroom-image-wrap, .why-list, .timeline'));
+
+  function revealElement(el){
+    if (!el || el.classList.contains('in')) return;
+    el.classList.add('in');
+  }
+
+  if ('IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting){
+          revealElement(e.target);
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+    revealsList.forEach(function(el){ io.observe(el); });
+  }
+
+  var pending = revealsList.slice();
+  function scrollSweep(){
+    if (pending.length === 0) return;
+    var vh = window.innerHeight;
+    var trigger = vh * 0.90;
+    for (var i = pending.length - 1; i >= 0; i--){
+      var el = pending[i];
+      if (el.classList.contains('in')){
+        pending.splice(i, 1);
+        continue;
+      }
+      var rect = el.getBoundingClientRect();
+      if (rect.top < trigger){
+        revealElement(el);
+        pending.splice(i, 1);
+      }
+    }
+  }
+
+  var _sweepInterval = setInterval(function(){
+    if (pending.length === 0){ clearInterval(_sweepInterval); return; }
+    scrollSweep();
+  }, 400);
+  setTimeout(scrollSweep, hasSeenIntro || reducedMotion ? 100 : 1600);
+  setTimeout(scrollSweep, 3000);
+
+  // ---------- MOBILE MENU ----------
+  var body = document.body;
+  var hamburger = document.getElementById('hamburger');
+  var mm = document.getElementById('mobileMenu');
+  if (hamburger){
+    hamburger.addEventListener('click', function(){
+      body.classList.toggle('mobile-open');
+      mm.setAttribute('aria-hidden', body.classList.contains('mobile-open') ? 'false' : 'true');
+    });
+  }
+  document.querySelectorAll('[data-mmclose]').forEach(function(a){
+    a.addEventListener('click', function(){
+      body.classList.remove('mobile-open');
+      mm.setAttribute('aria-hidden', 'true');
+    });
+  });
+
+  // ---------- CONTINUOUS SCROLL MOTION ENGINE ----------
+  var heroMediaWrap = hero && hero.querySelector('.hero-media');
+  var heroHeadline = hero && hero.querySelector('.hero-headline');
+  var heroTopMeta = hero && hero.querySelector('.hero-top');
+  var heroRight = hero && hero.querySelector('.hero-right');
+
+  var peoplePhoto = document.querySelector('.people-photo');
+  var colItems = Array.from(document.querySelectorAll('.collection')).map(function(col){
+    return {
+      el: col,
+      wrap: col.querySelector('.col-image'),
+      body: col.querySelector('.col-body')
+    };
+  });
+
+  var bespokeStage = document.querySelector('.bespoke-stage');
+  var bespokeWide = document.querySelector('.bespoke-wide');
+  var bespokeInset = document.querySelector('.bespoke-inset');
+
+  var showroomWrap = document.querySelector('.showroom-image-wrap');
+  var finalSec = document.querySelector('.sec-final');
+
+  // Tag will-change on animated layers
+  [heroMediaWrap, heroHeadline, heroTopMeta, heroRight, peoplePhoto, bespokeWide, bespokeInset, showroomWrap].forEach(function(el){
+    if (el) el.style.willChange = 'transform';
+  });
+  colItems.forEach(function(item){
+    if (item.wrap) item.wrap.style.willChange = 'transform';
+    if (item.body) item.body.style.willChange = 'transform';
+  });
+
+  var isDesktop = window.matchMedia('(min-width: 961px)').matches;
+  var ticking = false;
+
+  function updateScrollEngine(){
+    ticking = false;
+    scrollSweep();
+
+    if (reducedMotion) return;
+
+    var vh = window.innerHeight;
+
+    // 1. HERO CONTINUOUS MOTION
+    if (hero && heroMediaWrap){
+      var heroRect = hero.getBoundingClientRect();
+      if (heroRect.bottom > 0){
+        var scrollHero = Math.max(0, -heroRect.top);
+        var heroProgress = Math.min(1, scrollHero / Math.max(1, heroRect.height));
+
+        if (isDesktop){
+          var heroMediaY = scrollHero * 0.24;
+          var heroScale = 1 + heroProgress * 0.04;
+          heroMediaWrap.style.transform = 'translate3d(0,' + heroMediaY.toFixed(2) + 'px,0) scale(' + heroScale.toFixed(4) + ')';
+
+          if (heroHeadline){
+            heroHeadline.style.transform = 'translate3d(0,' + (-scrollHero * 0.10).toFixed(2) + 'px,0)';
+          }
+          if (heroTopMeta){
+            heroTopMeta.style.transform = 'translate3d(0,' + (-scrollHero * 0.14).toFixed(2) + 'px,0)';
+            heroTopMeta.style.opacity = Math.max(0, 1 - heroProgress * 1.6).toFixed(3);
+          }
+          if (heroRight){
+            heroRight.style.transform = 'translate3d(0,' + (-scrollHero * 0.08).toFixed(2) + 'px,0)';
+            heroRight.style.opacity = Math.max(0, 1 - heroProgress * 1.4).toFixed(3);
+          }
+        } else {
+          var heroMediaYMob = scrollHero * 0.12;
+          heroMediaWrap.style.transform = 'translate3d(0,' + heroMediaYMob.toFixed(2) + 'px,0)';
+          if (heroHeadline) heroHeadline.style.transform = '';
+          if (heroTopMeta){ heroTopMeta.style.transform = ''; heroTopMeta.style.opacity = ''; }
+          if (heroRight){ heroRight.style.transform = ''; heroRight.style.opacity = ''; }
+        }
+      }
+    }
+
+    // 2. SECTION 01: THE PEOPLE
+    if (peoplePhoto){
+      var pr = peoplePhoto.getBoundingClientRect();
+      if (pr.bottom > -100 && pr.top < vh + 100){
+        var pCenter = pr.top + pr.height / 2;
+        var pNorm = (pCenter - vh / 2) / (vh / 2 + pr.height / 2);
+        pNorm = Math.max(-1, Math.min(1, pNorm));
+        var pAmp = isDesktop ? 16 : 6;
+        peoplePhoto.style.transform = 'translate3d(0,' + (-pNorm * pAmp).toFixed(2) + 'px,0)';
+      }
+    }
+
+    // 3. SECTION 02: COLLECTIONS
+    colItems.forEach(function(item){
+      if (!item.wrap) return;
+      var cr = item.el.getBoundingClientRect();
+      if (cr.bottom < -100 || cr.top > vh + 100) return;
+      var cCenter = cr.top + cr.height / 2;
+      var cNorm = (cCenter - vh / 2) / (vh / 2 + cr.height / 2);
+      cNorm = Math.max(-1, Math.min(1, cNorm));
+
+      var ampImg = isDesktop ? 20 : 8;
+      item.wrap.style.transform = 'translate3d(0,' + (-cNorm * ampImg).toFixed(2) + 'px,0)';
+
+      if (isDesktop && item.body){
+        var ampBody = 8;
+        item.body.style.transform = 'translate3d(0,' + (cNorm * ampBody).toFixed(2) + 'px,0)';
+      } else if (item.body){
+        item.body.style.transform = '';
+      }
+    });
+
+    // 4. SECTION 03: BESPOKE (MULTI-LAYERED DEPTH PARALLAX)
+    if (bespokeStage && bespokeWide && bespokeInset){
+      var br = bespokeStage.getBoundingClientRect();
+      if (br.bottom > -100 && br.top < vh + 100){
+        var bCenter = br.top + br.height / 2;
+        var bNorm = (bCenter - vh / 2) / (vh / 2 + br.height / 2);
+        bNorm = Math.max(-1, Math.min(1, bNorm));
+
+        var ampWide = isDesktop ? 22 : 8;
+        var ampInset = isDesktop ? 44 : 16;
+        bespokeWide.style.transform = 'translate3d(0,' + (-bNorm * ampWide).toFixed(2) + 'px,0)';
+        bespokeInset.style.transform = 'translate3d(0,' + (-bNorm * ampInset).toFixed(2) + 'px,0)';
+      }
+    }
+
+    // 5. SECTION 05: SHOWROOM
+    if (showroomWrap){
+      var sr = showroomWrap.getBoundingClientRect();
+      if (sr.bottom > -100 && sr.top < vh + 100){
+        var sCenter = sr.top + sr.height / 2;
+        var sNorm = (sCenter - vh / 2) / (vh / 2 + sr.height / 2);
+        sNorm = Math.max(-1, Math.min(1, sNorm));
+        var sAmp = isDesktop ? 16 : 6;
+        showroomWrap.style.transform = 'translate3d(0,' + (-sNorm * sAmp).toFixed(2) + 'px,0)';
+      }
+    }
+
+    // 6. FINAL CTA BACKGROUND PARALLAX
+    if (finalSec){
+      var fr = finalSec.getBoundingClientRect();
+      if (fr.bottom > -100 && fr.top < vh + 100){
+        var fCenter = fr.top + fr.height / 2;
+        var fNorm = (fCenter - vh / 2) / (vh / 2 + fr.height / 2);
+        fNorm = Math.max(-1, Math.min(1, fNorm));
+        var fDrift = -fNorm * (isDesktop ? 30 : 12);
+        finalSec.style.setProperty('--cta-drift', fDrift.toFixed(2) + 'px');
+      }
+    }
+  }
+
+  function requestScrollTick(){
+    if (!ticking){
+      ticking = true;
+      requestAnimationFrame(updateScrollEngine);
+    }
+  }
+
+  window.addEventListener('scroll', requestScrollTick, { passive: true });
+  window.addEventListener('resize', function(){
+    isDesktop = window.matchMedia('(min-width: 961px)').matches;
+    requestScrollTick();
+  }, { passive: true });
+
+  // Initial calculation after page settles
+  setTimeout(requestScrollTick, hasSeenIntro || reducedMotion ? 100 : 1600);
+})();
+</script>
+</body>
+</html>
