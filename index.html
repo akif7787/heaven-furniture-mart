@@ -56,7 +56,7 @@ html{
   -webkit-text-size-adjust:100%;
 }
 section, [id]{
-  scroll-margin-top: calc(var(--hdr-h, 76px) + 20px);
+  scroll-margin-top: calc(var(--hdr-h, 76px) + 28px);
 }
 body{
   font-family: var(--sans);
@@ -343,7 +343,7 @@ button{ font: inherit; color:inherit; background:none; border:0; cursor:pointer;
   color: var(--ivory);
   display:flex; flex-direction:column;
   justify-content: space-between;
-  padding: clamp(76px, 10vh, 100px) var(--pad) clamp(20px, 3vh, 32px);
+  padding: clamp(68px, 8.5vh, 90px) var(--pad) clamp(20px, 3vh, 32px);
 }
 .hero-media{
   position:absolute;
@@ -356,7 +356,7 @@ button{ font: inherit; color:inherit; background:none; border:0; cursor:pointer;
   position:absolute; inset:0;
   width:100%; height:100%;
   object-fit: cover;
-  object-position: center 20%;
+  object-position: center 28%;
   will-change: transform;
 }
 .hero-media img{
@@ -417,7 +417,7 @@ button{ font: inherit; color:inherit; background:none; border:0; cursor:pointer;
 
 .hero-details{
   margin-top: auto;
-  padding-top: clamp(28px, 4vh, 48px);
+  padding-top: clamp(38px, 6vh, 68px);
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
@@ -3310,7 +3310,8 @@ body:not(.preloading) .hdr{ opacity: 1; transform: none; }
 </section>
 
 <!-- ============ FINAL EDITORIAL CTA ============ -->
-<section class="sec-final" id="final-cta" aria-label="Contact">
+<div id="contact" style="position:relative; top:-20px; scroll-margin-top: calc(var(--hdr-h, 76px) + 28px);" aria-hidden="true"></div>
+<section class="sec-final" id="final-cta" data-alias="contact" aria-label="Contact">
   <div class="wrap final-inner">
     <h2 class="h-display reveal">
       Made to be lived with,<br/><em style="font-style:italic; color:var(--brass-2);">not looked at</em>.
@@ -3424,8 +3425,8 @@ body:not(.preloading) .hdr{ opacity: 1; transform: none; }
       </div>
       <div class="dv-nav-row">
         <div class="dv-nav-arrows">
-          <button class="dv-btn" id="dvPrev" aria-label="Previous furniture piece">←</button>
-          <button class="dv-btn" id="dvNext" aria-label="Next furniture piece">→</button>
+          <button class="dv-btn" id="dvPrev" aria-label="Previous photo">←</button>
+          <button class="dv-btn" id="dvNext" aria-label="Next photo">→</button>
         </div>
         <span class="mono" style="font-size:10.5px; color:rgba(244,239,230,0.5); letter-spacing:0.18em; text-transform:uppercase;">ESC to close</span>
       </div>
@@ -3478,21 +3479,29 @@ body:not(.preloading) .hdr{ opacity: 1; transform: none; }
   updateHeaderHeight();
   window.addEventListener('resize', updateHeaderHeight, { passive: true });
 
+  function scrollToTarget(targetEl, targetId){
+    if (!targetEl) return;
+    var hdrH = hdr ? hdr.offsetHeight : 76;
+    var offset = hdrH + 28;
+    var elementTop = targetEl.getBoundingClientRect().top + window.pageYOffset;
+    window.scrollTo({
+      top: Math.max(0, elementTop - offset),
+      behavior: 'smooth'
+    });
+    if (targetId && history.pushState){
+      history.pushState(null, null, targetId);
+    }
+  }
+
   document.querySelectorAll('a[href^="#"]').forEach(function(anchor){
     anchor.addEventListener('click', function(e){
       var targetId = this.getAttribute('href');
       if (!targetId || targetId === '#' || targetId.length < 2) return;
       var targetEl = document.querySelector(targetId);
+      if (!targetEl && targetId === '#contact') targetEl = document.querySelector('#final-cta');
       if (targetEl){
         e.preventDefault();
-        var hdrH = hdr ? hdr.offsetHeight : 76;
-        var offset = hdrH + 20;
-        var bodyRect = document.body.getBoundingClientRect().top;
-        var elementRect = targetEl.getBoundingClientRect().top;
-        window.scrollTo({
-          top: Math.max(0, elementRect - bodyRect - offset),
-          behavior: 'smooth'
-        });
+        scrollToTarget(targetEl, targetId);
         if (body.classList.contains('mobile-open')){
           body.classList.remove('mobile-open');
           var mm = document.getElementById('mobileMenu');
@@ -3501,6 +3510,22 @@ body:not(.preloading) .hdr{ opacity: 1; transform: none; }
       }
     });
   });
+
+  // Handle direct hash navigation on initial load and browser hash change
+  function checkHashOnLoad(){
+    var hash = window.location.hash;
+    if (hash && hash.length > 1){
+      var target = document.querySelector(hash);
+      if (!target && hash === '#contact') target = document.querySelector('#final-cta');
+      if (target){
+        setTimeout(function(){
+          scrollToTarget(target);
+        }, 200);
+      }
+    }
+  }
+  window.addEventListener('load', checkHashOnLoad);
+  window.addEventListener('hashchange', checkHashOnLoad);
 
   // ---------- SESSION-AWARE PRELOADER SEQUENCE ----------
   var preloader = document.getElementById('preloader');
