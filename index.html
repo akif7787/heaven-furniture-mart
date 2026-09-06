@@ -551,7 +551,7 @@ button{ font: inherit; color:inherit; background:none; border:0; cursor:pointer;
 
 /* ---------- 08 / SIGNATURE FURNITURES (PINNED VERTICAL SCROLL TIMELINE) ---------- */
 .sec-signature{
-  height: 320vh;
+  height: 380vh;
   position: relative;
   background: var(--ink);
   color: var(--ivory);
@@ -608,14 +608,15 @@ button{ font: inherit; color:inherit; background:none; border:0; cursor:pointer;
   inset: 0;
   opacity: 0;
   pointer-events: none;
-  transform: scale(0.98);
-  transition: opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: opacity, transform;
+  will-change: transform, opacity;
+  transform: translate3d(0, 0, 0) scale(1);
 }
-.sig-slide.active{
+.sig-slide:first-child{
   opacity: 1;
   pointer-events: auto;
-  transform: scale(1);
+}
+.sig-slide.active{
+  pointer-events: auto;
 }
 .sig-slide picture, .sig-slide img{
   width: 100%;
@@ -723,51 +724,61 @@ button{ font: inherit; color:inherit; background:none; border:0; cursor:pointer;
   color: rgba(244,239,230,0.5);
 }
 
-/* ---------- MARQUEE TICKER RIBBON ---------- */
+/* ---------- CONTINUOUS EDITORIAL MARQUEE RIBBON ---------- */
 .editorial-ticker{
   background: var(--ink-2);
   border-top: 1px solid rgba(200,168,117,0.18);
   border-bottom: 1px solid rgba(200,168,117,0.18);
   overflow: hidden;
-  padding: 18px 0;
+  padding: 16px 0;
   white-space: nowrap;
   position: relative;
   width: 100%;
   user-select: none;
+  contain: paint;
 }
 .ticker-track{
-  display: inline-flex;
-  gap: 40px;
-  animation: tickerSlide 40s linear infinite;
+  display: flex;
+  width: max-content;
+  animation: tickerSlide 48s linear infinite;
   will-change: transform;
 }
-.editorial-ticker:hover .ticker-track{
-  animation-play-state: paused;
+.ticker-group{
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
 }
 .ticker-item{
   font-family: var(--sans);
   font-size: 11px;
   font-weight: 500;
-  letter-spacing: 0.32em;
+  letter-spacing: 0.30em;
   text-transform: uppercase;
-  color: rgba(244,239,230,0.72);
+  color: rgba(244,239,230,0.75);
   display: inline-flex;
   align-items: center;
-  gap: 20px;
+  padding: 0 24px;
 }
 .ticker-item .sep{
-  color: var(--brass);
+  color: var(--brass-2);
   font-size: 8px;
+  margin-left: 24px;
+  opacity: 0.75;
 }
 @keyframes tickerSlide{
-  0%{ transform: translate3d(0,0,0); }
-  100%{ transform: translate3d(-50%,0,0); }
+  0%{ transform: translate3d(0, 0, 0); }
+  100%{ transform: translate3d(-50%, 0, 0); }
+}
+@media (prefers-reduced-motion: reduce){
+  .ticker-track{
+    animation-duration: 96s;
+  }
 }
 
 /* ---------- 09 / FEATURED PIECES (EDITORIAL ARCHITECTURAL CATALOG) ---------- */
 /* ---------- 07 / FEATURED PIECES (SCROLL-DRIVEN SEQUENCE) ---------- */
 .sec-featured{
-  height: 260vh;
+  height: 280vh;
   position: relative;
   background: var(--paper);
 }
@@ -810,13 +821,15 @@ button{ font: inherit; color:inherit; background:none; border:0; cursor:pointer;
   align-items: center;
   opacity: 0;
   pointer-events: none;
-  transform: scale(0.97) translateY(12px);
-  transition: opacity 0.55s var(--ease-out), transform 0.55s var(--ease-out);
+  will-change: transform, opacity;
+  transform: translate3d(0, 0, 0) scale(1);
 }
-.feat-slide.is-active{
+.feat-slide:first-child{
   opacity: 1;
   pointer-events: auto;
-  transform: scale(1) translateY(0);
+}
+.feat-slide.is-active{
+  pointer-events: auto;
 }
 .feat-slide-media{
   position: relative;
@@ -1026,26 +1039,13 @@ button{ font: inherit; color:inherit; background:none; border:0; cursor:pointer;
   clip-path: inset(0 0 0 0);
   will-change: clip-path;
 }
-.craft-scanner-line{
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  width: 2px;
-  background: linear-gradient(180deg, transparent 0%, var(--brass-2) 25%, #ffffff 50%, var(--brass-2) 75%, transparent 100%);
-  box-shadow: 0 0 14px rgba(184,150,97,0.8), 0 0 4px #ffffff;
-  z-index: 3;
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.2s ease;
-}
 .craft-caption-bar{
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  gap: 20px;
+  text-align: center;
   width: min(720px, 88vw);
-  padding: 10px 18px;
+  padding: 12px 24px;
   background: rgba(35,45,41,0.65);
   border: 1px solid rgba(244,239,230,0.12);
   border-radius: 6px;
@@ -1055,33 +1055,22 @@ button{ font: inherit; color:inherit; background:none; border:0; cursor:pointer;
 .craft-caption-text{
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  align-items: center;
+  gap: 3px;
 }
 .craft-caption-label{
   font-family: var(--mono);
-  font-size: 10.5px;
-  letter-spacing: 0.22em;
+  font-size: 11px;
+  letter-spacing: 0.24em;
   color: var(--brass-2);
   text-transform: uppercase;
+  font-weight: 600;
 }
 .craft-caption-title{
   font-family: var(--sans);
-  font-size: clamp(12px, 1.1vw, 13.5px);
+  font-size: clamp(12.5px, 1.15vw, 14px);
   color: var(--ivory);
-  opacity: 0.88;
-}
-.craft-scroll-hint{
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 10.5px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: rgba(244,239,230,0.55);
-}
-.craft-progress-pct{
-  color: var(--brass-2);
-  font-weight: 600;
+  opacity: 0.9;
 }
 
 /* ---------- 09 / CLIENT STORIES (SCROLL-DRIVEN SEQUENCE) ---------- */
@@ -1124,13 +1113,15 @@ button{ font: inherit; color:inherit; background:none; border:0; cursor:pointer;
   align-items: center;
   opacity: 0;
   pointer-events: none;
-  transform: scale(0.97) translateY(16px);
-  transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
+  will-change: transform, opacity;
+  transform: translate3d(0, 0, 0) scale(1);
 }
-.client-slide.is-active{
+.client-slide:first-child{
   opacity: 1;
   pointer-events: auto;
-  transform: scale(1) translateY(0);
+}
+.client-slide.is-active{
+  pointer-events: auto;
 }
 .client-photo-wrap{
   aspect-ratio: 16/10;
@@ -1410,7 +1401,7 @@ body.viewer-open{
 /* Responsive updates for new sections */
 @media (max-width: 960px){
   .sec-signature{
-    height: 260vh;
+    height: 300vh;
   }
   .sig-head{
     flex-direction: column;
@@ -1427,15 +1418,78 @@ body.viewer-open{
     gap: 14px;
     padding: 20px;
   }
-  .feat-grid{
-    grid-template-columns: repeat(2, 1fr);
+  .sec-featured{
+    height: 240vh;
   }
-  .client-story-row, .client-story-row.reverse{
+  .feat-sticky{
+    padding: clamp(24px, 4vh, 36px) var(--pad) 16px;
+  }
+  .feat-stage-container{
+    margin: 8px auto;
+  }
+  .feat-stage-track{
+    min-height: clamp(340px, 52vh, 440px);
+  }
+  .feat-slide{
     grid-template-columns: 1fr;
-    gap: 32px;
+    gap: clamp(12px, 2vh, 18px);
+    align-content: center;
   }
-  .client-story-row.reverse .client-photo-wrap{
-    order: 0;
+  .feat-slide-media{
+    aspect-ratio: 16/10;
+    max-height: clamp(200px, 28vh, 260px);
+  }
+  .feat-slide-meta{
+    gap: 4px;
+  }
+  .feat-slide-title{
+    font-size: clamp(20px, 4.5vw, 26px);
+  }
+  .feat-slide-sub{
+    font-size: 12.5px;
+    margin: 2px 0 8px 0;
+    line-height: 1.4;
+  }
+  .feat-inspect-btn{
+    padding: 7px 16px;
+    font-size: 10px;
+  }
+  .sec-clients{
+    height: 240vh;
+  }
+  .client-sticky{
+    padding: clamp(24px, 4vh, 36px) var(--pad) 16px;
+  }
+  .client-stage-container{
+    margin: 8px auto;
+  }
+  .client-slide{
+    grid-template-columns: 1fr;
+    gap: clamp(10px, 2vh, 16px);
+    align-content: center;
+  }
+  .client-photo-wrap{
+    aspect-ratio: 16/9;
+    max-height: clamp(180px, 25vh, 230px);
+  }
+  .client-card{
+    padding: clamp(14px, 2.5vh, 20px) 18px;
+    gap: 8px;
+    border-radius: 8px;
+  }
+  .client-quote{
+    font-size: clamp(14px, 3.6vw, 17px);
+    line-height: 1.35;
+  }
+  .client-meta{
+    padding-top: 8px;
+    gap: 2px;
+  }
+  .client-name{
+    font-size: 11.5px;
+  }
+  .client-loc{
+    font-size: 10px;
   }
   .sec-craft-story{
     height: 200vh;
@@ -2557,7 +2611,7 @@ body:not(.preloading) .hdr{ opacity: 1; transform: none; }
     <a href="#featured">Featured</a>
     <a href="#story">Heritage</a>
     <a href="#showroom">Showroom</a>
-    <a href="#final-cta">Contact</a>
+    <a href="#contact">Contact</a>
   </nav>
   <a class="cta whatsapp-cta" href="https://wa.me/8801960481983?text=Hello%20Heaven%20Furniture%20Mart%2C%20I%27d%20like%20to%20discuss%20a%20custom%20furniture%20project." target="_blank" rel="noopener noreferrer" data-whatsapp>
     <span class="cta-txt-full">Request a Custom Quote</span><span class="cta-txt-short">Quote</span> <span class="arr">→</span>
@@ -2574,11 +2628,11 @@ body:not(.preloading) .hdr{ opacity: 1; transform: none; }
     <a href="#bespoke" data-mmclose>Bespoke</a>
     <a href="#signature" data-mmclose>Signature</a>
     <a href="#featured" data-mmclose>Featured Pieces</a>
+    <a href="#story" data-mmclose>Heritage</a>
     <a href="#sketch-space" data-mmclose>Craft Story</a>
     <a href="#clients" data-mmclose>Client Stories</a>
-    <a href="#story" data-mmclose>Heritage</a>
     <a href="#showroom" data-mmclose>Showroom</a>
-    <a href="#final-cta" data-mmclose>Contact</a>
+    <a href="#contact" data-mmclose>Contact</a>
   </nav>
   <div class="foot">
     <a href="tel:+8801960481983">+880 1960-481983</a>
@@ -2872,13 +2926,17 @@ body:not(.preloading) .hdr{ opacity: 1; transform: none; }
   </div>
 </section>
 
-<!-- ============ CONTINUOUS EDITORIAL TICKER RIBBON ============ -->
+<!-- ============ CONTINUOUS EDITORIAL MARQUEE RIBBON ============ -->
 <div class="editorial-ticker" aria-hidden="true">
   <div class="ticker-track">
-    <span class="ticker-item">HANDCRAFTED <span class="sep">·</span> MADE TO ORDER <span class="sep">·</span> BESPOKE FURNITURE <span class="sep">·</span> SOLID TIMBER <span class="sep">·</span></span>
-    <span class="ticker-item">HANDCRAFTED <span class="sep">·</span> MADE TO ORDER <span class="sep">·</span> BESPOKE FURNITURE <span class="sep">·</span> SOLID TIMBER <span class="sep">·</span></span>
-    <span class="ticker-item">HANDCRAFTED <span class="sep">·</span> MADE TO ORDER <span class="sep">·</span> BESPOKE FURNITURE <span class="sep">·</span> SOLID TIMBER <span class="sep">·</span></span>
-    <span class="ticker-item">HANDCRAFTED <span class="sep">·</span> MADE TO ORDER <span class="sep">·</span> BESPOKE FURNITURE <span class="sep">·</span> SOLID TIMBER <span class="sep">·</span></span>
+    <div class="ticker-group">
+      <span class="ticker-item">HANDCRAFTED <span class="sep">·</span> MADE TO ORDER <span class="sep">·</span> BESPOKE FURNITURE <span class="sep">·</span> SOLID TIMBER <span class="sep">·</span></span>
+      <span class="ticker-item">HANDCRAFTED <span class="sep">·</span> MADE TO ORDER <span class="sep">·</span> BESPOKE FURNITURE <span class="sep">·</span> SOLID TIMBER <span class="sep">·</span></span>
+    </div>
+    <div class="ticker-group" aria-hidden="true">
+      <span class="ticker-item">HANDCRAFTED <span class="sep">·</span> MADE TO ORDER <span class="sep">·</span> BESPOKE FURNITURE <span class="sep">·</span> SOLID TIMBER <span class="sep">·</span></span>
+      <span class="ticker-item">HANDCRAFTED <span class="sep">·</span> MADE TO ORDER <span class="sep">·</span> BESPOKE FURNITURE <span class="sep">·</span> SOLID TIMBER <span class="sep">·</span></span>
+    </div>
   </div>
 </div>
 
@@ -3080,6 +3138,40 @@ body:not(.preloading) .hdr{ opacity: 1; transform: none; }
         <div class="feat-progress-fill" id="featProgressFill"></div>
       </div>
       <div class="feat-hint mono">Scroll advances piece · Click to inspect</div>
+  </div>
+</section>
+
+<!-- ============ HERITAGE & JOURNEY ============ -->
+<section class="sec-story" id="story" aria-label="Heritage & Journey">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="lbl reveal">
+        <div class="section-num"><span class="rule"></span>Heritage &amp; Journey</div>
+      </div>
+      <h2 class="h-1 reveal">A short<br/><em style="font-style:italic;">history</em> of Heaven.</h2>
+    </div>
+
+    <div class="timeline">
+      <div class="tl-row">
+        <div class="tl-year">2020</div>
+        <div class="tl-event"><span class="kicker">Founded</span>Founded in Chattogram by Abul Kalam Bhuiyan.</div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-year">2021</div>
+        <div class="tl-event"><span class="kicker">Showroom</span>Opened the Agrabad showroom.</div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-year">2024<span style="font-size:0.55em; letter-spacing:-.02em; padding:0 .18em;">—</span>25</div>
+        <div class="tl-event"><span class="kicker">Exhibition</span>Exhibited at the International Furniture Fair, Chattogram.</div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-year">2025</div>
+        <div class="tl-event"><span class="kicker">Membership</span>Became a member of the Chamber of Commerce.</div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-year">2026</div>
+        <div class="tl-event"><span class="kicker">Recognition</span>Received nationwide BFIOA recognition.</div>
+      </div>
     </div>
   </div>
 </section>
@@ -3098,24 +3190,18 @@ body:not(.preloading) .hdr{ opacity: 1; transform: none; }
       <div class="craft-frame" id="craftFrame">
         <!-- Layer 1: Real sofa / design (transparent PNG) -->
         <div class="craft-layer craft-layer-sofa" id="craftSofaLayer">
-          <img src="assets/sketch-to-space-sofa.png" alt="The Realization — Bespoke green velvet lounge in custom solid timber" width="1080" height="1350" loading="eager" decoding="async"/>
+          <img src="assets/sketch-to-space-sofa.png" alt="Bespoke green velvet lounge in custom solid timber" width="1080" height="1350" loading="eager" decoding="async"/>
         </div>
         <!-- Layer 2: Original pencil sketch (transparent PNG) -->
         <div class="craft-layer craft-layer-sketch" id="craftSketchLayer">
-          <img src="assets/sketch-to-space-sketch.png" alt="The Conception — Original architectural pencil sketch" width="1080" height="1350" loading="eager" decoding="async"/>
+          <img src="assets/sketch-to-space-sketch.png" alt="Original architectural pencil sketch" width="1080" height="1350" loading="eager" decoding="async"/>
         </div>
-        <!-- Traveling drafting / scanner line -->
-        <div class="craft-scanner-line" id="craftScannerLine" aria-hidden="true"></div>
       </div>
 
       <div class="craft-caption-bar">
         <div class="craft-caption-text">
-          <span class="craft-caption-label" id="craftLabel">STATE 01 · THE CONCEPTION</span>
+          <span class="craft-caption-label" id="craftLabel">SKETCH</span>
           <span class="craft-caption-title" id="craftTitle">Original architectural pencil sketch</span>
-        </div>
-        <div class="craft-scroll-hint mono">
-          <span>Scroll to transform</span>
-          <span class="craft-progress-pct" id="craftPct">0%</span>
         </div>
       </div>
     </div>
@@ -3224,50 +3310,13 @@ body:not(.preloading) .hdr{ opacity: 1; transform: none; }
   </div>
 </section>
 
-<!-- ============ 10 / HERITAGE & JOURNEY ============ -->
-<section class="sec-story" id="story" aria-label="Heritage & Journey">
-  <div class="wrap">
-    <div class="sec-head">
-      <div class="lbl reveal">
-        <div class="section-num"><span class="rule"></span>10 / Heritage &amp; Journey</div>
-      </div>
-      <h2 class="h-1 reveal">A short<br/><em style="font-style:italic;">history</em> of Heaven.</h2>
-    </div>
-
-    <div class="timeline">
-      <div class="tl-row">
-        <div class="tl-year">2020</div>
-        <div class="tl-event"><span class="kicker">Founded</span>Founded in Chattogram by Abul Kalam Bhuiyan.</div>
-      </div>
-      <div class="tl-row">
-        <div class="tl-year">2021</div>
-        <div class="tl-event"><span class="kicker">Showroom</span>Opened the Agrabad showroom.</div>
-      </div>
-      <div class="tl-row">
-        <div class="tl-year">2024<span style="font-size:0.55em; letter-spacing:-.02em; padding:0 .18em;">—</span>25</div>
-        <div class="tl-event"><span class="kicker">Exhibition</span>Exhibited at the International Furniture Fair, Chattogram.</div>
-      </div>
-      <div class="tl-row">
-        <div class="tl-year">2025</div>
-        <div class="tl-event"><span class="kicker">Membership</span>Became a member of the Chamber of Commerce.</div>
-      </div>
-      <div class="tl-row">
-        <div class="tl-year">2026</div>
-        <div class="tl-event"><span class="kicker">Recognition</span>Received nationwide BFIOA recognition.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ 11 / SHOWROOM ============ -->
+<!-- ============ 10 / SHOWROOM ============ -->
 <section class="sec-showroom dark" id="showroom" aria-label="Showroom">
   <div class="wrap-wide">
     <div class="showroom-grid">
       <div class="showroom-image-wrap">
         <picture>
-          <source media="(max-width: 720px)" srcset="assets/showroom-exterior.avif" type="image/avif" width="800" height="960"/>
-          <source media="(max-width: 720px)" srcset="assets/showroom-exterior.jpg" type="image/jpeg" width="800" height="960"/>
-          <source srcset="assets/showroom-hd.avif" type="image/avif" width="1454" height="1082"/>
+          <source srcset="assets/showroom-hd.avif" type="image/avif">
           <img src="assets/showroom-hd.jpg" alt="Heaven Furniture Mart showroom exterior on Agrabad Access Road, Chattogram" loading="eager" decoding="async" width="1454" height="1082" onload="this.closest('.showroom-image-wrap')?.classList.add('in','revealed');"/>
         </picture>
         <div class="showroom-tag">
@@ -3278,7 +3327,7 @@ body:not(.preloading) .hdr{ opacity: 1; transform: none; }
 
       <div class="showroom-body">
         <div class="showroom-content">
-          <div class="section-num reveal" style="color:var(--brass-2)"><span class="rule"></span>11 / Showroom</div>
+          <div class="section-num reveal" style="color:var(--brass-2)"><span class="rule"></span>10 / Showroom</div>
           <h2 class="h-1 reveal reveal-delay-1">Come see<br/><em style="font-style:italic; color:var(--brass-2);">the craft</em>.</h2>
           <p class="lede reveal reveal-delay-2">
             Visit our showroom in Agrabad, Chattogram — and experience the materials, details, and craftsmanship in person.
@@ -3309,26 +3358,7 @@ body:not(.preloading) .hdr{ opacity: 1; transform: none; }
   </div>
 </section>
 
-<!-- ============ FINAL EDITORIAL CTA ============ -->
 <div id="contact" style="position:relative; top:-20px; scroll-margin-top: calc(var(--hdr-h, 76px) + 28px);" aria-hidden="true"></div>
-<section class="sec-final" id="final-cta" data-alias="contact" aria-label="Contact">
-  <div class="wrap final-inner">
-    <h2 class="h-display reveal">
-      Made to be lived with,<br/><em style="font-style:italic; color:var(--brass-2);">not looked at</em>.
-    </h2>
-    <p class="lede reveal reveal-delay-1">
-      Bespoke furniture crafted to age gracefully with your home, built from solid timber and honest joinery in our Chattogram atelier.
-    </p>
-    <a class="cta on-dark reveal reveal-delay-2 whatsapp-cta" href="https://wa.me/8801960481983?text=Hello%20Heaven%20Furniture%20Mart%2C%20I%27d%20like%20to%20discuss%20a%20bespoke%20furniture%20commission." target="_blank" rel="noopener noreferrer" data-whatsapp>
-      Request a Custom Quote <span class="arr">→</span>
-    </a>
-    <div class="final-micro reveal reveal-delay-3">
-      <span>Free Design Consultation</span>
-      <span class="sep">·</span>
-      <span>Delivery &amp; Installation Included</span>
-    </div>
-  </div>
-</section>
 
 <!-- ============ FOOTER ============ -->
 <footer class="sec-footer" id="footer" aria-label="Footer">
@@ -3968,15 +3998,88 @@ body:not(.preloading) .hdr{ opacity: 1; transform: none; }
     }
   ];
 
-  function setSignatureSlide(idx){
-    if (!sigSlides.length) return;
-    sigActiveIdx = Math.max(0, Math.min(sigSlides.length - 1, idx));
-    sigSlides.forEach(function(s, i){
-      s.classList.toggle('active', i === sigActiveIdx);
-    });
-    if (sigCurr) sigCurr.textContent = (sigActiveIdx + 1 < 10 ? '0' : '') + (sigActiveIdx + 1);
-    if (sigLabel && sigPieces[sigActiveIdx]) sigLabel.textContent = sigPieces[sigActiveIdx].title;
-    if (sigProgressFill) sigProgressFill.style.width = (((sigActiveIdx + 1) / sigSlides.length) * 100) + '%';
+  function renderSignatureProgress(progress){
+    var n = sigSlides.length;
+    if (n === 0) return;
+    if (n === 1){
+      sigSlides[0].style.opacity = '1';
+      sigSlides[0].style.transform = 'translate3d(0,0,0) scale(1)';
+      sigSlides[0].style.zIndex = '2';
+      sigSlides[0].style.visibility = 'visible';
+      sigSlides[0].style.pointerEvents = 'auto';
+      return;
+    }
+
+    // Map progress (0 to 1) across the transitions between the n slides
+    var v = progress * (n - 1);
+    var baseIdx = Math.floor(v);
+    if (baseIdx >= n - 1) baseIdx = n - 2;
+    if (baseIdx < 0) baseIdx = 0;
+    var nextIdx = baseIdx + 1;
+    var t = v - baseIdx; // normalized fraction between baseIdx and nextIdx (0 to 1)
+
+    // Editorial curve:
+    // 0.00 - 0.20: baseIdx holds full rest & dominance
+    // 0.20 - 0.80: continuous smooth layered transition
+    // 0.80 - 1.00: nextIdx holds full rest & dominance
+    var ease = 0;
+    if (t <= 0.20){
+      ease = 0;
+    } else if (t >= 0.80){
+      ease = 1;
+    } else {
+      var u = (t - 0.20) / 0.60;
+      ease = u * u * (3 - 2 * u); // smoothstep
+    }
+
+    // Determine primary dominant slide index for header counter & label
+    var dominantIdx = (t >= 0.50) ? nextIdx : baseIdx;
+    if (dominantIdx !== sigActiveIdx){
+      sigActiveIdx = dominantIdx;
+      if (sigCurr) sigCurr.textContent = (sigActiveIdx + 1 < 10 ? '0' : '') + (sigActiveIdx + 1);
+      if (sigLabel && sigPieces[sigActiveIdx]) sigLabel.textContent = sigPieces[sigActiveIdx].title;
+    }
+
+    // Update bottom progress track fill
+    if (sigProgressFill){
+      sigProgressFill.style.width = Math.max(4, Math.min(100, (progress * 100))).toFixed(1) + '%';
+    }
+
+    // Apply continuous composite transforms to all slides
+    for (var i = 0; i < n; i++){
+      var slide = sigSlides[i];
+      if (i === baseIdx){
+        // Outgoing piece: stays visible underneath, subtle scale down & gentle rise
+        var outOpacity = (1 - ease * 0.72).toFixed(3);
+        var outY = (-ease * 32).toFixed(1);
+        var outScale = (1 - ease * 0.04).toFixed(3);
+        slide.style.opacity = outOpacity;
+        slide.style.transform = 'translate3d(0,' + outY + 'px,0) scale(' + outScale + ')';
+        slide.style.zIndex = '2';
+        slide.style.visibility = 'visible';
+        slide.style.pointerEvents = ease < 0.5 ? 'auto' : 'none';
+        slide.classList.toggle('active', dominantIdx === i);
+      } else if (i === nextIdx){
+        // Incoming piece: glides up over outgoing piece, scales in smoothly
+        var inOpacity = ease.toFixed(3);
+        var inY = ((1 - ease) * 44).toFixed(1);
+        var inScale = (0.96 + ease * 0.04).toFixed(3);
+        slide.style.opacity = inOpacity;
+        slide.style.transform = 'translate3d(0,' + inY + 'px,0) scale(' + inScale + ')';
+        slide.style.zIndex = '3';
+        slide.style.visibility = ease > 0.001 ? 'visible' : 'hidden';
+        slide.style.pointerEvents = ease >= 0.5 ? 'auto' : 'none';
+        slide.classList.toggle('active', dominantIdx === i);
+      } else {
+        // Other non-adjacent slides
+        slide.style.opacity = '0';
+        slide.style.transform = 'translate3d(0,44px,0) scale(0.96)';
+        slide.style.zIndex = '1';
+        slide.style.visibility = 'hidden';
+        slide.style.pointerEvents = 'none';
+        slide.classList.remove('active');
+      }
+    }
   }
 
   function updateSignatureTimeline(){
@@ -3986,18 +4089,20 @@ body:not(.preloading) .hdr{ opacity: 1; transform: none; }
     var totalScroll = sigSec.offsetHeight - vh;
     if (totalScroll <= 0) return;
 
+    var progress = 0;
     if (rect.top <= 0 && rect.bottom >= vh){
-      var progress = Math.max(0, Math.min(0.999, -rect.top / totalScroll));
-      var idx = Math.floor(progress * sigSlides.length);
-      if (idx !== sigActiveIdx){
-        setSignatureSlide(idx);
-      }
+      progress = Math.max(0, Math.min(1, -rect.top / totalScroll));
     } else if (rect.top > 0){
-      if (sigActiveIdx !== 0) setSignatureSlide(0);
+      progress = 0;
     } else if (rect.bottom < vh){
-      if (sigActiveIdx !== sigSlides.length - 1) setSignatureSlide(sigSlides.length - 1);
+      progress = 1;
     }
+
+    renderSignatureProgress(progress);
   }
+
+  // Initialize initial state
+  renderSignatureProgress(0);
 
   // Click on slide or expand button opens Detail Viewer for that piece
   sigSlides.forEach(function(slide, idx){
@@ -4064,13 +4169,86 @@ body:not(.preloading) .hdr{ opacity: 1; transform: none; }
     }
   ];
 
-  function setFeaturedSlide(idx){
-    if (!featSlides.length) return;
-    featActiveIdx = Math.max(0, Math.min(featSlides.length - 1, idx));
-    featSlides.forEach(function(s, i){
-      s.classList.toggle('is-active', i === featActiveIdx);
-    });
-    if (featProgressFill) featProgressFill.style.width = (((featActiveIdx + 1) / featSlides.length) * 100) + '%';
+  function renderFeaturedProgress(progress){
+    var n = featSlides.length;
+    if (n === 0) return;
+    if (n === 1){
+      featSlides[0].style.opacity = '1';
+      featSlides[0].style.transform = 'translate3d(0,0,0) scale(1)';
+      featSlides[0].style.zIndex = '2';
+      featSlides[0].style.visibility = 'visible';
+      featSlides[0].style.pointerEvents = 'auto';
+      return;
+    }
+
+    // Map progress (0 to 1) across the transitions between the n pieces
+    var v = progress * (n - 1);
+    var baseIdx = Math.floor(v);
+    if (baseIdx >= n - 1) baseIdx = n - 2;
+    if (baseIdx < 0) baseIdx = 0;
+    var nextIdx = baseIdx + 1;
+    var t = v - baseIdx; // fraction between baseIdx and nextIdx (0 to 1)
+
+    // Editorial curve:
+    // 0.00 - 0.20: baseIdx holds full rest & dominance
+    // 0.20 - 0.80: continuous smooth layered transition
+    // 0.80 - 1.00: nextIdx holds full rest & dominance
+    var ease = 0;
+    if (t <= 0.20){
+      ease = 0;
+    } else if (t >= 0.80){
+      ease = 1;
+    } else {
+      var u = (t - 0.20) / 0.60;
+      ease = u * u * (3 - 2 * u); // smoothstep
+    }
+
+    // Determine primary dominant slide index
+    var dominantIdx = (t >= 0.50) ? nextIdx : baseIdx;
+    if (dominantIdx !== featActiveIdx){
+      featActiveIdx = dominantIdx;
+    }
+
+    // Update progress track fill
+    if (featProgressFill){
+      featProgressFill.style.width = Math.max(4, Math.min(100, (progress * 100))).toFixed(1) + '%';
+    }
+
+    // Apply continuous composite transforms to all slides
+    for (var i = 0; i < n; i++){
+      var slide = featSlides[i];
+      if (i === baseIdx){
+        // Outgoing piece: stays visible underneath, subtle scale down & gentle rise
+        var outOpacity = (1 - ease * 0.72).toFixed(3);
+        var outY = (-ease * 24).toFixed(1);
+        var outScale = (1 - ease * 0.03).toFixed(3);
+        slide.style.opacity = outOpacity;
+        slide.style.transform = 'translate3d(0,' + outY + 'px,0) scale(' + outScale + ')';
+        slide.style.zIndex = '2';
+        slide.style.visibility = 'visible';
+        slide.style.pointerEvents = ease < 0.5 ? 'auto' : 'none';
+        slide.classList.toggle('is-active', dominantIdx === i);
+      } else if (i === nextIdx){
+        // Incoming piece: glides up over outgoing piece, scales in smoothly
+        var inOpacity = ease.toFixed(3);
+        var inY = ((1 - ease) * 36).toFixed(1);
+        var inScale = (0.97 + ease * 0.03).toFixed(3);
+        slide.style.opacity = inOpacity;
+        slide.style.transform = 'translate3d(0,' + inY + 'px,0) scale(' + inScale + ')';
+        slide.style.zIndex = '3';
+        slide.style.visibility = ease > 0.001 ? 'visible' : 'hidden';
+        slide.style.pointerEvents = ease >= 0.5 ? 'auto' : 'none';
+        slide.classList.toggle('is-active', dominantIdx === i);
+      } else {
+        // Other non-adjacent slides
+        slide.style.opacity = '0';
+        slide.style.transform = 'translate3d(0,36px,0) scale(0.97)';
+        slide.style.zIndex = '1';
+        slide.style.visibility = 'hidden';
+        slide.style.pointerEvents = 'none';
+        slide.classList.remove('is-active');
+      }
+    }
   }
 
   function updateFeaturedTimeline(){
@@ -4080,18 +4258,20 @@ body:not(.preloading) .hdr{ opacity: 1; transform: none; }
     var totalScroll = featSec.offsetHeight - vh;
     if (totalScroll <= 0) return;
 
+    var progress = 0;
     if (rect.top <= 0 && rect.bottom >= vh){
-      var progress = Math.max(0, Math.min(0.999, -rect.top / totalScroll));
-      var idx = Math.floor(progress * featSlides.length);
-      if (idx !== featActiveIdx){
-        setFeaturedSlide(idx);
-      }
+      progress = Math.max(0, Math.min(1, -rect.top / totalScroll));
     } else if (rect.top > 0){
-      if (featActiveIdx !== 0) setFeaturedSlide(0);
+      progress = 0;
     } else if (rect.bottom < vh){
-      if (featActiveIdx !== featSlides.length - 1) setFeaturedSlide(featSlides.length - 1);
+      progress = 1;
     }
+
+    renderFeaturedProgress(progress);
   }
+
+  // Initialize initial state
+  renderFeaturedProgress(0);
 
   // Click on slide, media, or inspect button opens Detail Viewer for that piece
   featSlides.forEach(function(slide, idx){
@@ -4101,14 +4281,51 @@ body:not(.preloading) .hdr{ opacity: 1; transform: none; }
     });
   });
 
-  // ---------- 08 / FROM SKETCH TO SPACE (2-PNG ARCHITECTURAL TRANSFORMATION) ----------
+  // ---------- 08 / FROM SKETCH TO SPACE (SKETCH → DESIGN TRANSFORMATION) ----------
   var craftStorySec = document.getElementById('sketch-space') || document.querySelector('.sec-craft-story');
   var craftSketchLayer = document.getElementById('craftSketchLayer');
   var craftSofaLayer = document.getElementById('craftSofaLayer');
-  var craftScannerLine = document.getElementById('craftScannerLine');
   var craftLabel = document.getElementById('craftLabel');
   var craftTitle = document.getElementById('craftTitle');
-  var craftPct = document.getElementById('craftPct');
+
+  function renderCraftStory(progress){
+    if (!craftSketchLayer || !craftSofaLayer) return;
+
+    // Plateau zones:
+    // 0.00 - 0.08: 100% original pencil sketch (pure resting State 01)
+    // 0.08 - 0.92: continuous architectural reveal transformation
+    // 0.92 - 1.00: 100% real sofa design (pure resting State 02)
+    var reveal = 0;
+    if (progress <= 0.08){
+      reveal = 0;
+    } else if (progress >= 0.92){
+      reveal = 1;
+    } else {
+      reveal = (progress - 0.08) / 0.84;
+    }
+
+    var pct = (reveal * 100).toFixed(2);
+
+    // Continuous scroll transformation:
+    // Sketch layer is progressively wiped away from left to right
+    // Sofa layer is progressively revealed from left to right
+    craftSofaLayer.style.clipPath = 'inset(0 ' + (100 - pct) + '% 0 0)';
+    craftSofaLayer.style.opacity = reveal > 0 ? '1' : '0';
+
+    craftSketchLayer.style.clipPath = 'inset(0 0 0 ' + pct + '%)';
+    craftSketchLayer.style.opacity = reveal < 1 ? '1' : '0';
+
+    // Strictly two states: SKETCH -> DESIGN
+    if (craftLabel && craftTitle){
+      if (reveal < 0.50){
+        craftLabel.textContent = 'SKETCH';
+        craftTitle.textContent = 'Original architectural pencil sketch';
+      } else {
+        craftLabel.textContent = 'DESIGN';
+        craftTitle.textContent = 'Bespoke green velvet lounge in custom solid timber';
+      }
+    }
+  }
 
   function updateCraftStory(){
     if (!craftStorySec) return;
@@ -4117,59 +4334,20 @@ body:not(.preloading) .hdr{ opacity: 1; transform: none; }
     var totalScroll = craftStorySec.offsetHeight - vh;
     if (totalScroll <= 0) return;
 
+    var progress = 0;
     if (rect.top <= 0 && rect.bottom >= vh){
-      var progress = Math.max(0, Math.min(1, -rect.top / totalScroll));
-      
-      // Progressive architectural reveal transformation (2 PNG layers):
-      // Initial: 100% original pencil sketch, real sofa hidden
-      // 4% to 96%: progressive wipe across with traveling hairline drafting scanner
-      // Final: 100% real sofa in custom timber, sketch transitioned away
-      var reveal = Math.max(0, Math.min(1, (progress - 0.04) / 0.92));
-      var pct = (reveal * 100).toFixed(2);
-
-      if (craftSofaLayer){
-        craftSofaLayer.style.clipPath = 'inset(0 ' + (100 - pct) + '% 0 0)';
-      }
-      if (craftSketchLayer){
-        craftSketchLayer.style.clipPath = 'inset(0 0 0 ' + pct + '%)';
-      }
-      if (craftScannerLine){
-        craftScannerLine.style.left = pct + '%';
-        craftScannerLine.style.opacity = (reveal > 0.01 && reveal < 0.99) ? '1' : '0';
-      }
-      if (craftPct){
-        craftPct.textContent = Math.round(reveal * 100) + '%';
-      }
-      if (craftLabel && craftTitle){
-        if (reveal < 0.12){
-          craftLabel.textContent = 'STATE 01 · THE CONCEPTION';
-          craftTitle.textContent = 'Original architectural pencil sketch';
-        } else if (reveal < 0.88){
-          craftLabel.textContent = 'TRANSFORMATION IN PROGRESS';
-          craftTitle.textContent = 'Materializing solid timber framing and tailored velvet';
-        } else {
-          craftLabel.textContent = 'STATE 02 · THE REALIZATION';
-          craftTitle.textContent = 'Bespoke green velvet lounge in custom solid timber';
-        }
-      }
+      progress = Math.max(0, Math.min(1, -rect.top / totalScroll));
     } else if (rect.top > 0){
-      // Above section: 100% sketch
-      if (craftSofaLayer) craftSofaLayer.style.clipPath = 'inset(0 100% 0 0)';
-      if (craftSketchLayer) craftSketchLayer.style.clipPath = 'inset(0 0 0 0)';
-      if (craftScannerLine) craftScannerLine.style.opacity = '0';
-      if (craftPct) craftPct.textContent = '0%';
-      if (craftLabel) craftLabel.textContent = 'STATE 01 · THE CONCEPTION';
-      if (craftTitle) craftTitle.textContent = 'Original architectural pencil sketch';
+      progress = 0;
     } else if (rect.bottom < vh){
-      // Below section: 100% real sofa
-      if (craftSofaLayer) craftSofaLayer.style.clipPath = 'inset(0 0 0 0)';
-      if (craftSketchLayer) craftSketchLayer.style.clipPath = 'inset(0 0 0 100%)';
-      if (craftScannerLine) craftScannerLine.style.opacity = '0';
-      if (craftPct) craftPct.textContent = '100%';
-      if (craftLabel) craftLabel.textContent = 'STATE 02 · THE REALIZATION';
-      if (craftTitle) craftTitle.textContent = 'Bespoke green velvet lounge in custom solid timber';
+      progress = 1;
     }
+
+    renderCraftStory(progress);
   }
+
+  // Initialize immediately to 100% pure Sketch
+  renderCraftStory(0);
 
   // ---------- 09 / CLIENT STORIES (SCROLL-DRIVEN SEQUENCE) ----------
   var clientSec = document.getElementById('clients');
@@ -4178,14 +4356,87 @@ body:not(.preloading) .hdr{ opacity: 1; transform: none; }
   var clientProgressFill = document.getElementById('clientProgressFill');
   var clientActiveIdx = 0;
 
-  function setClientSlide(idx){
-    if (!clientSlides.length) return;
-    clientActiveIdx = Math.max(0, Math.min(clientSlides.length - 1, idx));
-    clientSlides.forEach(function(s, i){
-      s.classList.toggle('is-active', i === clientActiveIdx);
-    });
-    if (clientCurr) clientCurr.textContent = (clientActiveIdx + 1 < 10 ? '0' : '') + (clientActiveIdx + 1);
-    if (clientProgressFill) clientProgressFill.style.width = (((clientActiveIdx + 1) / clientSlides.length) * 100) + '%';
+  function renderClientStoriesProgress(progress){
+    var n = clientSlides.length;
+    if (n === 0) return;
+    if (n === 1){
+      clientSlides[0].style.opacity = '1';
+      clientSlides[0].style.transform = 'translate3d(0,0,0) scale(1)';
+      clientSlides[0].style.zIndex = '2';
+      clientSlides[0].style.visibility = 'visible';
+      clientSlides[0].style.pointerEvents = 'auto';
+      return;
+    }
+
+    // Map progress (0 to 1) across the transitions between the n stories
+    var v = progress * (n - 1);
+    var baseIdx = Math.floor(v);
+    if (baseIdx >= n - 1) baseIdx = n - 2;
+    if (baseIdx < 0) baseIdx = 0;
+    var nextIdx = baseIdx + 1;
+    var t = v - baseIdx; // fraction between baseIdx and nextIdx (0 to 1)
+
+    // Editorial curve:
+    // 0.00 - 0.20: baseIdx holds full rest & dominance
+    // 0.20 - 0.80: continuous smooth layered transition
+    // 0.80 - 1.00: nextIdx holds full rest & dominance
+    var ease = 0;
+    if (t <= 0.20){
+      ease = 0;
+    } else if (t >= 0.80){
+      ease = 1;
+    } else {
+      var u = (t - 0.20) / 0.60;
+      ease = u * u * (3 - 2 * u); // smoothstep
+    }
+
+    // Determine primary dominant slide index for counter
+    var dominantIdx = (t >= 0.50) ? nextIdx : baseIdx;
+    if (dominantIdx !== clientActiveIdx){
+      clientActiveIdx = dominantIdx;
+      if (clientCurr) clientCurr.textContent = (clientActiveIdx + 1 < 10 ? '0' : '') + (clientActiveIdx + 1);
+    }
+
+    // Update bottom progress track fill
+    if (clientProgressFill){
+      clientProgressFill.style.width = Math.max(4, Math.min(100, (progress * 100))).toFixed(1) + '%';
+    }
+
+    // Apply continuous composite transforms to all slides
+    for (var i = 0; i < n; i++){
+      var slide = clientSlides[i];
+      if (i === baseIdx){
+        // Outgoing story: stays visible underneath, subtle scale down & gentle rise
+        var outOpacity = (1 - ease * 0.72).toFixed(3);
+        var outY = (-ease * 24).toFixed(1);
+        var outScale = (1 - ease * 0.03).toFixed(3);
+        slide.style.opacity = outOpacity;
+        slide.style.transform = 'translate3d(0,' + outY + 'px,0) scale(' + outScale + ')';
+        slide.style.zIndex = '2';
+        slide.style.visibility = 'visible';
+        slide.style.pointerEvents = ease < 0.5 ? 'auto' : 'none';
+        slide.classList.toggle('is-active', dominantIdx === i);
+      } else if (i === nextIdx){
+        // Incoming story: glides up over outgoing story, scales in smoothly
+        var inOpacity = ease.toFixed(3);
+        var inY = ((1 - ease) * 36).toFixed(1);
+        var inScale = (0.97 + ease * 0.03).toFixed(3);
+        slide.style.opacity = inOpacity;
+        slide.style.transform = 'translate3d(0,' + inY + 'px,0) scale(' + inScale + ')';
+        slide.style.zIndex = '3';
+        slide.style.visibility = ease > 0.001 ? 'visible' : 'hidden';
+        slide.style.pointerEvents = ease >= 0.5 ? 'auto' : 'none';
+        slide.classList.toggle('is-active', dominantIdx === i);
+      } else {
+        // Other non-adjacent slides
+        slide.style.opacity = '0';
+        slide.style.transform = 'translate3d(0,36px,0) scale(0.97)';
+        slide.style.zIndex = '1';
+        slide.style.visibility = 'hidden';
+        slide.style.pointerEvents = 'none';
+        slide.classList.remove('is-active');
+      }
+    }
   }
 
   function updateClientStoriesTimeline(){
@@ -4195,18 +4446,20 @@ body:not(.preloading) .hdr{ opacity: 1; transform: none; }
     var totalScroll = clientSec.offsetHeight - vh;
     if (totalScroll <= 0) return;
 
+    var progress = 0;
     if (rect.top <= 0 && rect.bottom >= vh){
-      var progress = Math.max(0, Math.min(0.999, -rect.top / totalScroll));
-      var idx = Math.floor(progress * clientSlides.length);
-      if (idx !== clientActiveIdx){
-        setClientSlide(idx);
-      }
+      progress = Math.max(0, Math.min(1, -rect.top / totalScroll));
     } else if (rect.top > 0){
-      if (clientActiveIdx !== 0) setClientSlide(0);
+      progress = 0;
     } else if (rect.bottom < vh){
-      if (clientActiveIdx !== clientSlides.length - 1) setClientSlide(clientSlides.length - 1);
+      progress = 1;
     }
+
+    renderClientStoriesProgress(progress);
   }
+
+  // Initialize initial state immediately
+  renderClientStoriesProgress(0);
 
   // ---------- FURNITURE DETAIL VIEWER (LIGHTBOX) ----------
   var detailViewer = document.getElementById('detailViewer');
