@@ -2683,7 +2683,7 @@ body:not(.preloading) .hdr{ opacity: 1; transform: none; }
       <div class="col-image reveal-img">
         <picture>
           <source srcset="assets/living.avif" type="image/avif">
-          <img src="assets/living.jpg" alt="Living room with a bespoke sofa and console" width="1560" height="1170" loading="eager" decoding="async" onload="this.closest('.col-image').classList.add('in','revealed');"/>
+          <img src="assets/living.jpg" alt="Living room with a bespoke sofa and console" width="1560" height="1170" loading="eager" decoding="async" onload="this.closest('.col-image')?.classList.add('in','revealed');" onerror="this.closest('.col-image')?.classList.add('in','revealed');"/>
         </picture>
       </div>
       <div class="col-body">
@@ -2702,7 +2702,7 @@ body:not(.preloading) .hdr{ opacity: 1; transform: none; }
       <div class="col-image reveal-img">
         <picture>
           <source srcset="assets/bedroom.avif" type="image/avif">
-          <img src="assets/bedroom.jpg" alt="Warm minimal bedroom with a bespoke bed" width="2560" height="1440" loading="eager" decoding="async" onload="this.closest('.col-image').classList.add('in','revealed');"/>
+          <img src="assets/bedroom.jpg" alt="Warm minimal bedroom with a bespoke bed" width="2560" height="1440" loading="eager" decoding="async" onload="this.closest('.col-image')?.classList.add('in','revealed');" onerror="this.closest('.col-image')?.classList.add('in','revealed');"/>
         </picture>
       </div>
       <div class="col-body">
@@ -2721,7 +2721,7 @@ body:not(.preloading) .hdr{ opacity: 1; transform: none; }
       <div class="col-image reveal-img">
         <picture>
           <source srcset="assets/dining.avif" type="image/avif">
-          <img src="assets/dining.jpg" alt="Minimal dining room with a solid-wood table" width="2560" height="1707" loading="eager" decoding="async" onload="this.closest('.col-image').classList.add('in','revealed');"/>
+          <img src="assets/dining.jpg" alt="Minimal dining room with a solid-wood table" width="2560" height="1707" loading="eager" decoding="async" onload="this.closest('.col-image')?.classList.add('in','revealed');" onerror="this.closest('.col-image')?.classList.add('in','revealed');"/>
         </picture>
       </div>
       <div class="col-body">
@@ -2740,7 +2740,7 @@ body:not(.preloading) .hdr{ opacity: 1; transform: none; }
       <div class="col-image reveal-img">
         <picture>
           <source srcset="assets/office.avif" type="image/avif">
-          <img src="assets/office.jpg" alt="Executive walnut desk in a considered study" width="570" height="570" loading="eager" decoding="async" onload="this.closest('.col-image').classList.add('in','revealed');"/>
+          <img src="assets/office.jpg" alt="Executive walnut desk in a considered study" width="570" height="570" loading="eager" decoding="async" onload="this.closest('.col-image')?.classList.add('in','revealed');" onerror="this.closest('.col-image')?.classList.add('in','revealed');"/>
         </picture>
       </div>
       <div class="col-body">
@@ -2756,13 +2756,10 @@ body:not(.preloading) .hdr{ opacity: 1; transform: none; }
   </div>
 </section>
 
-<!-- ============ 04 / BESPOKE ============ -->
+<!-- ============ BESPOKE ============ -->
 <section class="sec-bespoke dark" id="bespoke" aria-label="Bespoke">
   <div class="wrap">
     <div class="sec-head">
-      <div class="lbl reveal">
-        <div class="section-num"><span class="rule"></span>04 / Bespoke</div>
-      </div>
       <h2 class="h-1 reveal">Your space.<br/>Your dimensions.<br/><em style="font-style:italic; color:var(--brass-2);">Your piece.</em></h2>
     </div>
 
@@ -3262,28 +3259,7 @@ body:not(.preloading) .hdr{ opacity: 1; transform: none; }
   </div>
 </section>
 
-<!-- ============ 11 / FINAL EDITORIAL CTA ============ -->
-<section class="sec-final" id="final-cta" aria-label="Contact">
-  <div class="wrap final-inner">
-    <div class="section-num reveal" style="color:var(--brass-2)"><span class="rule"></span>11 / Bespoke Commissions</div>
-    <h2 class="h-display reveal">
-      Made to be lived with,<br/><em style="font-style:italic; color:var(--brass-2);">not looked at</em>.
-    </h2>
-    <p class="lede reveal reveal-delay-1">
-      Bespoke furniture crafted to age gracefully with your home, built from solid timber and honest joinery in our Chattogram atelier.
-    </p>
-    <a class="cta on-dark reveal reveal-delay-2 whatsapp-cta" href="https://wa.me/8801960481983?text=Hello%20Heaven%20Furniture%20Mart%2C%20I%27d%20like%20to%20discuss%20a%20bespoke%20furniture%20commission." target="_blank" rel="noopener noreferrer" data-whatsapp>
-      Request a Custom Quote <span class="arr">→</span>
-    </a>
-    <div class="final-micro reveal reveal-delay-3">
-      <span>Free Design Consultation</span>
-      <span class="sep">·</span>
-      <span>Delivery &amp; Installation Included</span>
-    </div>
-  </div>
-</section>
-
-<!-- ============ 12 / SHOWROOM ============ -->
+<!-- ============ 11 / SHOWROOM ============ -->
 <section class="sec-showroom dark" id="showroom" aria-label="Showroom">
   <div class="wrap-wide">
     <div class="showroom-grid">
@@ -3302,7 +3278,7 @@ body:not(.preloading) .hdr{ opacity: 1; transform: none; }
 
       <div class="showroom-body">
         <div class="showroom-content">
-          <div class="section-num reveal" style="color:var(--brass-2)"><span class="rule"></span>12 / Showroom</div>
+          <div class="section-num reveal" style="color:var(--brass-2)"><span class="rule"></span>11 / Showroom</div>
           <h2 class="h-1 reveal reveal-delay-1">Come see<br/><em style="font-style:italic; color:var(--brass-2);">the craft</em>.</h2>
           <p class="lede reveal reveal-delay-2">
             Visit our showroom in Agrabad, Chattogram — and experience the materials, details, and craftsmanship in person.
@@ -3333,7 +3309,27 @@ body:not(.preloading) .hdr{ opacity: 1; transform: none; }
   </div>
 </section>
 
-<!-- ============ 13 / FOOTER ============ -->
+<!-- ============ FINAL EDITORIAL CTA ============ -->
+<section class="sec-final" id="final-cta" aria-label="Contact">
+  <div class="wrap final-inner">
+    <h2 class="h-display reveal">
+      Made to be lived with,<br/><em style="font-style:italic; color:var(--brass-2);">not looked at</em>.
+    </h2>
+    <p class="lede reveal reveal-delay-1">
+      Bespoke furniture crafted to age gracefully with your home, built from solid timber and honest joinery in our Chattogram atelier.
+    </p>
+    <a class="cta on-dark reveal reveal-delay-2 whatsapp-cta" href="https://wa.me/8801960481983?text=Hello%20Heaven%20Furniture%20Mart%2C%20I%27d%20like%20to%20discuss%20a%20bespoke%20furniture%20commission." target="_blank" rel="noopener noreferrer" data-whatsapp>
+      Request a Custom Quote <span class="arr">→</span>
+    </a>
+    <div class="final-micro reveal reveal-delay-3">
+      <span>Free Design Consultation</span>
+      <span class="sep">·</span>
+      <span>Delivery &amp; Installation Included</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
 <footer class="sec-footer" id="footer" aria-label="Footer">
   <div class="footer-bg-wrap" aria-hidden="true">
     <picture>
@@ -3362,9 +3358,6 @@ body:not(.preloading) .hdr{ opacity: 1; transform: none; }
         <p class="footer-craft-desc">
           Bespoke furniture designed, crafted and customized around your space, your taste, and the way you live.
         </p>
-        <a class="cta on-dark whatsapp-cta footer-cta" href="https://wa.me/8801960481983?text=Hello%20Heaven%20Furniture%20Mart%2C%20I%27d%20like%20to%20discuss%20a%20custom%20furniture%20project." target="_blank" rel="noopener noreferrer" data-whatsapp>
-          Request a Custom Quote <span class="arr">→</span>
-        </a>
       </div>
 
       <div class="footer-col">
